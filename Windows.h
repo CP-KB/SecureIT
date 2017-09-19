@@ -21,6 +21,11 @@ class MainWin : public MainWindow
         void OnTestSerializationLoad( wxCommandEvent& event );
 
         void OnTestListCtrl(wxCommandEvent& event);
+        void OnTestGenList(wxCommandEvent& event);
+
+        void OnListRightClick( wxListEvent& event );
+
+        void GenerateListFromScans();
 };
 
 #endif

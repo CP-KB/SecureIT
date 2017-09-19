@@ -133,7 +133,7 @@
                 <event name="OnSetFocus"></event>
                 <event name="OnSize"></event>
                 <event name="OnUpdateUI"></event>
-                <object class="wxMenu" expanded="1">
+                <object class="wxMenu" expanded="0">
                     <property name="label">&amp;File</property>
                     <property name="name">menuFile</property>
                     <property name="permission">protected</property>
@@ -287,7 +287,7 @@
                     <property name="name">menuAction</property>
                     <property name="permission">protected</property>
                 </object>
-                <object class="wxMenu" expanded="1">
+                <object class="wxMenu" expanded="0">
                     <property name="label">Help</property>
                     <property name="name">menuHelp</property>
                     <property name="permission">protected</property>
@@ -307,7 +307,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                 </object>
-                <object class="wxMenu" expanded="0">
+                <object class="wxMenu" expanded="1">
                     <property name="label">&amp;Test</property>
                     <property name="name">menuTest</property>
                     <property name="permission">protected</property>
@@ -369,6 +369,21 @@
                         <property name="shortcut"></property>
                         <property name="unchecked_bitmap"></property>
                         <event name="OnMenuSelection">OnTestListCtrl</event>
+                        <event name="OnUpdateUI"></event>
+                    </object>
+                    <object class="wxMenuItem" expanded="1">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">Menu_Test_ListCtrl</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">ListCtrl Test</property>
+                        <property name="name">menuItemGenListTest</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut"></property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">OnTestGenList</event>
                         <event name="OnUpdateUI"></event>
                     </object>
                 </object>
@@ -657,7 +672,7 @@
                         <event name="OnListItemDeselected"></event>
                         <event name="OnListItemFocused"></event>
                         <event name="OnListItemMiddleClick"></event>
-                        <event name="OnListItemRightClick"></event>
+                        <event name="OnListItemRightClick">OnListRightClick</event>
                         <event name="OnListItemSelected"></event>
                         <event name="OnListKeyDown"></event>
                         <event name="OnMiddleDClick"></event>

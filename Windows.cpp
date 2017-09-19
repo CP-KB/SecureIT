@@ -28,7 +28,6 @@ void MainWin::OnTestSerializationSave(wxCommandEvent& WXUNUSED(event))
 }
 void MainWin::OnTestListCtrl(wxCommandEvent& WXUNUSED(event))
 {
-    std::cout << "test\n";
     wxListItem testListItem;
     //testListItem->
     if (!mainListCtrl->EnableCheckboxes(true)) {std::cout << "Error: No Checkbox support.\n";}
@@ -41,4 +40,37 @@ void MainWin::OnTestListCtrl(wxCommandEvent& WXUNUSED(event))
     mainListCtrl->AppendColumn("TestColumn2");
     //mainListCtrl
     mainListCtrl->InsertItem(testListItem);
+}
+void MainWin::OnTestGenList(wxCommandEvent& WXUNUSED(event))
+{
+    wxListItem testListItem;
+    //testListItem->
+    if (!mainListCtrl->EnableCheckboxes(true)) {std::cout << "Error: No Checkbox support.\n";}
+
+    testListItem.SetText(wxT("Test Item #1"));
+    testListItem.SetColumn(0);
+    testListItem.SetId(0);
+    //testListItem.
+    mainListCtrl->AppendColumn("TestColumn");
+    mainListCtrl->AppendColumn("TestColumn2");
+    //mainListCtrl
+    mainListCtrl->InsertItem(testListItem);
+}
+void MainWin::OnListRightClick(wxListEvent& ListEvent)
+{
+    std::cout << "Clicked R +" << ListEvent.GetText() << std::endl;
+
+    if (ListEvent.IsChecked())
+    {
+        std::cout << "Checkbox is Checked" << std::endl;
+    }else
+    {
+        std::cout << "Checkbox is NOT Checked" << std::endl;
+    }
+}
+
+
+void MainWin::GenerateListFromScans()
+{
+
 }

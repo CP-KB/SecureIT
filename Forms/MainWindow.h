@@ -68,6 +68,8 @@ class MainWindow : public wxFrame
 		virtual void OnTestSerializationSave( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnTestSerializationLoad( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnTestListCtrl( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnTestGenList( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnListRightClick( wxListEvent& event ) { event.Skip(); }
 		
 	
 	public:
