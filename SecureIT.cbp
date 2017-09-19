@@ -37,8 +37,8 @@
 			<Add option="`wx-config --libs`" />
 		</Linker>
 		<Unit filename="Constants.hpp" />
-		<Unit filename="MainWindow.cpp" />
-		<Unit filename="MainWindow.h" />
+		<Unit filename="Forms/MainWindow.cpp" />
+		<Unit filename="Forms/MainWindow.h" />
 		<Unit filename="Makefile" />
 		<Unit filename="ModuleAction.cpp" />
 		<Unit filename="ModuleAction.h" />
@@ -47,6 +47,8 @@
 		<Unit filename="Notes/TODO.txt" />
 		<Unit filename="Tests.cpp" />
 		<Unit filename="Tests.h" />
+		<Unit filename="Windows.cpp" />
+		<Unit filename="Windows.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
 		<Unit filename="pstream.h" />

@@ -9,7 +9,7 @@ const std::string
     APP_AUTHORS="Logan Bateman",
     APP_DATE="2017";
 
-enum Menus
+/*enum Menus
 {
     Menu_File,
     Menu_File_Open,
@@ -33,6 +33,6 @@ enum Menus
     Menu_Test_Serialization_Save,
 
     Combo_OS
-};
+};*/
 
 #endif

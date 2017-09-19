@@ -1,1 +1,8 @@
-#include "MainWindow.h"
+#include "Windows.h"
+
+class MyApp: public wxApp
+{
+public:
+    virtual bool OnInit();
+
+};
