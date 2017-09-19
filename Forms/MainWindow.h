@@ -59,7 +59,6 @@ class MainWindow : public wxFrame
 		wxMenu* menuTest;
 		wxComboBox* m_comboBox1;
 		wxButton* m_button1;
-		wxStatusBar* m_statusBar1;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnExit( wxCommandEvent& event ) { event.Skip(); }
@@ -74,6 +73,7 @@ class MainWindow : public wxFrame
 	
 	public:
 		wxListCtrl* mainListCtrl;
+		wxStatusBar* mainStatusBar;
 		
 		MainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("SecureIT"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,400 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		

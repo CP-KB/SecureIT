@@ -60,9 +60,10 @@ void MainWin::OnListRightClick(wxListEvent& ListEvent)
 {
     std::cout << "Clicked R +" << ListEvent.GetText() << std::endl;
 
-    if (ListEvent.IsChecked())
+    if (MainWin::mainListCtrl->IsItemChecked(ListEvent.GetItem().GetId()))
     {
         std::cout << "Checkbox is Checked" << std::endl;
+        mainStatusBar->SetStatusText("Checkbox is Checked");
     }else
     {
         std::cout << "Checkbox is NOT Checked" << std::endl;

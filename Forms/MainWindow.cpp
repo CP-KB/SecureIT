@@ -86,7 +86,7 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuTest->Append( menuItemListCtrlTest );
 	
 	wxMenuItem* menuItemGenListTest;
-	menuItemGenListTest = new wxMenuItem( menuTest, Menu_Test_ListCtrl, wxString( wxT("ListCtrl Test") ) , wxEmptyString, wxITEM_NORMAL );
+	menuItemGenListTest = new wxMenuItem( menuTest, Menu_Test_ListCtrl, wxString( wxT("Generate List Test") ) , wxEmptyString, wxITEM_NORMAL );
 	menuTest->Append( menuItemGenListTest );
 	
 	menuBar->Append( menuTest, wxT("&Test") ); 
@@ -114,7 +114,7 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	
 	this->SetSizer( bSizer1 );
 	this->Layout();
-	m_statusBar1 = this->CreateStatusBar( 1, wxST_SIZEGRIP, wxID_ANY );
+	mainStatusBar = this->CreateStatusBar( 1, wxST_SIZEGRIP, wxID_ANY );
 	
 	this->Centre( wxBOTH );
 	
