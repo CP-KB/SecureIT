@@ -37,6 +37,8 @@
 			<Add option="`wx-config --libs`" />
 		</Linker>
 		<Unit filename="Constants.hpp" />
+		<Unit filename="Forms/FrmScriptEditor.cpp" />
+		<Unit filename="Forms/FrmScriptEditor.h" />
 		<Unit filename="Forms/MainWindow.cpp" />
 		<Unit filename="Forms/MainWindow.h" />
 		<Unit filename="Makefile" />

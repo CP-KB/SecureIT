@@ -42,6 +42,8 @@
 #define Menu_Test_Serialization_Save 1011
 #define Menu_Test_Serialization_Load 1012
 #define Menu_Test_ListCtrl 1013
+#define Menu_Test_GenList 1014
+#define Menu_Test_StyleText 1015
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class MainWindow
@@ -68,6 +70,7 @@ class MainWindow : public wxFrame
 		virtual void OnTestSerializationLoad( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnTestListCtrl( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnTestGenList( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnTestStyleText( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnListRightClick( wxListEvent& event ) { event.Skip(); }
 		
 	

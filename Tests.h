@@ -6,9 +6,11 @@
 class Testing
 {
     public:
+
         static void SaveXMLtest();
         static void LoadXMLtest();
         static void SystemExecute();
+        static void BoostExecutionTest();
         static void ExecutionTest();
         static ModuleScan genTestModuleScan();
 };

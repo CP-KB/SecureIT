@@ -4,6 +4,9 @@
 MainWin::MainWin() : MainWindow(NULL)
 {}
 
+CodeEditWin::CodeEditWin() : FormScriptEditor(NULL)
+{}
+
 void MainWin::OnExit(wxCommandEvent& event)
 {
     Close();
@@ -55,6 +58,13 @@ void MainWin::OnTestGenList(wxCommandEvent& WXUNUSED(event))
     mainListCtrl->AppendColumn("TestColumn2");
     //mainListCtrl
     mainListCtrl->InsertItem(testListItem);
+}
+void MainWin::OnTestStyleText(wxCommandEvent& WXUNUSED(event))
+{
+    std::cout << "test\n";
+    CodeEditWin *EditWin=new CodeEditWin();
+    EditWin->Show(true);
+
 }
 void MainWin::OnListRightClick(wxListEvent& ListEvent)
 {

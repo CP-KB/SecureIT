@@ -1,7 +1,8 @@
 CXX= g++
 CXX_WIN=i686-w64-mingw32-g++
-CPP= main.cpp ModuleAction.cpp ModuleScan.cpp Windows.cpp Forms/MainWindow.cpp Tests.cpp
-WXLIBS= `wx-config --libs --debug=yes --linkdeps`
+CPP= main.cpp ModuleAction.cpp ModuleScan.cpp Windows.cpp Forms/MainWindow.cpp Forms/FrmScriptEditor.cpp Tests.cpp
+WXLIBS= `wx-config --libs all --debug=yes --linkdeps`
+#/ "--libs all" adds all parts of wxWidgets - needed for wxStyledTextBox
 WXINCLUDES= `wx-config --cppflags`
 BOOSTINCDIR=-I/home/logan/myprogs/libraries/boost_1_64_0/
 BOOSTLIBDIR=-L/home/logan/myprogs/libraries/boost_1_64_0/stage/lib_linux/

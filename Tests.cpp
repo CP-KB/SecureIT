@@ -23,6 +23,11 @@ void Testing::SystemExecute()
     system("ls");
 
 }
+void Testing::BoostExecutionTest()
+{
+
+
+}
 void Testing::ExecutionTest()
 {
     std::string outputstring;
@@ -71,6 +76,5 @@ ModuleScan Testing::genTestModuleScan()
     ms.Description="This is a module used only for testing purposes.";
     ms.os.push_back("Windows XP"); ms.os.push_back("Windows Vista");
     ms.scan_variable.push_back(std::pair<std::string, std::string>("Test","test"));
-
     return ms;
 }

@@ -86,8 +86,12 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	menuTest->Append( menuItemListCtrlTest );
 	
 	wxMenuItem* menuItemGenListTest;
-	menuItemGenListTest = new wxMenuItem( menuTest, Menu_Test_ListCtrl, wxString( wxT("Generate List Test") ) , wxEmptyString, wxITEM_NORMAL );
+	menuItemGenListTest = new wxMenuItem( menuTest, Menu_Test_GenList, wxString( wxT("Generate List Test") ) , wxEmptyString, wxITEM_NORMAL );
 	menuTest->Append( menuItemGenListTest );
+	
+	wxMenuItem* menuItemTestStyleText;
+	menuItemTestStyleText = new wxMenuItem( menuTest, Menu_Test_StyleText, wxString( wxT("Test wxStyleTextCtrl") ) , wxEmptyString, wxITEM_NORMAL );
+	menuTest->Append( menuItemTestStyleText );
 	
 	menuBar->Append( menuTest, wxT("&Test") ); 
 	
@@ -126,6 +130,7 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	this->Connect( menuItemSerializationLoad->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestSerializationLoad ) );
 	this->Connect( menuItemListCtrlTest->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestListCtrl ) );
 	this->Connect( menuItemGenListTest->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestGenList ) );
+	this->Connect( menuItemTestStyleText->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestStyleText ) );
 	mainListCtrl->Connect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainWindow::OnListRightClick ), NULL, this );
 }
 
@@ -138,7 +143,8 @@ MainWindow::~MainWindow()
 	this->Disconnect( Menu_Test_Serialization_Save, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestSerializationSave ) );
 	this->Disconnect( Menu_Test_Serialization_Load, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestSerializationLoad ) );
 	this->Disconnect( Menu_Test_ListCtrl, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestListCtrl ) );
-	this->Disconnect( Menu_Test_ListCtrl, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestGenList ) );
+	this->Disconnect( Menu_Test_GenList, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestGenList ) );
+	this->Disconnect( Menu_Test_StyleText, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestStyleText ) );
 	mainListCtrl->Disconnect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainWindow::OnListRightClick ), NULL, this );
 	
 }
