@@ -11,12 +11,13 @@
 void Testing::SaveXMLtest()
 {
     ModuleScan testms=genTestModuleScan();
-    saveModuleScan(testms, "testModuleScan.xml");
+    saveModuleScanXML(testms, "testModuleScan.xml");
+    saveModuleScanBIN(testms, "testModuleScan.bin");
 }
 void Testing::LoadXMLtest()
 {
     ModuleScan testms;
-    loadModuleScan(testms, "testModuleScan.xml");
+    loadModuleScanXML(testms, "testModuleScan.xml");
 }
 void Testing::SystemExecute()
 {

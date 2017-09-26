@@ -19,19 +19,35 @@ template<class Archive> void ModuleScan::serialize(Archive & ar, const unsigned 
 
 }
 
-void saveModuleScan(const ModuleScan &s, const char * filename){ //from example code
+void saveModuleScanXML(const ModuleScan &s, const char * filename){ //from example code
     // make an archive
     std::ofstream ofs(filename);
     assert(ofs.good());
     boost::archive::xml_oarchive oa(ofs);
     oa << BOOST_SERIALIZATION_NVP(s);
 }
-void loadModuleScan(ModuleScan &s, const char * filename) //from example code
+void loadModuleScanXML(ModuleScan &s, const char * filename) //from example code
 {
     // open the archive
     std::ifstream ifs(filename);
     assert(ifs.good());
     boost::archive::xml_iarchive ia(ifs);
+    // restore the schedule from the archive
+    ia >> BOOST_SERIALIZATION_NVP(s);
+}
+void saveModuleScanBIN(const ModuleScan &s, const char * filename){ //from example code
+    // make an archive
+    std::ofstream ofs(filename);
+    assert(ofs.good());
+    boost::archive::binary_oarchive oa(ofs);
+    oa << BOOST_SERIALIZATION_NVP(s);
+}
+void loadModuleScanBIN(ModuleScan &s, const char * filename) //from example code
+{
+    // open the archive
+    std::ifstream ifs(filename);
+    assert(ifs.good());
+    boost::archive::binary_iarchive ia(ifs);
     // restore the schedule from the archive
     ia >> BOOST_SERIALIZATION_NVP(s);
 }

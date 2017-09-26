@@ -10,13 +10,15 @@
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
-#include <wx/stc/stc.h>
+#include <wx/string.h>
+#include <wx/button.h>
 #include <wx/gdicmn.h>
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/string.h>
+#include <wx/choice.h>
 #include <wx/sizer.h>
+#include <wx/stc/stc.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -30,6 +32,8 @@ class FormScriptEditor : public wxFrame
 	private:
 	
 	protected:
+		wxButton* m_button1;
+		wxChoice* m_choice1;
 	
 	public:
 		wxStyledTextCtrl* mainStyledTextBox;

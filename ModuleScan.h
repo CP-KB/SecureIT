@@ -18,6 +18,9 @@
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include <vector>
 #include <string>
 #include "Constants.hpp"
@@ -50,6 +53,8 @@ class ModuleScan
 
 };
 
-void saveModuleScan(const ModuleScan &s, const char * filename);
-void loadModuleScan(ModuleScan &s, const char * filename);
+void saveModuleScanXML(const ModuleScan &s, const char * filename);
+void loadModuleScanXML(ModuleScan &s, const char * filename);
+void saveModuleScanBIN(const ModuleScan &s, const char * filename);
+void loadModuleScanBIN(ModuleScan &s, const char * filename);
 #endif

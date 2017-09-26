@@ -16,6 +16,22 @@ FormScriptEditor::FormScriptEditor( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer1;
 	bSizer1 = new wxBoxSizer( wxVERTICAL );
 	
+	wxBoxSizer* bSizer2;
+	bSizer2 = new wxBoxSizer( wxHORIZONTAL );
+	
+	bSizer2->SetMinSize( wxSize( 1,1 ) ); 
+	m_button1 = new wxButton( this, wxID_ANY, wxT("MyButton"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer2->Add( m_button1, 0, wxALL, 5 );
+	
+	wxString m_choice1Choices[] = { wxT("Bash (.sh)"), wxT("Batch (.bat)"), wxT("Powershell (.ps)") };
+	int m_choice1NChoices = sizeof( m_choice1Choices ) / sizeof( wxString );
+	m_choice1 = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 100,-1 ), m_choice1NChoices, m_choice1Choices, 0 );
+	m_choice1->SetSelection( 0 );
+	bSizer2->Add( m_choice1, 0, wxALL, 5 );
+	
+	
+	bSizer1->Add( bSizer2, 0, wxEXPAND, 5 );
+	
 	mainStyledTextBox = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
 	mainStyledTextBox->SetUseTabs( true );
 	mainStyledTextBox->SetTabWidth( 4 );
@@ -57,7 +73,7 @@ FormScriptEditor::FormScriptEditor( wxWindow* parent, wxWindowID id, const wxStr
 	mainStyledTextBox->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	mainStyledTextBox->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString ) );
 	
-	bSizer1->Add( mainStyledTextBox, 1, wxEXPAND | wxALL, 5 );
+	bSizer1->Add( mainStyledTextBox, 1, wxALL|wxEXPAND, 5 );
 	
 	
 	this->SetSizer( bSizer1 );

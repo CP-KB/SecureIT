@@ -2,20 +2,10 @@
 #include "Constants.hpp"
 
 MainWin::MainWin() : MainWindow(NULL)
-{}
-
-CodeEditWin::CodeEditWin() : FormScriptEditor(NULL)
 {
-    // Set the lexer to the C++ lexer
-    mainStyledTextBox->SetLexer(wxSTC_LEX_CPP);
-    std::cout << "Hi, is this working\n";
 
-    // Set the color to use for various elements
-    mainStyledTextBox->StyleSetForeground(wxSTC_C_COMMENTLINE, wxColor(60, 162, 2));
-    mainStyledTextBox->StyleSetForeground(wxSTC_C_PREPROCESSOR, wxColor(0, 0, 255));
-    mainStyledTextBox->StyleSetForeground(wxSTC_C_STRING, wxColor(255, 60, 10));
-    mainStyledTextBox->StyleSetForeground(wxSTC_C_WORD, wxColor(0, 0, 255));
 }
+
 
 void MainWin::OnExit(wxCommandEvent& event)
 {
@@ -84,6 +74,8 @@ void MainWin::OnListRightClick(wxListEvent& ListEvent)
     {
         std::cout << "Checkbox is Checked" << std::endl;
         mainStatusBar->SetStatusText("Checkbox is Checked");
+        MainWin *winMain=new MainWin();
+        winMain->Show(true);
     }else
     {
         std::cout << "Checkbox is NOT Checked" << std::endl;

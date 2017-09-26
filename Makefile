@@ -1,7 +1,7 @@
 CC= g++
 CC_WIN=i686-w64-mingw32-g++
 CPP= main.cpp ModuleAction.cpp ModuleScan.cpp Windows.cpp Forms/MainWindow.cpp Forms/FrmScriptEditor.cpp Tests.cpp
-OBJS = main.o ModuleAction.o ModuleScan.o Windows.o MainWindow.o FrmScriptEditor.o Tests.o
+OBJS = main.o ModuleAction.o ModuleScan.o Windows.o CodeEditWin.o MainWindow.o FrmScriptEditor.o Tests.o
 DEBUG = -g
 WXLIBS= `wx-config --libs all --debug=yes --linkdeps`
 #/ "--libs all" adds all parts of wxWidgets - needed for wxStyledTextBox
@@ -40,6 +40,9 @@ ModuleScan.o: ModuleScan.cpp ModuleScan.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleScan.cpp ModuleScan.h Constants.hpp
 Windows.o: Windows.cpp Windows.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Windows.cpp
+CodeEditWin.o: CodeEditWin.cpp CodeEditWin.h
+	$(CC) $(CFLAGS) $(WXINCLUDES) CodeEditWin.cpp
+
 MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h
 	$(CC) $(CFLAGS) $(WXINCLUDES) Forms/MainWindow.cpp
 FrmScriptEditor.o: Forms/FrmScriptEditor.cpp Forms/FrmScriptEditor.h

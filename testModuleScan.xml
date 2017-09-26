@@ -10,7 +10,8 @@
 		<item>Windows XP</item>
 		<item>Windows Vista</item>
 	</os>
-	<Script></Script>
+	<Script>#!/bin/bash
+echo &quot;hello world\n&quot;</Script>
 	<scan_variable class_id="2" tracking_level="0" version="0">
 		<count>1</count>
 		<item_version>0</item_version>
