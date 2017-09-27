@@ -63,6 +63,7 @@ class MainWindow : public wxFrame
 		wxButton* m_button1;
 		
 		// Virtual event handlers, overide them in your derived class
+		virtual void OnFileOpen( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnExit( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnAbout( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnTestExecution( wxCommandEvent& event ) { event.Skip(); }

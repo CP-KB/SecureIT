@@ -123,6 +123,7 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 	this->Centre( wxBOTH );
 	
 	// Connect Events
+	this->Connect( menuItemOpen->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnFileOpen ) );
 	this->Connect( menuItemExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnExit ) );
 	this->Connect( menuItemAbout->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnAbout ) );
 	this->Connect( menuItemExecutionTest->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestExecution ) );
@@ -137,6 +138,7 @@ MainWindow::MainWindow( wxWindow* parent, wxWindowID id, const wxString& title, 
 MainWindow::~MainWindow()
 {
 	// Disconnect Events
+	this->Disconnect( Menu_File_Open, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnFileOpen ) );
 	this->Disconnect( Menu_File_Exit, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnExit ) );
 	this->Disconnect( Menu_Help_About, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnAbout ) );
 	this->Disconnect( Menu_Test_Execution, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainWindow::OnTestExecution ) );

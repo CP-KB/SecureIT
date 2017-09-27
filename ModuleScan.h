@@ -45,6 +45,8 @@ class ModuleScan
         std::vector<std::pair<std::string, std::string> > result_variable;
         std::string result;
 
+        bool bComplete;
+
         int Execute();
         std::string GetParsedScript;
 

@@ -5,7 +5,15 @@ MainWin::MainWin() : MainWindow(NULL)
 {
 
 }
+void MainWin::OnFileOpen( wxCommandEvent& event )
+{
+    wxFileDialog
+        openFileDialog(this, _("Open XYZ file"), "", "",
+                       "XYZ files (*.xyz)|*.xyz", wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE);
+    if (openFileDialog.ShowModal() == wxID_CANCEL)
+        return;     // the user changed idea...
 
+}
 
 void MainWin::OnExit(wxCommandEvent& event)
 {
@@ -46,17 +54,14 @@ void MainWin::OnTestListCtrl(wxCommandEvent& WXUNUSED(event))
 }
 void MainWin::OnTestGenList(wxCommandEvent& WXUNUSED(event))
 {
+    mainListCtrl->ClearAll();
     wxListItem testListItem;
-    //testListItem->
-    if (!mainListCtrl->EnableCheckboxes(true)) {std::cout << "Error: No Checkbox support.\n";}
-
-    testListItem.SetText(wxT("Test Item #1"));
+    ModuleScan testScan= Testing::genTestModuleScan();
+    mainListCtrl->AppendColumn("Name");
+    mainListCtrl->AppendColumn("Description");
+    testListItem.SetText(testScan.Name);
     testListItem.SetColumn(0);
     testListItem.SetId(0);
-    //testListItem.
-    mainListCtrl->AppendColumn("TestColumn");
-    mainListCtrl->AppendColumn("TestColumn2");
-    //mainListCtrl
     mainListCtrl->InsertItem(testListItem);
 }
 void MainWin::OnTestStyleText(wxCommandEvent& WXUNUSED(event))

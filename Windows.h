@@ -16,6 +16,8 @@ class MainWin : public MainWindow
     public:
         MainWin();
     protected:
+        void OnFileOpen( wxCommandEvent& event );
+
         void OnExit( wxCommandEvent& event );
         void OnAbout( wxCommandEvent& event );
         void OnTestExecution( wxCommandEvent& event );

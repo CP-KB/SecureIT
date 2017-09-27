@@ -36,6 +36,8 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="CodeEditWin.cpp" />
+		<Unit filename="CodeEditWin.h" />
 		<Unit filename="Constants.hpp" />
 		<Unit filename="Forms/FrmScriptEditor.cpp" />
 		<Unit filename="Forms/FrmScriptEditor.h" />
