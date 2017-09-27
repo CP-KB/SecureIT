@@ -13,6 +13,7 @@ template<class Archive> void ModuleScan::serialize(Archive & ar, const unsigned 
             & BOOST_SERIALIZATION_NVP(Description)
             & BOOST_SERIALIZATION_NVP(os)
             & BOOST_SERIALIZATION_NVP(Script)
+            & BOOST_SERIALIZATION_NVP(ScriptType)
             & BOOST_SERIALIZATION_NVP(scan_variable);
             //& BOOST_SERIALIZATION_NVP(result_variable)
             //& BOOST_SERIALIZATION_NVP(result)

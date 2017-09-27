@@ -17,8 +17,15 @@
 #include <wx/colour.h>
 #include <wx/settings.h>
 #include <wx/choice.h>
+#include <wx/combobox.h>
 #include <wx/sizer.h>
 #include <wx/stc/stc.h>
+#include <wx/panel.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/scrolwin.h>
+#include <wx/aui/auibook.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -32,11 +39,18 @@ class FormScriptEditor : public wxFrame
 	private:
 	
 	protected:
-		wxButton* m_button1;
-		wxChoice* m_choice1;
+		wxAuiNotebook* m_auinotebook1;
+		wxPanel* m_panel1;
+		wxButton* buttonSave;
+		wxChoice* choiceScriptType;
+		wxButton* btnAddOption;
+		wxComboBox* comboOption;
+		wxButton* buttonRun;
+		wxStyledTextCtrl* mainStyledTextBox;
+		wxScrolledWindow* m_scrolledWindow1;
+		wxPanel* m_panel2;
 	
 	public:
-		wxStyledTextCtrl* mainStyledTextBox;
 		
 		FormScriptEditor( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		

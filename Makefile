@@ -21,6 +21,8 @@ RELEASE_OUT_WIN= ./bin/Release-Win/SecureIT.exe
 
 all: Debug
 
+cleanDebug: clean
+
 Debug: $(OBJS)
 
 	$(CC) $(OBJS) $(LFLAGS) -o $(DEBUG_OUT)
@@ -30,17 +32,17 @@ Release:
 
 	$(CC) $(EXTRA_REL) $(CPP) $(WXLIBS) $(WXINCLUDES) $(BOOSTINCDIR) $(BOOSTLIBDIR) $(BOOSTLIBS) -o $(RELEASE_OUT)
 
-main.o: main.h main.cpp Windows.h 
+main.o: main.h main.cpp Windows.h
 #Tests.h Forms/MainWindow.h Forms/FrmScriptEditor.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) main.cpp
 
 ModuleAction.o:
-	$(CC) $(CFLAGS) ModuleAction.cpp
+	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp ModuleAction.h
 ModuleScan.o: ModuleScan.cpp ModuleScan.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleScan.cpp ModuleScan.h Constants.hpp
 Windows.o: Windows.cpp Windows.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Windows.cpp
-CodeEditWin.o: CodeEditWin.cpp CodeEditWin.h
+CodeEditWin.o: CodeEditWin.cpp CodeEditWin.h Forms/FrmScriptEditor.h
 	$(CC) $(CFLAGS) $(WXINCLUDES) CodeEditWin.cpp
 
 MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h

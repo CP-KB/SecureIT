@@ -40,6 +40,7 @@ class ModuleScan
         std::string Description;
         std::vector<std::string> os;
         std::string Script;
+        std::string ScriptType;
 
         std::vector<std::pair<std::string, std::string> > scan_variable;
         std::vector<std::pair<std::string, std::string> > result_variable;

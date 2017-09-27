@@ -85,6 +85,10 @@ void MainWin::OnListRightClick(wxListEvent& ListEvent)
     {
         std::cout << "Checkbox is NOT Checked" << std::endl;
     }
+    // Show popupmenu at position
+    wxMenu menu(wxT("Test"));
+    menu.Append(wxID_ANY, wxT("&About"));
+    PopupMenu(&menu);//, ListEvent.GetPoint());
 }
 
 

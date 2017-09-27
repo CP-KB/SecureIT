@@ -2,6 +2,7 @@
 #define WINDOWS_H
 
 #include "Tests.h"
+#include "ModuleAction.h"
 #include "Constants.hpp"
 #include "Forms/MainWindow.h"
 #include "Forms/FrmScriptEditor.h"
@@ -14,6 +15,8 @@
 class MainWin : public MainWindow
 {
     public:
+        std::vector<ModuleScan> vecModScan;
+        std::vector<ModuleAction> vecModAction;
         MainWin();
     protected:
         void OnFileOpen( wxCommandEvent& event );

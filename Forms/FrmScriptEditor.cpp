@@ -16,23 +16,37 @@ FormScriptEditor::FormScriptEditor( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer1;
 	bSizer1 = new wxBoxSizer( wxVERTICAL );
 	
+	m_auinotebook1 = new wxAuiNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_DEFAULT_STYLE );
+	m_panel1 = new wxPanel( m_auinotebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer2;
-	bSizer2 = new wxBoxSizer( wxHORIZONTAL );
+	bSizer2 = new wxBoxSizer( wxVERTICAL );
 	
 	bSizer2->SetMinSize( wxSize( 1,1 ) ); 
-	m_button1 = new wxButton( this, wxID_ANY, wxT("MyButton"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer2->Add( m_button1, 0, wxALL, 5 );
+	wxBoxSizer* bSizer8;
+	bSizer8 = new wxBoxSizer( wxHORIZONTAL );
 	
-	wxString m_choice1Choices[] = { wxT("Bash (.sh)"), wxT("Batch (.bat)"), wxT("Powershell (.ps)") };
-	int m_choice1NChoices = sizeof( m_choice1Choices ) / sizeof( wxString );
-	m_choice1 = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 100,-1 ), m_choice1NChoices, m_choice1Choices, 0 );
-	m_choice1->SetSelection( 0 );
-	bSizer2->Add( m_choice1, 0, wxALL, 5 );
+	buttonSave = new wxButton( m_panel1, wxID_ANY, wxT("Save"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
+	bSizer8->Add( buttonSave, 0, wxALL, 5 );
+	
+	wxString choiceScriptTypeChoices[] = { wxT("Bash (.sh)"), wxT("Batch (.bat)"), wxT("Powershell (.ps)") };
+	int choiceScriptTypeNChoices = sizeof( choiceScriptTypeChoices ) / sizeof( wxString );
+	choiceScriptType = new wxChoice( m_panel1, wxID_ANY, wxDefaultPosition, wxSize( 100,-1 ), choiceScriptTypeNChoices, choiceScriptTypeChoices, 0 );
+	choiceScriptType->SetSelection( 0 );
+	bSizer8->Add( choiceScriptType, 0, wxALL, 5 );
+	
+	btnAddOption = new wxButton( m_panel1, wxID_ANY, wxT("Add Option"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer8->Add( btnAddOption, 0, wxALL, 5 );
+	
+	comboOption = new wxComboBox( m_panel1, wxID_ANY, wxT("Combo!"), wxDefaultPosition, wxDefaultSize, 0, NULL, 0 ); 
+	bSizer8->Add( comboOption, 0, wxALL, 5 );
+	
+	buttonRun = new wxButton( m_panel1, wxID_ANY, wxT("Run"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer8->Add( buttonRun, 0, wxALL, 5 );
 	
 	
-	bSizer1->Add( bSizer2, 0, wxEXPAND, 5 );
+	bSizer2->Add( bSizer8, 0, wxEXPAND, 5 );
 	
-	mainStyledTextBox = new wxStyledTextCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
+	mainStyledTextBox = new wxStyledTextCtrl( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
 	mainStyledTextBox->SetUseTabs( true );
 	mainStyledTextBox->SetTabWidth( 4 );
 	mainStyledTextBox->SetIndent( 4 );
@@ -73,7 +87,33 @@ FormScriptEditor::FormScriptEditor( wxWindow* parent, wxWindowID id, const wxStr
 	mainStyledTextBox->SetSelForeground( true, wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	mainStyledTextBox->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString ) );
 	
-	bSizer1->Add( mainStyledTextBox, 1, wxALL|wxEXPAND, 5 );
+	bSizer2->Add( mainStyledTextBox, 1, wxALL|wxEXPAND, 5 );
+	
+	
+	m_panel1->SetSizer( bSizer2 );
+	m_panel1->Layout();
+	bSizer2->Fit( m_panel1 );
+	m_auinotebook1->AddPage( m_panel1, wxT("Code"), true, wxNullBitmap );
+	m_scrolledWindow1 = new wxScrolledWindow( m_auinotebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL );
+	m_scrolledWindow1->SetScrollRate( 5, 5 );
+	m_auinotebook1->AddPage( m_scrolledWindow1, wxT("Options"), false, wxNullBitmap );
+	m_panel2 = new wxPanel( m_auinotebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer6;
+	bSizer6 = new wxBoxSizer( wxVERTICAL );
+	
+	
+	m_panel2->SetSizer( bSizer6 );
+	m_panel2->Layout();
+	bSizer6->Fit( m_panel2 );
+	m_auinotebook1->AddPage( m_panel2, wxT("Config"), false, wxNullBitmap );
+	
+	bSizer1->Add( m_auinotebook1, 1, wxEXPAND | wxALL, 5 );
+	
+	wxBoxSizer* bSizer5;
+	bSizer5 = new wxBoxSizer( wxVERTICAL );
+	
+	
+	bSizer1->Add( bSizer5, 1, wxEXPAND, 5 );
 	
 	
 	this->SetSizer( bSizer1 );
