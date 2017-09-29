@@ -34,7 +34,7 @@ Release:
 
 main.o: main.h main.cpp Windows.h
 #Tests.h Forms/MainWindow.h Forms/FrmScriptEditor.h
-	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) main.cpp
+	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) main.cpp main.h
 
 ModuleAction.o:
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp ModuleAction.h

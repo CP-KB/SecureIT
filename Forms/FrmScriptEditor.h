@@ -25,6 +25,8 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/scrolwin.h>
+#include <wx/propgrid/propgrid.h>
+#include <wx/propgrid/advprops.h>
 #include <wx/aui/auibook.h>
 #include <wx/frame.h>
 
@@ -47,8 +49,15 @@ class FormScriptEditor : public wxFrame
 		wxComboBox* comboOption;
 		wxButton* buttonRun;
 		wxStyledTextCtrl* mainStyledTextBox;
+		wxPanel* m_panel11;
+		wxButton* buttonSave1;
+		wxButton* btnAddOption1;
+		wxComboBox* comboOption1;
+		wxButton* buttonRun1;
+		wxStyledTextCtrl* mainUnCodeStyledTextBox;
 		wxScrolledWindow* m_scrolledWindow1;
 		wxPanel* m_panel2;
+		wxPropertyGrid* m_propertyGrid3;
 	
 	public:
 		
