@@ -66,7 +66,7 @@ void MainWin::OnTestGenList(wxCommandEvent& WXUNUSED(event))
 }
 void MainWin::OnTestStyleText(wxCommandEvent& WXUNUSED(event))
 {
-    std::cout << "test\n";
+    std::cout << "Test of OnTextStyleText\n";
     CodeEditWin *EditWin=new CodeEditWin();
     EditWin->Show(true);
 

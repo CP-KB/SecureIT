@@ -49,6 +49,6 @@ void loadModuleScanBIN(ModuleAction &s, const char * filename) //from example co
     std::ifstream ifs(filename);
     assert(ifs.good());
     boost::archive::binary_iarchive ia(ifs);
-    // restore the schedule from the archive
+    // Restore the schedule from the archive
     ia >> BOOST_SERIALIZATION_NVP(s);
 }

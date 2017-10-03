@@ -9,7 +9,8 @@
 #include "CodeEditWin.h"
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
-    #include <wx-3.1/wx/wx.h>
+    //#include <wx-3.1/wx/wx.h>
+	#include <wx/wx.h>
 #endif
 
 class MainWin : public MainWindow

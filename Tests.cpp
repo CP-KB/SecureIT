@@ -32,7 +32,8 @@ void Testing::BoostExecutionTest()
 }
 void Testing::ExecutionTest()
 {
-    std::string outputstring;
+    //fix to use Boost::process
+    /*std::string outputstring;
     redi::ipstream lsExecution("ls");
 
     std::getline(lsExecution,outputstring);
@@ -68,7 +69,7 @@ void Testing::ExecutionTest()
                     child.clear();
             }
         }
-    }
+    }*/
 
 }
 ModuleScan Testing::genTestModuleScan()
