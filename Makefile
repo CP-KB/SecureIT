@@ -9,19 +9,21 @@ OBJDIRLINUX=obj/linux/
 OBJDIRWIN=obj/win/
 DEBUG = -g
 WXCONFIG=wx-config #/home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/wx-config
-WXLIBS= `$(WXCONFIG) --prefix=/media/logan/MULTIBOOT/Portable/wxWidgets-3.10 --libs all --debug=yes --linkdeps`
-WXLIBSWINDOWS= `$(WXCONFIG) --libs all --debug=yes --linkdeps`
+WXCONFIGWIN=/home/logan/Documents/Libraries/wxWidgets-3.1.0/windows-i386/wx-config
+WXLIBS= `$(WXCONFIG) --libs all --debug=yes --linkdeps`
+WXLIBSWIN= `$(WXCONFIGWIN) --libs all --debug=yes` #--linkdeps`
 #/ "--libs all" adds all parts of wxWidgets - needed for wxStyledTextBox
 WXINCLUDES=`$(WXCONFIG) --cppflags`
-WXINCLUDESWIN= `$(WXCONFIG) --prefix=/media/logan/MULTIBOOT/Portable/wxWidgets-3.10 --cppflags`
+WXINCLUDESWIN= `$(WXCONFIGWIN) --prefix=/media/logan/MULTIBOOT/Portable/wxWidgets-3.10 --cppflags`
 BOOSTINCDIR=-I/home/logan/Documents/Libraries/boost_1_65_1/
 BOOSTLIBDIR=-L/home/logan/Documents/Libraries/boost_1_65_1/stage/lib/
-BOOSTLIBWIN=-L/home/logan/myprogs/libraries/boost_1_64_0/stage/lib/
+BOOSTLIBWIN=-L/home/logan/Documents/Libraries/boost_1_65_1/stage/lib/
 BOOSTLIBS=-l:libboost_serialization.a #static library
 EXTRA_DBG=-g	#for debugging
 EXTRA_REL=-O3
 CFLAGS = -m32 -Wall -c $(DEBUG)
 LFLAGS = -m32 $(DEBUG) $(WXLIBS) $(BOOSTLIBDIR) $(BOOSTLIBS)
+LFLAGSWIN= -m32 -l:libwinpthread.dll.a -l:libpthread.dll.a -static-libgcc -static-libstdc++ $(DEBUG) $(WXLIBSWIN) $(BOOSTLIBDIR) $(BOOSTLIBS)
 DEBUG_OUT= ./bin/Debug/SecureIT
 RELEASE_OUT= ./bin/Release/SecureIT
 RELEASE_OUT_WIN= ./bin/Release-Win/SecureIT.exe
@@ -65,7 +67,7 @@ $(OBJDIRLINUX)Tests.o: Tests.cpp Tests.h
 $(RELEASE_OUT_WIN): $(OBJSWIN)
 	CC=$(CC_WIN)
 	BOOSTLIBDIR=$(BOOSTLIBWIN)
-	$(CC) $(OBJS) $(LFLAGS) $(WXLIBSWIN) -o $(RELEASE_OUT_WIN)
+	$(CC_WIN) $(OBJSWIN) $(LFLAGSWIN) $(WXLIBSWIN) -o $(RELEASE_OUT_WIN)
 $(OBJDIRWIN)main.o: main.h main.cpp Windows.h
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) main.cpp -o $(OBJDIRWIN)main.o
 
