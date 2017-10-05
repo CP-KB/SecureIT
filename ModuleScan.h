@@ -21,6 +21,8 @@
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 
+#include <boost/process.hpp>
+
 #include <vector>
 #include <string>
 #include "Constants.hpp"

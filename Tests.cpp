@@ -74,7 +74,7 @@ void Testing::ExecutionTest()
 
 	boost::process::ipstream pipe_stream;
 	//gcc --version
-    boost::process::child c("cmd.exe", boost::process::std_out > pipe_stream);
+    boost::process::child c("dir", boost::process::std_out > pipe_stream);
 
     std::string line;
 
@@ -82,6 +82,9 @@ void Testing::ExecutionTest()
         std::cerr << line << std::endl;
 
     c.wait();
+
+    ModuleScan testms=genTestModuleScan();
+    testms.Execute();
 
 }
 ModuleScan Testing::genTestModuleScan()
