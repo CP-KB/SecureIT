@@ -71,6 +71,18 @@ void Testing::ExecutionTest()
         }
     }*/
 
+
+	boost::process::ipstream pipe_stream;
+	//gcc --version
+    boost::process::child c("cmd.exe", boost::process::std_out > pipe_stream);
+
+    std::string line;
+
+    while (pipe_stream && std::getline(pipe_stream, line) && !line.empty())
+        std::cerr << line << std::endl;
+
+    c.wait();
+
 }
 ModuleScan Testing::genTestModuleScan()
 {

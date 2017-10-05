@@ -3,3 +3,7 @@ https://wiki.wxwidgets.org/Cross-Compiling_Under_Linux
 
 My System windows config:
 ../configure --prefix=/usr/lib/gcc/i686-w64-mingw32/7.2.0/ --host=i686-w64-mingw32 --build=x86_64-linux CFLAGS=-I/usr/x86_64-w64-mingw32/sys-root/mingw/include/ --disable-shared
+
+My Windows boost config
+echo "using gcc : : i686-w64-mingw32-g++ ;" > user-config.jam
+./b2 --user-config=user-config.jam --stagedir=stage-win-32 toolset=gcc-mingw --with-serialization --with-filesystem --with-system --address-model=32  target-os=windows release

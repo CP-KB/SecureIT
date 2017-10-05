@@ -3,6 +3,9 @@
 
 #include "ModuleScan.h"
 //#include "pstream.h"
+#include <boost/process.hpp>
+//#include <boost/process/child.hpp>
+//#include <boost/process/async_system.hpp>
 class Testing
 {
     public:
