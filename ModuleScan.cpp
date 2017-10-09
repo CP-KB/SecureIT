@@ -3,33 +3,48 @@ ModuleScan::ModuleScan()
 {
 
 }
-void gen_random(char *s, const int len) { //someone's code from https://stackoverflow.com/questions/440133/how-do-i-create-a-random-alpha-numeric-string-in-c
+std::string gen_random_string(const int len) { //modified someone's code from https://stackoverflow.com/questions/440133/how-do-i-create-a-random-alpha-numeric-string-in-c
+    std::string s;
     static const char alphanum[] =
         "0123456789"
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "abcdefghijklmnopqrstuvwxyz";
 
     for (int i = 0; i < len; ++i) {
-        s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+        s+= alphanum[rand() % (sizeof(alphanum) - 1)];
     }
-
-    s[len] = 0;
+    //s[len] = 0;
+    return s;
+}
+bool gen_scanrun_directory()
+{
+    //boost::filesystem::path dir("run/scans");
+	if(boost::filesystem::create_directories("run/scans")) {
+		std::cout << "Success" << "\n";
+		return true;
+	}
 }
 int ModuleScan::Execute() //make and change executable bit on script -> execute it
 {
+    gen_scanrun_directory();
     std::string sfilename;
-    char *s;
-    gen_random(s, 8);
-    sfilename=s;
-    std::ofstream ofs(sfilename + ".sh");
-    ofs << this->Script;
-    ofs.close();
-    boost::process::ipstream pipe_stream;
-    boost::process::ipstream pipe_stream2;
+    sfilename= "run/scans/" + gen_random_string(8) + ".sh";
+    if (!std::ifstream(sfilename)) //check for existence of file
+    {
+        std::ofstream ofs;
+        ofs.open(sfilename); //open file for writing
+        ofs << this->Script;
+        ofs.close();
+    }
+
+
+
+    //boost::process::ipstream pipe_stream;
+    //boost::process::ipstream pipe_stream2;
 	//gcc --version
     //boost::process::child c("chmod +x test.sh", boost::process::std_out > pipe_stream);
-    boost::process::system("chmod +x " + sfilename + ".sh");
-    boost::process::system("./" + sfilename + ".sh");
+    boost::process::system("chmod +x " + sfilename);
+    boost::process::system("./" + sfilename);
 
     return 0;
 }
