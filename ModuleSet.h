@@ -12,6 +12,9 @@ class ModuleSet
 
     public:
         std::vector<Module> Modules;
+        std::string Name;
+        std::string Filename;
+        std::string Description;
         //std::vector<Module> Scans;
 };
 

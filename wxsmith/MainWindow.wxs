@@ -3,7 +3,7 @@
 	<object class="wxFrame" name="MainWindow">
 		<title>SecureIT - by Logan Bateman</title>
 		<centered>1</centered>
-		<size>342,204</size>
+		<size>388,193</size>
 		<minsize>-1,-1</minsize>
 		<maxsize>-1,-1</maxsize>
 		<style>wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER</style>
@@ -42,7 +42,7 @@
 				<option>1</option>
 			</object>
 		</object>
-		<object class="wxMenuBar" variable="MenuBar1" member="no">
+		<object class="wxMenuBar" variable="mainMenuBar" member="no">
 			<object class="wxMenu" variable="Menu1" member="yes">
 				<label>&amp;File</label>
 				<object class="wxMenuItem" name="Menu_File_Open" variable="MenuItem3" member="yes">
@@ -66,7 +66,13 @@
 				<label>Edit</label>
 			</object>
 			<object class="wxMenu" variable="Menu4" member="yes">
-				<label>Action</label>
+				<label>Module</label>
+				<object class="wxMenuItem" name="ID_MENUITEM7" variable="MenuItem12" member="yes">
+					<label>New Scan Module</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEM8" variable="MenuItem13" member="yes">
+					<label>New Action Module</label>
+				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="yes">
 				<label>Help</label>
@@ -101,7 +107,7 @@
 				</object>
 			</object>
 		</object>
-		<object class="wxStatusBar" name="ID_STATUSBAR1" variable="StatusBar1" member="yes">
+		<object class="wxStatusBar" name="ID_STATUSBAR1" variable="StatusBar" member="yes">
 			<fields>1</fields>
 			<widths>-10</widths>
 			<styles>wxSB_NORMAL</styles>
@@ -110,6 +116,10 @@
 			<message>Select files</message>
 			<wildcard>XYZ files (*.xyz)|*.xyz</wildcard>
 			<style>wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE</style>
+		</object>
+		<object class="wxFileDialog" variable="saveFIleDialog" member="yes">
+			<message>Select file</message>
+			<style>wxFD_DEFAULT_STYLE|wxFD_SAVE</style>
 		</object>
 	</object>
 </wxsmith>

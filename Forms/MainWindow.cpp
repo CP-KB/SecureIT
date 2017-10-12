@@ -13,6 +13,8 @@ const long MainWindow::Menu_File_Open = wxNewId();
 const long MainWindow::Menu_File_Save = wxNewId();
 const long MainWindow::Menu_File_SaveAs = wxNewId();
 const long MainWindow::Menu_File_Exit = wxNewId();
+const long MainWindow::ID_MENUITEM7 = wxNewId();
+const long MainWindow::ID_MENUITEM8 = wxNewId();
 const long MainWindow::Menu_Help_About = wxNewId();
 const long MainWindow::ID_MENUITEM1 = wxNewId();
 const long MainWindow::ID_MENUITEM2 = wxNewId();
@@ -33,10 +35,10 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	//(*Initialize(MainWindow)
 	wxBoxSizer* BoxSizer2;
 	wxBoxSizer* BoxSizer1;
-	wxMenuBar* MenuBar1;
+	wxMenuBar* mainMenuBar;
 
 	Create(parent, id, _("SecureIT - by Logan Bateman"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER, _T("id"));
-	SetClientSize(wxSize(342,204));
+	SetClientSize(wxSize(388,193));
 	SetMinSize(wxSize(-1,-1));
 	SetMaxSize(wxSize(-1,-1));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
@@ -54,7 +56,7 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	mainListCtrl = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
 	BoxSizer1->Add(mainListCtrl, 1, wxALL|wxEXPAND, 0);
 	SetSizer(BoxSizer1);
-	MenuBar1 = new wxMenuBar();
+	mainMenuBar = new wxMenuBar();
 	Menu1 = new wxMenu();
 	MenuItem3 = new wxMenuItem(Menu1, Menu_File_Open, _("Open"), wxEmptyString, wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
@@ -65,15 +67,19 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	Menu1->AppendSeparator();
 	MenuItem1 = new wxMenuItem(Menu1, Menu_File_Exit, _("Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
-	MenuBar1->Append(Menu1, _("&File"));
+	mainMenuBar->Append(Menu1, _("&File"));
 	Menu3 = new wxMenu();
-	MenuBar1->Append(Menu3, _("Edit"));
+	mainMenuBar->Append(Menu3, _("Edit"));
 	Menu4 = new wxMenu();
-	MenuBar1->Append(Menu4, _("Action"));
+	MenuItem12 = new wxMenuItem(Menu4, ID_MENUITEM7, _("New Scan Module"), wxEmptyString, wxITEM_NORMAL);
+	Menu4->Append(MenuItem12);
+	MenuItem13 = new wxMenuItem(Menu4, ID_MENUITEM8, _("New Action Module"), wxEmptyString, wxITEM_NORMAL);
+	Menu4->Append(MenuItem13);
+	mainMenuBar->Append(Menu4, _("Module"));
 	Menu2 = new wxMenu();
 	MenuItem2 = new wxMenuItem(Menu2, Menu_Help_About, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
 	Menu2->Append(MenuItem2);
-	MenuBar1->Append(Menu2, _("Help"));
+	mainMenuBar->Append(Menu2, _("Help"));
 	Menu5 = new wxMenu();
 	MenuItem6 = new wxMenuItem(Menu5, ID_MENUITEM1, _("Execution Test"), wxEmptyString, wxITEM_NORMAL);
 	Menu5->Append(MenuItem6);
@@ -87,20 +93,22 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	Menu5->Append(MenuItem10);
 	MenuItem11 = new wxMenuItem(Menu5, ID_MENUITEM6, _("Test wxStyleListCtrl"), wxEmptyString, wxITEM_NORMAL);
 	Menu5->Append(MenuItem11);
-	MenuBar1->Append(Menu5, _("Test"));
-	SetMenuBar(MenuBar1);
-	StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
+	mainMenuBar->Append(Menu5, _("Test"));
+	SetMenuBar(mainMenuBar);
+	StatusBar = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
 	int __wxStatusBarWidths_1[1] = { -10 };
 	int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
-	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
-	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
-	SetStatusBar(StatusBar1);
+	StatusBar->SetFieldsCount(1,__wxStatusBarWidths_1);
+	StatusBar->SetStatusStyles(1,__wxStatusBarStyles_1);
+	SetStatusBar(StatusBar);
 	openFileDialog = new wxFileDialog(this, _("Select files"), wxEmptyString, wxEmptyString, _("XYZ files (*.xyz)|*.xyz"), wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
+	saveFIleDialog = new wxFileDialog(this, _("Select file"), wxEmptyString, wxEmptyString, wxFileSelectorDefaultWildcardStr, wxFD_SAVE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
 	SetSizer(BoxSizer1);
 	Layout();
 	Center();
 
 	Connect(Menu_File_Open,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnFileOpen);
+	Connect(ID_MENUITEM7,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnNewScanModule);
 	Connect(Menu_Help_About,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnAbout);
 	Connect(ID_MENUITEM5,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestGenList);
 	Connect(ID_MENUITEM6,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestStyleText);
@@ -150,17 +158,25 @@ void MainWindow::OnButton1Click(wxCommandEvent& event)
     //mainListCtrl
     mainListCtrl->InsertItem(testListItem);
 }
-void MainWindow::GenerateList(MainWindow *mw)
+void MainWindow::GenerateList()
 {
+    if (!mainListCtrl->EnableCheckboxes(true)) {std::cout << "Error: No Checkbox support.\n";}
     mainListCtrl->ClearAll();
-    wxListItem testListItem;
-    Module testScan= Testing::genTestModule();
+    wxListItem ListItem;
     mainListCtrl->AppendColumn("Name");
     mainListCtrl->AppendColumn("Description");
-    testListItem.SetText(testScan.Name);
-    testListItem.SetColumn(0);
-    testListItem.SetId(0);
-    mainListCtrl->InsertItem(testListItem);
+
+    for (int i=0; i<mainSet.Modules.size(); i++)
+    {
+
+        ListItem.SetColumn(0);
+        ListItem.SetText(mainSet.Modules[i].Name);
+        ListItem.SetId(i);
+        mainListCtrl->InsertItem(ListItem);
+        ListItem.SetColumn(1);
+        ListItem.SetText(mainSet.Modules[i].Description);
+        mainListCtrl->InsertItem(ListItem);
+    }
 
 }
 
@@ -182,6 +198,7 @@ void MainWindow::OnTestGenList(wxCommandEvent& event)
 
     for (int i=0; i<mainSet.Modules.size(); i++)
     {
+
         ListItem.SetColumn(0);
         ListItem.SetText(mainSet.Modules[i].Name);
         ListItem.SetId(i);
@@ -199,4 +216,13 @@ void MainWindow::OnTestStyleText(wxCommandEvent& event)
     std::cout << "Test of OnTextStyleText\n";
     FrmScriptEditor *EditWin=new FrmScriptEditor(this);
     EditWin->Show(true);
+}
+
+void MainWindow::OnNewScanModule(wxCommandEvent& event)
+{
+    Module newmodule;
+    newmodule.Name="New Module";
+    newmodule.Description="Add Description";
+    mainSet.Modules.push_back(newmodule);
+    GenerateList();
 }

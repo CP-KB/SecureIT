@@ -28,7 +28,7 @@ class MainWindow: public wxFrame
 		wxMenu* Menu5;
 		wxFileDialog* openFileDialog;
 		wxMenu* Menu1;
-		wxStatusBar* StatusBar1;
+		wxMenuItem* MenuItem12;
 		wxMenu* Menu3;
 		wxButton* Button1;
 		wxMenuItem* MenuItem3;
@@ -40,7 +40,10 @@ class MainWindow: public wxFrame
 		wxMenuItem* MenuItem7;
 		wxMenuItem* MenuItem6;
 		wxMenuItem* MenuItem4;
+		wxStatusBar* StatusBar;
+		wxMenuItem* MenuItem13;
 		wxMenu* Menu2;
+		wxFileDialog* saveFIleDialog;
 		wxMenuItem* MenuItem8;
 		wxListCtrl* mainListCtrl;
 		//*)
@@ -55,6 +58,8 @@ class MainWindow: public wxFrame
 		static const long Menu_File_Save;
 		static const long Menu_File_SaveAs;
 		static const long Menu_File_Exit;
+		static const long ID_MENUITEM7;
+		static const long ID_MENUITEM8;
 		static const long Menu_Help_About;
 		static const long ID_MENUITEM1;
 		static const long ID_MENUITEM2;
@@ -75,10 +80,11 @@ class MainWindow: public wxFrame
 		void OnFileOpen(wxCommandEvent& event);
 		void OnTestGenList(wxCommandEvent& event);
 		void OnTestStyleText(wxCommandEvent& event);
+		void OnNewScanModule(wxCommandEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()
-        void GenerateList(MainWindow *mw);
+        void GenerateList();
 };
 
 
