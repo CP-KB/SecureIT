@@ -206,6 +206,7 @@ void MainWindow::OnTestGenList(wxCommandEvent& event)
         ListItem.SetColumn(1);
         ListItem.SetText(mainSet.Modules[i].Description);
         mainListCtrl->InsertItem(ListItem);
+        mainListCtrl->SetItem(ListItem, 1, "18:00"); //want this for col. 2
     }
 
 

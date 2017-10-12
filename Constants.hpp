@@ -5,7 +5,7 @@
 const std::string
     APP_NAME="Secure IT",
     APP_DESCRIPTION="A cross-platform application to secure operating systems.",
-    APP_VERSION="0.1",
+    APP_VERSION="0.5",
     APP_AUTHORS="Logan Bateman",
     APP_DATE="2017";
 
