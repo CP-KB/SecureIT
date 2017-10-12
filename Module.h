@@ -26,17 +26,17 @@
 #include <vector>
 #include <string>
 #include "Constants.hpp"
-class ModuleScan
+class Module
 {
     friend class boost::serialization::access;
-    friend std::ostream & operator<<(std::ostream &os, const ModuleScan &gp);
+    friend std::ostream & operator<<(std::ostream &os, const Module &gp);
     template<class Archive>
     void serialize(Archive & ar, const unsigned int /* file_version */);
 
 
     public:
-        ModuleScan();
-        ModuleScan(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > );
+        Module();
+        Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > );
 
         std::string Name;
         std::string Description;
@@ -49,6 +49,7 @@ class ModuleScan
         std::string result;
 
         bool bComplete;
+        bool bRunning;
 
         int Execute();
         std::string GetParsedScript;
@@ -58,8 +59,8 @@ class ModuleScan
 
 };
 
-void saveModuleScanXML(const ModuleScan &s, const char * filename);
-void loadModuleScanXML(ModuleScan &s, const char * filename);
-void saveModuleScanBIN(const ModuleScan &s, const char * filename);
-void loadModuleScanBIN(ModuleScan &s, const char * filename);
+void saveModuleXML(const Module &s, const char * filename);
+void loadModuleXML(Module &s, const char * filename);
+void saveModuleBIN(const Module &s, const char * filename);
+void loadModuleBIN(Module &s, const char * filename);
 #endif

@@ -1,5 +1,5 @@
-#include "ModuleScan.h"
-ModuleScan::ModuleScan()
+#include "Module.h"
+Module::Module()
 {
 
 }
@@ -23,7 +23,7 @@ bool gen_scanrun_directory()
 		return true;
 	}
 }
-int ModuleScan::Execute() //make and change executable bit on script -> execute it
+int Module::Execute() //make and change executable bit on script -> execute it
 {
     gen_scanrun_directory();
     std::string sfilename;
@@ -47,11 +47,11 @@ int ModuleScan::Execute() //make and change executable bit on script -> execute 
 
     return 0;
 }
-ModuleScan::ModuleScan(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _scan_variable ) :
+Module::Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _scan_variable ) :
     Name(_name), Description(_description), os(_os), scan_variable(_scan_variable)
 {}
 
-template<class Archive> void ModuleScan::serialize(Archive & ar, const unsigned int /* file_version */)
+template<class Archive> void Module::serialize(Archive & ar, const unsigned int /* file_version */)
 {
         ar  & BOOST_SERIALIZATION_NVP(Name)
             & BOOST_SERIALIZATION_NVP(Description)
@@ -64,14 +64,14 @@ template<class Archive> void ModuleScan::serialize(Archive & ar, const unsigned 
 
 }
 
-void saveModuleScanXML(const ModuleScan &s, const char * filename){ //from example code
+void saveModuleXML(const Module &s, const char * filename){ //from example code
     // make an archive
     std::ofstream ofs(filename);
     assert(ofs.good());
     boost::archive::xml_oarchive oa(ofs);
     oa << BOOST_SERIALIZATION_NVP(s);
 }
-void loadModuleScanXML(ModuleScan &s, const char * filename) //from example code
+void loadModuleXML(Module &s, const char * filename) //from example code
 {
     // open the archive
     std::ifstream ifs(filename);
@@ -80,14 +80,14 @@ void loadModuleScanXML(ModuleScan &s, const char * filename) //from example code
     // restore the schedule from the archive
     ia >> BOOST_SERIALIZATION_NVP(s);
 }
-void saveModuleScanBIN(const ModuleScan &s, const char * filename){ //from example code
+void saveModuleBIN(const Module &s, const char * filename){ //from example code
     // make an archive
     std::ofstream ofs(filename);
     assert(ofs.good());
     boost::archive::binary_oarchive oa(ofs);
     oa << BOOST_SERIALIZATION_NVP(s);
 }
-void loadModuleScanBIN(ModuleScan &s, const char * filename) //from example code
+void loadModuleBIN(Module &s, const char * filename) //from example code
 {
     // open the archive
     std::ifstream ifs(filename);

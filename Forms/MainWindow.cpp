@@ -35,7 +35,7 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	wxBoxSizer* BoxSizer1;
 	wxMenuBar* MenuBar1;
 
-	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER, _T("id"));
+	Create(parent, id, _("SecureIT - by Logan Bateman"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER, _T("id"));
 	SetClientSize(wxSize(342,204));
 	SetMinSize(wxSize(-1,-1));
 	SetMaxSize(wxSize(-1,-1));
@@ -47,12 +47,12 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	osChoice->Append(_("Windows Vista"));
 	osChoice->Append(_("Ubuntu 14 x86_64"));
 	osChoice->Append(_("Ubuntu 14 i386"));
-	BoxSizer2->Add(osChoice, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer2->Add(osChoice, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
 	Button1 = new wxButton(this, ID_BUTTON1, _("Scan/Actions"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-	BoxSizer2->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer2->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
 	BoxSizer1->Add(BoxSizer2, 0, wxALL|wxALIGN_LEFT, 5);
 	mainListCtrl = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
-	BoxSizer1->Add(mainListCtrl, 1, wxALL|wxEXPAND, 5);
+	BoxSizer1->Add(mainListCtrl, 1, wxALL|wxEXPAND, 0);
 	SetSizer(BoxSizer1);
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
@@ -95,10 +95,15 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
+	openFileDialog = new wxFileDialog(this, _("Select files"), wxEmptyString, wxEmptyString, _("XYZ files (*.xyz)|*.xyz"), wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
 	SetSizer(BoxSizer1);
 	Layout();
+	Center();
 
+	Connect(Menu_File_Open,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnFileOpen);
 	Connect(Menu_Help_About,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnAbout);
+	Connect(ID_MENUITEM5,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestGenList);
+	Connect(ID_MENUITEM6,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestStyleText);
 	//*)
 
     /*//MY own non generated CODE
@@ -144,4 +149,54 @@ void MainWindow::OnButton1Click(wxCommandEvent& event)
     mainListCtrl->AppendColumn("TestColumn2");
     //mainListCtrl
     mainListCtrl->InsertItem(testListItem);
+}
+void MainWindow::GenerateList(MainWindow *mw)
+{
+    mainListCtrl->ClearAll();
+    wxListItem testListItem;
+    Module testScan= Testing::genTestModule();
+    mainListCtrl->AppendColumn("Name");
+    mainListCtrl->AppendColumn("Description");
+    testListItem.SetText(testScan.Name);
+    testListItem.SetColumn(0);
+    testListItem.SetId(0);
+    mainListCtrl->InsertItem(testListItem);
+
+}
+
+void MainWindow::OnFileOpen(wxCommandEvent& event)
+{
+        //wxFileDialog openFileDialog(this, _("Open XYZ file"), "", "", "XYZ files (*.xyz)|*.xyz", wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE);
+    if (openFileDialog->ShowModal() == wxID_CANCEL)
+        return;     // the user changed idea...
+}
+
+void MainWindow::OnTestGenList(wxCommandEvent& event)
+{
+    mainSet.Modules.push_back(Testing::genTestModule());
+    if (!mainListCtrl->EnableCheckboxes(true)) {std::cout << "Error: No Checkbox support.\n";}
+    mainListCtrl->ClearAll();
+    wxListItem ListItem;
+    mainListCtrl->AppendColumn("Name");
+    mainListCtrl->AppendColumn("Description");
+
+    for (int i=0; i<mainSet.Modules.size(); i++)
+    {
+        ListItem.SetColumn(0);
+        ListItem.SetText(mainSet.Modules[i].Name);
+        ListItem.SetId(i);
+        mainListCtrl->InsertItem(ListItem);
+        ListItem.SetColumn(1);
+        ListItem.SetText(mainSet.Modules[i].Description);
+        mainListCtrl->InsertItem(ListItem);
+    }
+
+
+}
+
+void MainWindow::OnTestStyleText(wxCommandEvent& event)
+{
+    std::cout << "Test of OnTextStyleText\n";
+    FrmScriptEditor *EditWin=new FrmScriptEditor(this);
+    EditWin->Show(true);
 }

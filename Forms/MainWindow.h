@@ -6,11 +6,14 @@
 #include <wx/listctrl.h>
 #include <wx/button.h>
 #include <wx/menu.h>
+#include <wx/filedlg.h>
 #include <wx/statusbr.h>
 #include <wx/frame.h>
 #include <wx/choice.h>
 //*)
-
+#include "../ModuleSet.h"
+#include "../Tests.h"
+#include "FrmScriptEditor.h"
 class MainWindow: public wxFrame
 {
 	public:
@@ -23,6 +26,7 @@ class MainWindow: public wxFrame
 		wxChoice* osChoice;
 		wxMenuItem* MenuItem1;
 		wxMenu* Menu5;
+		wxFileDialog* openFileDialog;
 		wxMenu* Menu1;
 		wxStatusBar* StatusBar1;
 		wxMenu* Menu3;
@@ -61,15 +65,21 @@ class MainWindow: public wxFrame
 		static const long ID_STATUSBAR1;
 		//*)
 
+        ModuleSet mainSet; //object containing scans and actions
 	private:
 
 		//(*Handlers(MainWindow)
 		void OnAbout(wxCommandEvent& event);
 		void OnButton1Click(wxCommandEvent& event);
 		void OnmainListCtrlBeginDrag(wxListEvent& event);
+		void OnFileOpen(wxCommandEvent& event);
+		void OnTestGenList(wxCommandEvent& event);
+		void OnTestStyleText(wxCommandEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()
+        void GenerateList(MainWindow *mw);
 };
+
 
 #endif

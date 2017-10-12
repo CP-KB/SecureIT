@@ -5,20 +5,20 @@
 
 #include <boost/archive/xml_oarchive.hpp>
 
-#include "ModuleScan.h"
+#include "Module.h"
 
 
 
 void Testing::SaveXMLtest()
 {
-    ModuleScan testms=genTestModuleScan();
-    saveModuleScanXML(testms, "testModuleScan.xml");
-    saveModuleScanBIN(testms, "testModuleScan.bin");
+    Module testms=genTestModule();
+    saveModuleXML(testms, "testModule.xml");
+    saveModuleBIN(testms, "testModule.bin");
 }
 void Testing::LoadXMLtest()
 {
-    ModuleScan testms;
-    loadModuleScanXML(testms, "testModuleScan.xml");
+    Module testms;
+    loadModuleXML(testms, "testModule.xml");
 }
 void Testing::SystemExecute()
 {
@@ -83,14 +83,14 @@ void Testing::ExecutionTest()
 
     c.wait();
 
-    ModuleScan testms=genTestModuleScan();
+    Module testms=genTestModule();
     testms.Execute();
 
 }
-ModuleScan Testing::genTestModuleScan()
+Module Testing::genTestModule()
 {
-    ModuleScan ms;
-    ms.Name="Test ModuleScan";
+    Module ms;
+    ms.Name="Test Module";
     ms.Description="This is a module used only for testing purposes.";
     ms.os.push_back("Windows XP"); ms.os.push_back("Windows Vista");
     ms.scan_variable.push_back(std::pair<std::string, std::string>("Test","test"));

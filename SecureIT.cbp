@@ -53,22 +53,10 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="ModuleAction.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="ModuleAction.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="ModuleScan.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="ModuleScan.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
+		<Unit filename="Module.cpp" />
+		<Unit filename="Module.h" />
+		<Unit filename="ModuleSet.cpp" />
+		<Unit filename="ModuleSet.h" />
 		<Unit filename="Notes/TODO.txt">
 			<Option target="Debug" />
 			<Option target="Release" />

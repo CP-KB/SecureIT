@@ -1,8 +1,8 @@
 CC=i386 g++
 CC_WIN=i686-w64-mingw32-g++
 LINKER=i386 g++
-CPP= main.cpp ModuleAction.cpp ModuleScan.cpp Forms/MainWindow.cpp Forms/FrmScriptEditor.cpp Tests.cpp
-OBJS = main.o ModuleAction.o ModuleScan.o MainWindow.o FrmScriptEditor.o Tests.o
+CPP= main.cpp ModuleSet.cpp Module.cpp Forms/MainWindow.cpp Forms/FrmScriptEditor.cpp Tests.cpp
+OBJS = main.o ModuleSet.o Module.o MainWindow.o FrmScriptEditor.o Tests.o
 OBJSLINUX = $(patsubst %.o, obj/linux/%.o, $(OBJS))
 OBJSWIN = $(patsubst %.o, obj/win/%.o, $(OBJS))
 OBJDIRLINUX=obj/linux/
@@ -48,16 +48,18 @@ $(DEBUG_OUT): $(OBJSLINUX)
 $(OBJDIRLINUX)main.o: main.h main.cpp
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) main.cpp -o $(OBJDIRLINUX)main.o
 
-$(OBJDIRLINUX)ModuleAction.o:
-	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp -o $(OBJDIRLINUX)ModuleAction.o
-$(OBJDIRLINUX)ModuleScan.o: ModuleScan.cpp ModuleScan.h
-	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleScan.cpp -o $(OBJDIRLINUX)ModuleScan.o
+$(OBJDIRLINUX)ModuleSet.o: ModuleSet.cpp ModuleSet.h
+	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) ModuleSet.cpp -o $(OBJDIRLINUX)ModuleSet.o
+#$(OBJDIRLINUX)ModuleAction.o:
+#	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp -o $(OBJDIRLINUX)ModuleAction.o
+$(OBJDIRLINUX)Module.o: Module.cpp Module.h
+	$(CC) $(CFLAGS) $(BOOSTINCDIR) Module.cpp -o $(OBJDIRLINUX)Module.o
 #$(OBJDIRLINUX)Windows.o: Windows.cpp Windows.h
 #	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Windows.cpp -o $(OBJDIRLINUX)Windows.o
 #$(OBJDIRLINUX)CodeEditWin.o: CodeEditWin.cpp CodeEditWin.h Forms/FrmScriptEditor.h
 #	$(CC) $(CFLAGS) $(WXINCLUDES) CodeEditWin.cpp -o $(OBJDIRLINUX)CodeEditWin.o
 $(OBJDIRLINUX)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h
-	$(CC) $(CFLAGS) $(WXINCLUDES) Forms/MainWindow.cpp -o $(OBJDIRLINUX)MainWindow.o
+	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Forms/MainWindow.cpp -o $(OBJDIRLINUX)MainWindow.o
 $(OBJDIRLINUX)FrmScriptEditor.o: Forms/FrmScriptEditor.cpp Forms/FrmScriptEditor.h
 	$(CC) $(CFLAGS) $(WXINCLUDES) Forms/FrmScriptEditor.cpp -o $(OBJDIRLINUX)FrmScriptEditor.o
 $(OBJDIRLINUX)Tests.o: Tests.cpp Tests.h
@@ -71,16 +73,18 @@ $(RELEASE_OUT_WIN): $(OBJSWIN)
 $(OBJDIRWIN)main.o: main.h main.cpp
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) main.cpp -o $(OBJDIRWIN)main.o
 
-$(OBJDIRWIN)ModuleAction.o:
-	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp -o $(OBJDIRWIN)ModuleAction.o
-$(OBJDIRWIN)ModuleScan.o: ModuleScan.cpp ModuleScan.h
-	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) ModuleScan.cpp -o $(OBJDIRWIN)ModuleScan.o
+$(OBJDIRWIN)ModuleSet.o:
+	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) ModuleSet.cpp -o $(OBJDIRWIN)ModuleSet.o
+#$(OBJDIRWIN)ModuleAction.o:
+#	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp -o $(OBJDIRWIN)ModuleAction.o
+$(OBJDIRWIN)Module.o: Module.cpp Module.h
+	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) Module.cpp -o $(OBJDIRWIN)Module.o
 #$(OBJDIRWIN)Windows.o: Windows.cpp Windows.h
 #	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Windows.cpp -o $(OBJDIRWIN)Windows.o
 #$(OBJDIRWIN)CodeEditWin.o: CodeEditWin.cpp CodeEditWin.h Forms/FrmScriptEditor.h
 #	$(CC_WIN) $(CFLAGS) $(WXINCLUDESWIN) CodeEditWin.cpp -o $(OBJDIRWIN)CodeEditWin.o
 $(OBJDIRWIN)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h
-	$(CC_WIN) $(CFLAGS) $(WXINCLUDESWIN) Forms/MainWindow.cpp -o $(OBJDIRWIN)MainWindow.o
+	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Forms/MainWindow.cpp -o $(OBJDIRWIN)MainWindow.o
 $(OBJDIRWIN)FrmScriptEditor.o: Forms/FrmScriptEditor.cpp Forms/FrmScriptEditor.h
 	$(CC_WIN) $(CFLAGS) $(WXINCLUDESWIN) Forms/FrmScriptEditor.cpp -o $(OBJDIRWIN)FrmScriptEditor.o
 $(OBJDIRWIN)Tests.o: Tests.cpp Tests.h

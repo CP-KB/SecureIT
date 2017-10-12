@@ -1,7 +1,7 @@
 #ifndef TESTS_HPP
 #define TESTS_HPP
 
-#include "ModuleScan.h"
+#include "Module.h"
 //#include "pstream.h"
 #include <boost/process.hpp>
 //#include <boost/process/child.hpp>
@@ -15,6 +15,6 @@ class Testing
         static void SystemExecute();
         static void BoostExecutionTest();
         static void ExecutionTest();
-        static ModuleScan genTestModuleScan();
+        static Module genTestModule();
 };
 #endif
