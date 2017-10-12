@@ -41,34 +41,14 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
-		<Unit filename="CodeEditWin.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="CodeEditWin.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
 		<Unit filename="Constants.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="Forms/FrmScriptEditor.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="Forms/FrmScriptEditor.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="Forms/MainWindow.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="Forms/MainWindow.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
+		<Unit filename="Forms/FrmScriptEditor.cpp" />
+		<Unit filename="Forms/FrmScriptEditor.h" />
+		<Unit filename="Forms/MainWindow.cpp" />
+		<Unit filename="Forms/MainWindow.h" />
 		<Unit filename="Makefile">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -101,14 +81,6 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="Windows.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="Windows.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
 		<Unit filename="main.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -117,14 +89,18 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="pstream.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
+		<Unit filename="wxsmith/FrmScriptEditor.wxs" />
 		<Extensions>
 			<code_completion />
 			<debugger />
 			<envvars />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="main.cpp" main="MainWindow" init_handlers="necessary" language="CPP" />
+				<resources>
+					<wxFrame wxs="wxsmith/MainWindow.wxs" src="Forms/MainWindow.cpp" hdr="Forms/MainWindow.h" fwddecl="0" i18n="1" name="MainWindow" language="CPP" />
+					<wxFrame wxs="wxsmith/FrmScriptEditor.wxs" src="Forms/FrmScriptEditor.cpp" hdr="Forms/FrmScriptEditor.h" fwddecl="0" i18n="1" name="FrmScriptEditor" language="CPP" />
+				</resources>
+			</wxsmith>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

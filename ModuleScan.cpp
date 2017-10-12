@@ -13,7 +13,6 @@ std::string gen_random_string(const int len) { //modified someone's code from ht
     for (int i = 0; i < len; ++i) {
         s+= alphanum[rand() % (sizeof(alphanum) - 1)];
     }
-    //s[len] = 0;
     return s;
 }
 bool gen_scanrun_directory()

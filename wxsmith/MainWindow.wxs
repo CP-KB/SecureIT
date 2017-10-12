@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxFrame" name="MainWindow">
+		<size>342,204</size>
+		<minsize>-1,-1</minsize>
+		<maxsize>-1,-1</maxsize>
+		<style>wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER</style>
+		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer2" member="no">
+					<object class="sizeritem">
+						<object class="wxChoice" name="ID_OSCHOICE" variable="osChoice" member="yes">
+							<content>
+								<item>Auto Detect</item>
+								<item>Windows 7</item>
+								<item>Windows Vista</item>
+								<item>Ubuntu 14 x86_64</item>
+								<item>Ubuntu 14 i386</item>
+							</content>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="ID_BUTTON1" variable="Button1" member="yes">
+							<label>Scan/Actions</label>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_LEFT</flag>
+				<border>5</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxListCtrl" name="ID_LISTCTRL1" variable="mainListCtrl" member="yes">
+					<style>wxLC_REPORT</style>
+				</object>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>5</border>
+				<option>1</option>
+			</object>
+		</object>
+		<object class="wxMenuBar" variable="MenuBar1" member="no">
+			<object class="wxMenu" variable="Menu1" member="yes">
+				<label>&amp;File</label>
+				<object class="wxMenuItem" name="Menu_File_Open" variable="MenuItem3" member="yes">
+					<label>Open</label>
+				</object>
+				<object class="wxMenuItem" name="Menu_File_Save" variable="MenuItem4" member="yes">
+					<label>Save</label>
+				</object>
+				<object class="wxMenuItem" name="Menu_File_SaveAs" variable="MenuItem5" member="yes">
+					<label>Save As</label>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="Menu_File_Exit" variable="MenuItem1" member="yes">
+					<label>Exit</label>
+					<accel>Alt-F4</accel>
+					<help>Quit the application</help>
+				</object>
+			</object>
+			<object class="wxMenu" variable="Menu3" member="yes">
+				<label>Edit</label>
+			</object>
+			<object class="wxMenu" variable="Menu4" member="yes">
+				<label>Action</label>
+			</object>
+			<object class="wxMenu" variable="Menu2" member="yes">
+				<label>Help</label>
+				<object class="wxMenuItem" name="Menu_Help_About" variable="MenuItem2" member="yes">
+					<label>About</label>
+					<accel>F1</accel>
+					<help>Show info about this application</help>
+					<handler function="OnAbout" entry="EVT_MENU" />
+				</object>
+			</object>
+			<object class="wxMenu" variable="Menu5" member="yes">
+				<label>Test</label>
+				<object class="wxMenuItem" name="ID_MENUITEM1" variable="MenuItem6" member="yes">
+					<label>Execution Test</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEM2" variable="MenuItem7" member="yes">
+					<label>Serialization Save</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEM3" variable="MenuItem8" member="yes">
+					<label>Serialization Load</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEM4" variable="MenuItem9" member="yes">
+					<label>ListCtrl Test</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEM5" variable="MenuItem10" member="yes">
+					<label>Generate List Test</label>
+				</object>
+				<object class="wxMenuItem" name="ID_MENUITEM6" variable="MenuItem11" member="yes">
+					<label>Test wxStyleListCtrl</label>
+				</object>
+			</object>
+		</object>
+		<object class="wxStatusBar" name="ID_STATUSBAR1" variable="StatusBar1" member="yes">
+			<fields>1</fields>
+			<widths>-10</widths>
+			<styles>wxSB_NORMAL</styles>
+		</object>
+	</object>
+</wxsmith>
