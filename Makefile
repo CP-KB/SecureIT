@@ -45,15 +45,15 @@ $(RELEASE_OUT): $(OBJSLINUX)
 	$(CC) $(EXTRA_REL) $(CPP) $(WXLIBS) $(WXINCLUDES) $(BOOSTINCDIR) $(BOOSTLIBDIR) $(BOOSTLIBS) -o $(RELEASE_OUT)
 $(DEBUG_OUT): $(OBJSLINUX)
 	$(LINKER) -o $(DEBUG_OUT) $(OBJSLINUX) $(LFLAGS)
-$(OBJDIRLINUX)main.o: main.h main.cpp Windows.h
+$(OBJDIRLINUX)main.o: main.h main.cpp
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) main.cpp -o $(OBJDIRLINUX)main.o
 
 $(OBJDIRLINUX)ModuleAction.o:
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp -o $(OBJDIRLINUX)ModuleAction.o
 $(OBJDIRLINUX)ModuleScan.o: ModuleScan.cpp ModuleScan.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) ModuleScan.cpp -o $(OBJDIRLINUX)ModuleScan.o
-$(OBJDIRLINUX)Windows.o: Windows.cpp Windows.h
-	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Windows.cpp -o $(OBJDIRLINUX)Windows.o
+#$(OBJDIRLINUX)Windows.o: Windows.cpp Windows.h
+#	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Windows.cpp -o $(OBJDIRLINUX)Windows.o
 #$(OBJDIRLINUX)CodeEditWin.o: CodeEditWin.cpp CodeEditWin.h Forms/FrmScriptEditor.h
 #	$(CC) $(CFLAGS) $(WXINCLUDES) CodeEditWin.cpp -o $(OBJDIRLINUX)CodeEditWin.o
 $(OBJDIRLINUX)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h
@@ -68,15 +68,15 @@ $(RELEASE_OUT_WIN): $(OBJSWIN)
 	CC=$(CC_WIN)
 	BOOSTLIBDIR=$(BOOSTLIBWIN)
 	$(CC_WIN) $(OBJSWIN) $(LFLAGSWIN) $(WXLIBSWIN) -o $(RELEASE_OUT_WIN)
-$(OBJDIRWIN)main.o: main.h main.cpp Windows.h
+$(OBJDIRWIN)main.o: main.h main.cpp
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) main.cpp -o $(OBJDIRWIN)main.o
 
 $(OBJDIRWIN)ModuleAction.o:
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) ModuleAction.cpp -o $(OBJDIRWIN)ModuleAction.o
 $(OBJDIRWIN)ModuleScan.o: ModuleScan.cpp ModuleScan.h
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) ModuleScan.cpp -o $(OBJDIRWIN)ModuleScan.o
-$(OBJDIRWIN)Windows.o: Windows.cpp Windows.h
-	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Windows.cpp -o $(OBJDIRWIN)Windows.o
+#$(OBJDIRWIN)Windows.o: Windows.cpp Windows.h
+#	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Windows.cpp -o $(OBJDIRWIN)Windows.o
 #$(OBJDIRWIN)CodeEditWin.o: CodeEditWin.cpp CodeEditWin.h Forms/FrmScriptEditor.h
 #	$(CC_WIN) $(CFLAGS) $(WXINCLUDESWIN) CodeEditWin.cpp -o $(OBJDIRWIN)CodeEditWin.o
 $(OBJDIRWIN)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h
