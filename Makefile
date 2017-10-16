@@ -10,15 +10,15 @@ OBJDIRLINUX=obj/linux/
 OBJDIRWIN=obj/win/
 DEBUG = -g
 WXCONFIG=i386 wx-config #/home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/wx-config
-WXCONFIGWIN=/home/logan/Documents/Libraries/wxWidgets-3.1.0/windows-i386/wx-config
+WXCONFIGWIN=/home/administrator/Documents/Libraries/wxWidgets-3.1.0/windows-i386/wx-config
 WXLIBS= `$(WXCONFIG) --libs all --debug=yes --linkdeps`
 WXLIBSWIN= `$(WXCONFIGWIN) --libs all --debug=yes` #--linkdeps`
 #/ "--libs all" adds all parts of wxWidgets - needed for wxStyledTextBox
 WXINCLUDES=`$(WXCONFIG) --cppflags`
 WXINCLUDESWIN= `$(WXCONFIGWIN) --prefix=/media/logan/MULTIBOOT/Portable/wxWidgets-3.10 --cppflags`
-BOOSTINCDIR=-I/home/logan/Documents/Libraries/boost_1_65_1/
-BOOSTLIBDIR=-L/home/logan/Documents/Libraries/boost_1_65_1/stage-lin-32/lib/
-BOOSTLIBWIN=-L/home/logan/Documents/Libraries/boost_1_65_1/stage-win-32/lib/
+BOOSTINCDIR=-I/home/administrator/Documents/Libraries/boost_1_65_1/
+BOOSTLIBDIR=-L/home/administrator/Documents/Libraries/boost_1_65_1/stage-lin-32/lib/
+BOOSTLIBWIN=-L/home/administrator/Documents/Libraries/boost_1_65_1/stage-win-32/lib/
 BOOSTLIBS=-l:libboost_serialization.a -l:libboost_system.a -l:libboost_filesystem.a #static library
 EXTRA_DBG=-g	#for debugging
 EXTRA_REL=-O3
