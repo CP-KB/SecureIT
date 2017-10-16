@@ -1,0 +1,5 @@
+ScanIcon_ico            ICON    "Imgs/ScanIcon.ico"
+ActionIcon_ico          ICON    "Imgs/ActionIcon.ico"
+SuccessSignal_ico       ICON    "Imgs/SuccessSignal.ico"
+NotStartedSignal_ico    ICON    "Imgs/NotStartedSignal.ico"
+RunningSignal_ico       ICON    "Imgs/RunningSignal.ico"

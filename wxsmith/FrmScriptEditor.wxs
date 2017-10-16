@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxFrame" name="FrmScriptEditor">
-		<size>400,300</size>
+		<size>500,400</size>
 		<object class="wxAuiNotebook" name="ID_AUINOTEBOOK1" variable="AuiNotebook1" member="yes">
 			<pos>120,144</pos>
 			<style>0</style>
@@ -27,7 +27,7 @@
 											<item>Powershell (.ps)</item>
 										</content>
 									</object>
-									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<flag>wxALL|wxEXPAND</flag>
 									<border>1</border>
 									<option>1</option>
 								</object>
@@ -40,8 +40,17 @@
 									<option>1</option>
 								</object>
 								<object class="sizeritem">
-									<object class="wxChoicebook" name="ID_CHOICEBOOK1" variable="Choicebook1" member="yes" />
-									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<object class="wxComboBox" name="ID_COMBOBOX1" variable="comboProperty" member="yes">
+										<content>
+											<item>Test</item>
+											<item>Test2</item>
+											<item>Test3</item>
+											<item>Etc</item>
+											<item>Default</item>
+											<item>Whatever</item>
+										</content>
+									</object>
+									<flag>wxALL|wxEXPAND</flag>
 									<border>1</border>
 									<option>1</option>
 								</object>
@@ -54,7 +63,7 @@
 									<option>1</option>
 								</object>
 							</object>
-							<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+							<flag>wxALL|wxALIGN_LEFT</flag>
 							<border>5</border>
 						</object>
 					</object>

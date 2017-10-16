@@ -37,6 +37,7 @@
 			<object class="sizeritem">
 				<object class="wxListCtrl" name="ID_LISTCTRL1" variable="mainListCtrl" member="yes">
 					<style>wxLC_REPORT</style>
+					<handler function="OnmainListCtrlItemRClick" entry="EVT_LIST_ITEM_RIGHT_CLICK" />
 				</object>
 				<flag>wxALL|wxEXPAND</flag>
 				<option>1</option>
@@ -62,17 +63,22 @@
 					<help>Quit the application</help>
 				</object>
 			</object>
-			<object class="wxMenu" variable="Menu3" member="yes">
+			<object class="wxMenu" variable="menuEdit" member="yes">
 				<label>Edit</label>
+				<object class="wxMenuItem" name="Menu_New_ScanModule" variable="MenuItem12" member="yes">
+					<label>New Scan Module</label>
+					<handler function="OnNewScanModule" entry="EVT_MENU" />
+				</object>
+				<object class="wxMenuItem" name="Menu_New_ActionModule" variable="MenuItem13" member="yes">
+					<label>New Action Module</label>
+				</object>
+				<object class="wxMenuItem" name="Menu_Module_Edit" variable="MenuItem14" member="yes">
+					<label>Edit Module</label>
+					<handler function="OnEditModule" entry="EVT_MENU" />
+				</object>
 			</object>
 			<object class="wxMenu" variable="Menu4" member="yes">
 				<label>Module</label>
-				<object class="wxMenuItem" name="ID_MENUITEM7" variable="MenuItem12" member="yes">
-					<label>New Scan Module</label>
-				</object>
-				<object class="wxMenuItem" name="ID_MENUITEM8" variable="MenuItem13" member="yes">
-					<label>New Action Module</label>
-				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="yes">
 				<label>Help</label>
@@ -119,7 +125,17 @@
 		</object>
 		<object class="wxFileDialog" variable="saveFIleDialog" member="yes">
 			<message>Select file</message>
-			<style>wxFD_DEFAULT_STYLE|wxFD_SAVE</style>
+			<style>wxFD_SAVE</style>
+		</object>
+		<object class="wxImageList" variable="m_pImageList" member="yes">
+			<image_list>
+				<item>16</item>
+				<item>16</item>
+			</image_list>
+			<image_text>
+				<item2>16</item2>
+				<item2>16</item2>
+			</image_text>
 		</object>
 	</object>
 </wxsmith>

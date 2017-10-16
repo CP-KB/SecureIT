@@ -13,8 +13,9 @@ const long MainWindow::Menu_File_Open = wxNewId();
 const long MainWindow::Menu_File_Save = wxNewId();
 const long MainWindow::Menu_File_SaveAs = wxNewId();
 const long MainWindow::Menu_File_Exit = wxNewId();
-const long MainWindow::ID_MENUITEM7 = wxNewId();
-const long MainWindow::ID_MENUITEM8 = wxNewId();
+const long MainWindow::Menu_New_ScanModule = wxNewId();
+const long MainWindow::Menu_New_ActionModule = wxNewId();
+const long MainWindow::Menu_Module_Edit = wxNewId();
 const long MainWindow::Menu_Help_About = wxNewId();
 const long MainWindow::ID_MENUITEM1 = wxNewId();
 const long MainWindow::ID_MENUITEM2 = wxNewId();
@@ -24,6 +25,15 @@ const long MainWindow::ID_MENUITEM5 = wxNewId();
 const long MainWindow::ID_MENUITEM6 = wxNewId();
 const long MainWindow::ID_STATUSBAR1 = wxNewId();
 //*)
+
+//#include "../icons.rc"
+/*#ifndef wxHAS_IMAGES_IN_RESOURCES
+    #include "../Imgs/ScanIcon.xpm"
+    #include "../Imgs/ActionIcon.xpm"
+    #include "../Imgs/SuccessSignal.xpm"
+    #include "../Imgs/NotStartedSignal.xpm"
+    #include "../Imgs/RunningSignal.xpm"
+#endif // wxHAS_IMAGES_IN_RESOURCES*/
 
 BEGIN_EVENT_TABLE(MainWindow,wxFrame)
 	//(*EventTable(MainWindow)
@@ -68,13 +78,15 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	MenuItem1 = new wxMenuItem(Menu1, Menu_File_Exit, _("Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	mainMenuBar->Append(Menu1, _("&File"));
-	Menu3 = new wxMenu();
-	mainMenuBar->Append(Menu3, _("Edit"));
+	menuEdit = new wxMenu();
+	MenuItem12 = new wxMenuItem(menuEdit, Menu_New_ScanModule, _("New Scan Module"), wxEmptyString, wxITEM_NORMAL);
+	menuEdit->Append(MenuItem12);
+	MenuItem13 = new wxMenuItem(menuEdit, Menu_New_ActionModule, _("New Action Module"), wxEmptyString, wxITEM_NORMAL);
+	menuEdit->Append(MenuItem13);
+	MenuItem14 = new wxMenuItem(menuEdit, Menu_Module_Edit, _("Edit Module"), wxEmptyString, wxITEM_NORMAL);
+	menuEdit->Append(MenuItem14);
+	mainMenuBar->Append(menuEdit, _("Edit"));
 	Menu4 = new wxMenu();
-	MenuItem12 = new wxMenuItem(Menu4, ID_MENUITEM7, _("New Scan Module"), wxEmptyString, wxITEM_NORMAL);
-	Menu4->Append(MenuItem12);
-	MenuItem13 = new wxMenuItem(Menu4, ID_MENUITEM8, _("New Action Module"), wxEmptyString, wxITEM_NORMAL);
-	Menu4->Append(MenuItem13);
 	mainMenuBar->Append(Menu4, _("Module"));
 	Menu2 = new wxMenu();
 	MenuItem2 = new wxMenuItem(Menu2, Menu_Help_About, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
@@ -103,16 +115,32 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	SetStatusBar(StatusBar);
 	openFileDialog = new wxFileDialog(this, _("Select files"), wxEmptyString, wxEmptyString, _("XYZ files (*.xyz)|*.xyz"), wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
 	saveFIleDialog = new wxFileDialog(this, _("Select file"), wxEmptyString, wxEmptyString, wxFileSelectorDefaultWildcardStr, wxFD_SAVE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
+	m_pImageList = new wxImageList(16, 16, 1);
 	SetSizer(BoxSizer1);
 	Layout();
 	Center();
 
+	Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK,(wxObjectEventFunction)&MainWindow::OnmainListCtrlItemRClick);
 	Connect(Menu_File_Open,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnFileOpen);
-	Connect(ID_MENUITEM7,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnNewScanModule);
+	Connect(Menu_New_ScanModule,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnNewScanModule);
+	Connect(Menu_Module_Edit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnEditModule);
 	Connect(Menu_Help_About,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnAbout);
 	Connect(ID_MENUITEM5,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestGenList);
 	Connect(ID_MENUITEM6,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestStyleText);
 	//*)
+    //Connect(ID_LISTCTRL1,wxEVT_CONTEXT_MENU,(wxObjectEventFunction)&MainWindow::OnContextMenu);
+    #if USE_CONTEXT_MENU
+    wxBEGIN_EVENT_TABLE(mainListCtrl, wxListCtrl)
+        EVT_CONTEXT_MENU(MainWindow::OnContextMenu)
+    wxEND_EVENT_TABLE()
+    #endif // USE_CONTEXT_MENU
+    #ifndef wxHAS_IMAGES_IN_RESOURCES
+        //m_pImageList->Add( wxIcon(wxT("RunningSignal_ico"), wxBITMAP_TYPE_ICO_RESOURCE) );
+
+    #else
+        //m_pImageList->Add(RunningSignal_xpm);
+    #endif // wxHAS_IMAGES_IN_RESOURCES
+
 
     /*//MY own non generated CODE
     // Set the lexer to the C++ lexer
@@ -166,16 +194,32 @@ void MainWindow::GenerateList()
     mainListCtrl->AppendColumn("Name");
     mainListCtrl->AppendColumn("Description");
 
-    for (int i=0; i<mainSet.Modules.size(); i++)
+    wxIcon icon;
+    icon.LoadFile(wxT("Imgs/NotStartedSignal.xpm"), wxBITMAP_TYPE_XPM);
+    m_pImageList->Add(icon);
+    mainListCtrl->SetImageList(m_pImageList, wxIMAGE_LIST_SMALL);
+    for (unsigned int i=0; i<mainSet.Modules.size(); i++)
     {
-
-        ListItem.SetColumn(0);
         ListItem.SetText(mainSet.Modules[i].Name);
-        ListItem.SetId(i);
+        ListItem.SetImage(0);
+        ListItem.SetColumn(0);
+        ListItem.SetId(0);
         mainListCtrl->InsertItem(ListItem);
-        ListItem.SetColumn(1);
+        //long iListItem=mainListCtrl->InsertItem(0,mainSet.Modules[i].Name); //WxListCtrl1->SetItem(itemIndex, 1, "18:00"); //want this for col. 2
         ListItem.SetText(mainSet.Modules[i].Description);
-        mainListCtrl->InsertItem(ListItem);
+        ListItem.SetImage(0);
+        ListItem.SetColumn(1);
+        ListItem.SetId(0);
+        mainListCtrl->SetItem(ListItem);
+        //mainListCtrl->SetItem(iListItem,1,mainSet.Modules[i].Description);
+
+        //wxImageList *m_pImageList = new wxImageList(16,16);
+
+
+
+        //mainListCtrl->SetItemImage(iListItem, 0);
+        //mainListCtrl->SetItemImage(iListItem, 0);
+
     }
 
 }
@@ -196,9 +240,8 @@ void MainWindow::OnTestGenList(wxCommandEvent& event)
     mainListCtrl->AppendColumn("Name");
     mainListCtrl->AppendColumn("Description");
 
-    for (int i=0; i<mainSet.Modules.size(); i++)
+    for (unsigned int i=0; i<mainSet.Modules.size(); i++)
     {
-
         ListItem.SetColumn(0);
         ListItem.SetText(mainSet.Modules[i].Name);
         ListItem.SetId(i);
@@ -225,4 +268,33 @@ void MainWindow::OnNewScanModule(wxCommandEvent& event)
     newmodule.Description="Add Description";
     mainSet.Modules.push_back(newmodule);
     GenerateList();
+}
+
+void MainWindow::OnEditModule(wxCommandEvent& event)
+{
+    std::cout << "Edit Module Selected - ID: " << event.GetInt() << "\n";
+
+}
+
+void MainWindow::OnmainListCtrlItemRClick(wxListEvent& event)
+{
+    //wxMenu *
+    std::cout << "Right Click - ID: " << event.GetIndex() << "\n";
+    wxMenu popupmenu;
+    //popupmenu.Append(Menu_Module_Edit, "&Edit Module");
+    //PopupMenu(&popupmenu,0,0);
+    //popupmenu = new wxMenu();
+	popupmenu.Append(Menu_New_ScanModule, _("New Scan Module"));
+	popupmenu.Append(Menu_New_ActionModule, _("New Action Module"));
+	popupmenu.Append(Menu_Module_Edit, _("Edit Module"));
+
+    PopupMenu(&popupmenu);
+
+    std::cout << "Context Menu\n";
+
+    //delete popupmenu;
+}
+void MainWindow::OnContextMenu(wxContextMenuEvent& event)
+{
+
 }

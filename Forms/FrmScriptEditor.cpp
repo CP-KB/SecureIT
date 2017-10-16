@@ -9,7 +9,7 @@
 const long FrmScriptEditor::ID_BUTTON1 = wxNewId();
 const long FrmScriptEditor::ID_CHOICE1 = wxNewId();
 const long FrmScriptEditor::ID_BUTTON2 = wxNewId();
-const long FrmScriptEditor::ID_CHOICEBOOK1 = wxNewId();
+const long FrmScriptEditor::ID_COMBOBOX1 = wxNewId();
 const long FrmScriptEditor::ID_BUTTON3 = wxNewId();
 const long FrmScriptEditor::ID_PANEL1 = wxNewId();
 const long FrmScriptEditor::ID_PANEL2 = wxNewId();
@@ -22,7 +22,13 @@ BEGIN_EVENT_TABLE(FrmScriptEditor,wxFrame)
 	//(*EventTable(FrmScriptEditor)
 	//*)
 END_EVENT_TABLE()
-
+FrmScriptEditor::FrmScriptEditor(wxWindow* parent, Module *objModule)
+{
+    FrmScriptEditor(parent,wxID_ANY);
+    this->moduleCurrent=objModule;
+    mainStyledTextBox->SetText(moduleCurrent->Script);
+    this->SetTitle(moduleCurrent->Name);
+}
 FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 {
 	//(*Initialize(FrmScriptEditor)
@@ -30,7 +36,7 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 	wxBoxSizer* BoxSizer1;
 
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
-	SetClientSize(wxSize(400,300));
+	SetClientSize(wxSize(500,400));
 	AuiNotebook1 = new wxAuiNotebook(this, ID_AUINOTEBOOK1, wxPoint(120,144), wxDefaultSize, 0);
 	Panel1 = new wxPanel(AuiNotebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL1"));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
@@ -41,14 +47,20 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 	choiceOS->Append(_("Bash (.sh)"));
 	choiceOS->Append(_("Batch (.bat)"));
 	choiceOS->Append(_("Powershell (.ps)"));
-	BoxSizer2->Add(choiceOS, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 1);
+	BoxSizer2->Add(choiceOS, 1, wxALL|wxEXPAND, 1);
 	Button2 = new wxButton(Panel1, ID_BUTTON2, _("Label"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
 	BoxSizer2->Add(Button2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 1);
-	Choicebook1 = new wxChoicebook(Panel1, ID_CHOICEBOOK1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_CHOICEBOOK1"));
-	BoxSizer2->Add(Choicebook1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 1);
+	comboProperty = new wxComboBox(Panel1, ID_COMBOBOX1, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX1"));
+	comboProperty->Append(_("Test"));
+	comboProperty->Append(_("Test2"));
+	comboProperty->Append(_("Test3"));
+	comboProperty->Append(_("Etc"));
+	comboProperty->Append(_("Default"));
+	comboProperty->Append(_("Whatever"));
+	BoxSizer2->Add(comboProperty, 1, wxALL|wxEXPAND, 1);
 	Button3 = new wxButton(Panel1, ID_BUTTON3, _("Label"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
 	BoxSizer2->Add(Button3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 1);
-	BoxSizer1->Add(BoxSizer2, 0, wxALL|wxALIGN_LEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer1->Add(BoxSizer2, 0, wxALL|wxALIGN_LEFT, 5);
 	Panel1->SetSizer(BoxSizer1);
 	BoxSizer1->Fit(Panel1);
 	BoxSizer1->SetSizeHints(Panel1);
@@ -69,11 +81,11 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 	mainStyledTextBox->SetBackSpaceUnIndents( true );
 	mainStyledTextBox->SetViewEOL( false );
 	mainStyledTextBox->SetViewWhiteSpace( false );
-	mainStyledTextBox->SetMarginWidth( 2, 0 );
+	mainStyledTextBox->SetMarginWidth( 0, 0 ); //(2,0)
 	mainStyledTextBox->SetIndentationGuides( true );
 	mainStyledTextBox->SetMarginType( 1, wxSTC_MARGIN_SYMBOL );
 	mainStyledTextBox->SetMarginMask( 1, wxSTC_MASK_FOLDERS );
-	mainStyledTextBox->SetMarginWidth( 1, 16);
+	mainStyledTextBox->SetMarginWidth( 1, 1); //(1,16)
 	mainStyledTextBox->SetMarginSensitive( 1, true );
 	mainStyledTextBox->SetProperty( wxT("fold"), wxT("1") );
 	mainStyledTextBox->SetFoldFlags( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED | wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
@@ -104,7 +116,6 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 
 	// Set the lexer to the C++ lexer
     mainStyledTextBox->SetLexer(wxSTC_LEX_BASH);
-    std::cout << "Hi, is this working\n";
 
     // Set the color to use for various elements
     mainStyledTextBox->StyleSetForeground(wxSTC_C_COMMENTLINE, wxColor(60, 162, 2));
@@ -112,7 +123,8 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
     mainStyledTextBox->StyleSetForeground(wxSTC_C_STRING, wxColor(255, 60, 10));
     mainStyledTextBox->StyleSetForeground(wxSTC_C_WORD, wxColor(0, 0, 255));
 
-	BoxSizer1->Add( mainStyledTextBox, 1, wxALL|wxEXPAND, 5 );
+	BoxSizer1->Add( mainStyledTextBox, 1, wxALL|wxEXPAND, 0 ); //5)
+
 }
 
 FrmScriptEditor::~FrmScriptEditor()
@@ -120,4 +132,5 @@ FrmScriptEditor::~FrmScriptEditor()
 	//(*Destroy(FrmScriptEditor)
 	//*)
 }
+
 

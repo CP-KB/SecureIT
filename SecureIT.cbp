@@ -69,6 +69,7 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="icons.rc" />
 		<Unit filename="main.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />

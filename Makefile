@@ -1,10 +1,11 @@
 CC=i386 g++
-CC_WIN=i686-w64-mingw32-g++
+CC_WIN=i686-w64-mingw32-g++ -DWIN32_LEAN_AND_MEAN
+RES_WIN=i686-w64-mingw32-windres
 LINKER=i386 g++
 CPP= main.cpp ModuleSet.cpp Module.cpp Forms/MainWindow.cpp Forms/FrmScriptEditor.cpp Tests.cpp
 OBJS = main.o ModuleSet.o Module.o MainWindow.o FrmScriptEditor.o Tests.o
 OBJSLINUX = $(patsubst %.o, obj/linux/%.o, $(OBJS))
-OBJSWIN = $(patsubst %.o, obj/win/%.o, $(OBJS))
+OBJSWIN = $(patsubst %.o, obj/win/%.o, $(OBJS)) obj/win/icons.rc.o
 OBJDIRLINUX=obj/linux/
 OBJDIRWIN=obj/win/
 DEBUG = -g
@@ -61,13 +62,12 @@ $(OBJDIRLINUX)Module.o: Module.cpp Module.h
 $(OBJDIRLINUX)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Forms/MainWindow.cpp -o $(OBJDIRLINUX)MainWindow.o
 $(OBJDIRLINUX)FrmScriptEditor.o: Forms/FrmScriptEditor.cpp Forms/FrmScriptEditor.h
-	$(CC) $(CFLAGS) $(WXINCLUDES) Forms/FrmScriptEditor.cpp -o $(OBJDIRLINUX)FrmScriptEditor.o
+	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Forms/FrmScriptEditor.cpp -o $(OBJDIRLINUX)FrmScriptEditor.o
 $(OBJDIRLINUX)Tests.o: Tests.cpp Tests.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) Tests.cpp -o $(OBJDIRLINUX)Tests.o
 
 ########	For Windows Build
 $(RELEASE_OUT_WIN): $(OBJSWIN)
-	CC=$(CC_WIN)
 	BOOSTLIBDIR=$(BOOSTLIBWIN)
 	$(CC_WIN) $(OBJSWIN) $(LFLAGSWIN) $(WXLIBSWIN) -o $(RELEASE_OUT_WIN)
 $(OBJDIRWIN)main.o: main.h main.cpp
@@ -86,9 +86,11 @@ $(OBJDIRWIN)Module.o: Module.cpp Module.h
 $(OBJDIRWIN)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Forms/MainWindow.cpp -o $(OBJDIRWIN)MainWindow.o
 $(OBJDIRWIN)FrmScriptEditor.o: Forms/FrmScriptEditor.cpp Forms/FrmScriptEditor.h
-	$(CC_WIN) $(CFLAGS) $(WXINCLUDESWIN) Forms/FrmScriptEditor.cpp -o $(OBJDIRWIN)FrmScriptEditor.o
+	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Forms/FrmScriptEditor.cpp -o $(OBJDIRWIN)FrmScriptEditor.o
 $(OBJDIRWIN)Tests.o: Tests.cpp Tests.h
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) Tests.cpp -o $(OBJDIRWIN)Tests.o
+$(OBJDIRWIN)icons.rc.o:
+	$(RES_WIN) -iicons.rc -o $(OBJDIRWIN)icons.rc.o
 #ReleaseWin.o:
 #
 #	$(CXX_WIN) $(EXTRA_REL) $(CPP) $(WXLIBS) $(WXINCLUDES) $(BOOSTINCDIR) $(BOOSTLIBWIN) $(BOOSTLIBS) -o $(RELEASE_OUT_WIN)

@@ -7,6 +7,7 @@
 #include <wx/button.h>
 #include <wx/menu.h>
 #include <wx/filedlg.h>
+#include <wx/imaglist.h>
 #include <wx/statusbr.h>
 #include <wx/frame.h>
 #include <wx/choice.h>
@@ -24,12 +25,12 @@ class MainWindow: public wxFrame
 		//(*Declarations(MainWindow)
 		wxMenuItem* MenuItem2;
 		wxChoice* osChoice;
+		wxMenu* menuEdit;
 		wxMenuItem* MenuItem1;
 		wxMenu* Menu5;
 		wxFileDialog* openFileDialog;
 		wxMenu* Menu1;
 		wxMenuItem* MenuItem12;
-		wxMenu* Menu3;
 		wxButton* Button1;
 		wxMenuItem* MenuItem3;
 		wxMenuItem* MenuItem9;
@@ -44,7 +45,9 @@ class MainWindow: public wxFrame
 		wxMenuItem* MenuItem13;
 		wxMenu* Menu2;
 		wxFileDialog* saveFIleDialog;
+		wxImageList* m_pImageList;
 		wxMenuItem* MenuItem8;
+		wxMenuItem* MenuItem14;
 		wxListCtrl* mainListCtrl;
 		//*)
 
@@ -58,8 +61,9 @@ class MainWindow: public wxFrame
 		static const long Menu_File_Save;
 		static const long Menu_File_SaveAs;
 		static const long Menu_File_Exit;
-		static const long ID_MENUITEM7;
-		static const long ID_MENUITEM8;
+		static const long Menu_New_ScanModule;
+		static const long Menu_New_ActionModule;
+		static const long Menu_Module_Edit;
 		static const long Menu_Help_About;
 		static const long ID_MENUITEM1;
 		static const long ID_MENUITEM2;
@@ -81,8 +85,10 @@ class MainWindow: public wxFrame
 		void OnTestGenList(wxCommandEvent& event);
 		void OnTestStyleText(wxCommandEvent& event);
 		void OnNewScanModule(wxCommandEvent& event);
+		void OnEditModule(wxCommandEvent& event);
+		void OnmainListCtrlItemRClick(wxListEvent& event);
 		//*)
-
+        void OnContextMenu(wxContextMenuEvent& event);
 		DECLARE_EVENT_TABLE()
         void GenerateList();
 };

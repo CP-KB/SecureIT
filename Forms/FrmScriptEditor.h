@@ -2,29 +2,30 @@
 #define FRMSCRIPTEDITOR_H
 
 //(*Headers(FrmScriptEditor)
+#include <wx/combobox.h>
 #include <wx/sizer.h>
-#include <wx/notebook.h>
 #include <wx/button.h>
 #include <wx/panel.h>
-#include <wx/choicebk.h>
 #include <wx/frame.h>
 #include <wx/aui/aui.h>
 #include <wx/choice.h>
 //*)
 #include <wx/stc/stc.h>
 #include <wx/settings.h>
+#include "../Module.h"
 
 class FrmScriptEditor: public wxFrame
 {
 	public:
 
 		FrmScriptEditor(wxWindow* parent,wxWindowID id=wxID_ANY);
+		FrmScriptEditor(wxWindow* parent, Module *objModule);
 		virtual ~FrmScriptEditor();
 
 		//(*Declarations(FrmScriptEditor)
 		wxChoice* choiceOS;
 		wxPanel* Panel1;
-		wxChoicebook* Choicebook1;
+		wxComboBox* comboProperty;
 		wxButton* Button2;
 		wxButton* Button3;
 		wxPanel* Panel2;
@@ -40,7 +41,7 @@ class FrmScriptEditor: public wxFrame
 		static const long ID_BUTTON1;
 		static const long ID_CHOICE1;
 		static const long ID_BUTTON2;
-		static const long ID_CHOICEBOOK1;
+		static const long ID_COMBOBOX1;
 		static const long ID_BUTTON3;
 		static const long ID_PANEL1;
 		static const long ID_PANEL2;
@@ -52,9 +53,12 @@ class FrmScriptEditor: public wxFrame
 	private:
 
 		//(*Handlers(FrmScriptEditor)
+		void OnClose(wxCloseEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()
+
+		Module *moduleCurrent;
 };
 
 #endif
