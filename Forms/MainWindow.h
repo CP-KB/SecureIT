@@ -91,6 +91,7 @@ class MainWindow: public wxFrame
         void OnContextMenu(wxContextMenuEvent& event);
 		DECLARE_EVENT_TABLE()
         void GenerateList();
+        long int idLastClickedListItem;
 };
 
 

@@ -274,13 +274,16 @@ void MainWindow::OnNewScanModule(wxCommandEvent& event)
 void MainWindow::OnEditModule(wxCommandEvent& event)
 {
     std::cout << "Edit Module Selected - ID: " << event.GetInt() << "\n";
-
+    FrmScriptEditor * editor = new FrmScriptEditor(this);//&mainSet.Modules[0]);
+    editor->SetModule(&mainSet.Modules[idLastClickedListItem]);
+    editor->Show(true);
 }
 
 void MainWindow::OnmainListCtrlItemRClick(wxListEvent& event)
 {
     //wxMenu *
     std::cout << "Right Click - ID: " << event.GetIndex() << "\n";
+    idLastClickedListItem= event.GetIndex();
     wxMenu popupmenu;
     //popupmenu.Append(Menu_Module_Edit, "&Edit Module");
     //PopupMenu(&popupmenu,0,0);

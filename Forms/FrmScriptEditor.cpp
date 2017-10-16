@@ -22,16 +22,18 @@ BEGIN_EVENT_TABLE(FrmScriptEditor,wxFrame)
 	//(*EventTable(FrmScriptEditor)
 	//*)
 END_EVENT_TABLE()
-FrmScriptEditor::FrmScriptEditor(wxWindow* parent, Module *objModule)
+void FrmScriptEditor::SetModule(Module *objModule)
 {
-    FrmScriptEditor(parent,wxID_ANY);
+    //FrmScriptEditor(parent,wxID_ANY);
     this->moduleCurrent=objModule;
     mainStyledTextBox->SetText(moduleCurrent->Script);
     this->SetTitle(moduleCurrent->Name);
+    //this->SetLabel(moduleCurrent->Name);
 }
 FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 {
 	//(*Initialize(FrmScriptEditor)
+	wxBoxSizer* BoxSizer3;
 	wxBoxSizer* BoxSizer2;
 	wxBoxSizer* BoxSizer1;
 
@@ -67,11 +69,26 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 	Panel2 = new wxPanel(AuiNotebook1, ID_PANEL2, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL2"));
 	Panel3 = new wxPanel(AuiNotebook1, ID_PANEL3, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL3"));
 	Panel4 = new wxPanel(AuiNotebook1, ID_PANEL4, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL4"));
+	BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
+	Panel4->SetSizer(BoxSizer3);
+	BoxSizer3->Fit(Panel4);
+	BoxSizer3->SetSizeHints(Panel4);
 	AuiNotebook1->AddPage(Panel1, _("Code"));
 	AuiNotebook1->AddPage(Panel2, _("UnCode"));
 	AuiNotebook1->AddPage(Panel3, _("Options"));
 	AuiNotebook1->AddPage(Panel4, _("Config"));
+
+	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FrmScriptEditor::OnBtnSave);
 	//*)
+
+    pg = new wxPropertyGrid(Panel4,wxID_ANY,wxDefaultPosition,wxSize(400,400),
+                        wxPG_SPLITTER_AUTO_CENTER |
+                        wxPG_BOLD_MODIFIED );
+    //m_pg = pg;
+
+    pg->Append( new wxStringProperty(wxT("String Property"), wxPG_LABEL) );
+    pg->Append( new wxIntProperty(wxT("Int Property"), wxPG_LABEL) );
+    pg->Append( new wxBoolProperty(wxT("Bool Property"), wxPG_LABEL) );
 
     mainStyledTextBox = new wxStyledTextCtrl( Panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
 	mainStyledTextBox->SetUseTabs( true );
@@ -124,6 +141,7 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
     mainStyledTextBox->StyleSetForeground(wxSTC_C_WORD, wxColor(0, 0, 255));
 
 	BoxSizer1->Add( mainStyledTextBox, 1, wxALL|wxEXPAND, 0 ); //5)
+	//BoxSizer3->Add( pg, 1, wxALL|wxEXPAND, 0);
 
 }
 
@@ -134,3 +152,13 @@ FrmScriptEditor::~FrmScriptEditor()
 }
 
 
+
+void FrmScriptEditor::OnBtnSave(wxCommandEvent& event)
+{
+    SaveModule();
+}
+
+void FrmScriptEditor::SaveModule()
+{
+    moduleCurrent->Script=mainStyledTextBox->GetText();
+}

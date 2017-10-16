@@ -10,6 +10,8 @@
 #include <wx/aui/aui.h>
 #include <wx/choice.h>
 //*)
+#include "wx/propgrid/propgrid.h"
+#include "wx/propgrid/advprops.h"
 #include <wx/stc/stc.h>
 #include <wx/settings.h>
 #include "../Module.h"
@@ -19,7 +21,8 @@ class FrmScriptEditor: public wxFrame
 	public:
 
 		FrmScriptEditor(wxWindow* parent,wxWindowID id=wxID_ANY);
-		FrmScriptEditor(wxWindow* parent, Module *objModule);
+		void SetModule(Module *objModule);
+		void SaveModule();
 		virtual ~FrmScriptEditor();
 
 		//(*Declarations(FrmScriptEditor)
@@ -34,6 +37,7 @@ class FrmScriptEditor: public wxFrame
 		wxPanel* Panel3;
 		wxButton* btnSave;
 		//*)
+		wxPropertyGrid *pg;
         wxStyledTextCtrl *mainStyledTextBox;
 	protected:
 
@@ -54,6 +58,7 @@ class FrmScriptEditor: public wxFrame
 
 		//(*Handlers(FrmScriptEditor)
 		void OnClose(wxCloseEvent& event);
+		void OnBtnSave(wxCommandEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()
