@@ -2,7 +2,8 @@ https://wiki.wxwidgets.org/Cross-Compiling_Under_Linux
 
 
 My System windows config:
-../configure --prefix=/usr/lib/gcc/i686-w64-mingw32/7.2.0/ --host=i686-w64-mingw32 --build=x86_64-linux CFLAGS=-I/usr/x86_64-w64-mingw32/sys-root/mingw/include/ --disable-shared
+#not working# ../configure --prefix=/usr/lib/gcc/i686-w64-mingw32/7.2.0/ --host=i686-w64-mingw32 --build=x86_64-linux CFLAGS=-I/usr/x86_64-w64-mingw32/sys-root/mingw/include/ --disable-shared
+../configure CC='gcc -m32' CXX='g++ -m32' --host=i586-linux --build=x86_64-linux --disable-shared --enable-unicode
 
 My Windows boost config
 echo "using gcc : : i686-w64-mingw32-g++ ;" > user-config.jam
