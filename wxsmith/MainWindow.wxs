@@ -46,15 +46,16 @@
 		<object class="wxMenuBar" variable="mainMenuBar" member="no">
 			<object class="wxMenu" variable="Menu1" member="yes">
 				<label>&amp;File</label>
-				<object class="wxMenuItem" name="Menu_File_Open" variable="MenuItem3" member="yes">
+				<object class="wxMenuItem" name="Menu_File_Open" variable="btnOpen" member="yes">
 					<label>Open</label>
 					<handler function="OnFileOpen" entry="EVT_MENU" />
 				</object>
-				<object class="wxMenuItem" name="Menu_File_Save" variable="MenuItem4" member="yes">
+				<object class="wxMenuItem" name="Menu_File_Save" variable="btnSave" member="yes">
 					<label>Save</label>
 				</object>
-				<object class="wxMenuItem" name="Menu_File_SaveAs" variable="MenuItem5" member="yes">
+				<object class="wxMenuItem" name="Menu_File_SaveAs" variable="btnSaveAs" member="yes">
 					<label>Save As</label>
+					<handler function="OnSaveAs" entry="EVT_MENU" />
 				</object>
 				<object class="separator" />
 				<object class="wxMenuItem" name="Menu_File_Exit" variable="MenuItem1" member="yes">
@@ -120,11 +121,12 @@
 		</object>
 		<object class="wxFileDialog" variable="openFileDialog" member="yes">
 			<message>Select files</message>
-			<wildcard>XYZ files (*.xyz)|*.xyz</wildcard>
+			<wildcard>XML and BIN files (*.xml;*.bin)|*.xml;*.bin</wildcard>
 			<style>wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE</style>
 		</object>
-		<object class="wxFileDialog" variable="saveFIleDialog" member="yes">
+		<object class="wxFileDialog" variable="saveFileDialog" member="yes">
 			<message>Select file</message>
+			<wildcard>XML files (*.xml)|*.xml|BIN files (*.bin)|*.bin,</wildcard>
 			<style>wxFD_SAVE</style>
 		</object>
 		<object class="wxImageList" variable="m_pImageList" member="yes">

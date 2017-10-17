@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include <boost/filesystem.hpp>
 
 //(*InternalHeaders(MainWindow)
 #include <wx/string.h>
@@ -68,12 +69,12 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	SetSizer(BoxSizer1);
 	mainMenuBar = new wxMenuBar();
 	Menu1 = new wxMenu();
-	MenuItem3 = new wxMenuItem(Menu1, Menu_File_Open, _("Open"), wxEmptyString, wxITEM_NORMAL);
-	Menu1->Append(MenuItem3);
-	MenuItem4 = new wxMenuItem(Menu1, Menu_File_Save, _("Save"), wxEmptyString, wxITEM_NORMAL);
-	Menu1->Append(MenuItem4);
-	MenuItem5 = new wxMenuItem(Menu1, Menu_File_SaveAs, _("Save As"), wxEmptyString, wxITEM_NORMAL);
-	Menu1->Append(MenuItem5);
+	btnOpen = new wxMenuItem(Menu1, Menu_File_Open, _("Open"), wxEmptyString, wxITEM_NORMAL);
+	Menu1->Append(btnOpen);
+	btnSave = new wxMenuItem(Menu1, Menu_File_Save, _("Save"), wxEmptyString, wxITEM_NORMAL);
+	Menu1->Append(btnSave);
+	btnSaveAs = new wxMenuItem(Menu1, Menu_File_SaveAs, _("Save As"), wxEmptyString, wxITEM_NORMAL);
+	Menu1->Append(btnSaveAs);
 	Menu1->AppendSeparator();
 	MenuItem1 = new wxMenuItem(Menu1, Menu_File_Exit, _("Exit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
@@ -113,8 +114,8 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	StatusBar->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar);
-	openFileDialog = new wxFileDialog(this, _("Select files"), wxEmptyString, wxEmptyString, _("XYZ files (*.xyz)|*.xyz"), wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
-	saveFIleDialog = new wxFileDialog(this, _("Select file"), wxEmptyString, wxEmptyString, wxFileSelectorDefaultWildcardStr, wxFD_SAVE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
+	openFileDialog = new wxFileDialog(this, _("Select files"), wxEmptyString, wxEmptyString, _("XML and BIN files (*.xml;*.bin)|*.xml;*.bin"), wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
+	saveFileDialog = new wxFileDialog(this, _("Select file"), wxEmptyString, wxEmptyString, _("XML files (*.xml)|*.xml|BIN files (*.bin)|*.bin,"), wxFD_SAVE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
 	m_pImageList = new wxImageList(16, 16, 1);
 	SetSizer(BoxSizer1);
 	Layout();
@@ -122,6 +123,7 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 
 	Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK,(wxObjectEventFunction)&MainWindow::OnmainListCtrlItemRClick);
 	Connect(Menu_File_Open,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnFileOpen);
+	Connect(Menu_File_SaveAs,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnSaveAs);
 	Connect(Menu_New_ScanModule,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnNewScanModule);
 	Connect(Menu_Module_Edit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnEditModule);
 	Connect(Menu_Help_About,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnAbout);
@@ -229,6 +231,11 @@ void MainWindow::OnFileOpen(wxCommandEvent& event)
         //wxFileDialog openFileDialog(this, _("Open XYZ file"), "", "", "XYZ files (*.xyz)|*.xyz", wxFD_OPEN|wxFD_FILE_MUST_EXIST|wxFD_MULTIPLE);
     if (openFileDialog->ShowModal() == wxID_CANCEL)
         return;     // the user changed idea...
+    if(boost::filesystem::path(openFileDialog->GetPath()).extension()==".xml" || boost::filesystem::path(openFileDialog->GetPath()).extension()==".XML")
+            loadModuleSetXML(mainSet, openFileDialog->GetPath());
+    if(boost::filesystem::path(openFileDialog->GetPath()).extension()==".bin" || boost::filesystem::path(openFileDialog->GetPath()).extension()==".BIN")
+            loadModuleSetBIN(mainSet, openFileDialog->GetPath());
+    GenerateList();
 }
 
 void MainWindow::OnTestGenList(wxCommandEvent& event)
@@ -267,6 +274,10 @@ void MainWindow::OnNewScanModule(wxCommandEvent& event)
     Module newmodule;
     newmodule.Name="New Module";
     newmodule.Description="Add Description";
+    newmodule.bComplete=false;
+    newmodule.bRunning=false;
+    newmodule.bSelected=false;
+    newmodule.os.push_back("Generic");
     mainSet.Modules.push_back(newmodule);
     GenerateList();
 }
@@ -301,4 +312,15 @@ void MainWindow::OnmainListCtrlItemRClick(wxListEvent& event)
 void MainWindow::OnContextMenu(wxContextMenuEvent& event)
 {
 
+}
+
+void MainWindow::OnSaveAs(wxCommandEvent& event)
+{
+    if(saveFileDialog->ShowModal() == wxID_CANCEL)
+        return;     // the user changed idea...
+    if(boost::filesystem::path(saveFileDialog->GetPath()).extension()==".xml" || boost::filesystem::path(saveFileDialog->GetPath()).extension()==".XML")
+            saveModuleSetXML(mainSet, saveFileDialog->GetPath());
+    if(boost::filesystem::path(saveFileDialog->GetPath()).extension()==".bin" || boost::filesystem::path(saveFileDialog->GetPath()).extension()==".BIN")
+            saveModuleSetBIN(mainSet, saveFileDialog->GetPath());
+    //saveModuleSetXML(mainSet,saveFileDialog->GetPath());
 }

@@ -41,12 +41,14 @@ class Module
         std::string Description;
         std::vector<std::string> os;
         std::string Script;
+        std::string UnScript;
         std::string ScriptType;
 
         std::vector<std::pair<std::string, std::string> > scan_variable;
         std::vector<std::pair<std::string, std::string> > result_variable;
         std::string result;
 
+        bool bSelected;
         bool bComplete;
         bool bRunning;
 

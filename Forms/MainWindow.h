@@ -27,24 +27,24 @@ class MainWindow: public wxFrame
 		wxChoice* osChoice;
 		wxMenu* menuEdit;
 		wxMenuItem* MenuItem1;
+		wxFileDialog* saveFileDialog;
 		wxMenu* Menu5;
 		wxFileDialog* openFileDialog;
 		wxMenu* Menu1;
 		wxMenuItem* MenuItem12;
 		wxButton* Button1;
-		wxMenuItem* MenuItem3;
+		wxMenuItem* btnSaveAs;
 		wxMenuItem* MenuItem9;
 		wxMenu* Menu4;
 		wxMenuItem* MenuItem11;
-		wxMenuItem* MenuItem5;
+		wxMenuItem* btnSave;
 		wxMenuItem* MenuItem10;
+		wxMenuItem* btnOpen;
 		wxMenuItem* MenuItem7;
 		wxMenuItem* MenuItem6;
-		wxMenuItem* MenuItem4;
 		wxStatusBar* StatusBar;
 		wxMenuItem* MenuItem13;
 		wxMenu* Menu2;
-		wxFileDialog* saveFIleDialog;
 		wxImageList* m_pImageList;
 		wxMenuItem* MenuItem8;
 		wxMenuItem* MenuItem14;
@@ -87,6 +87,7 @@ class MainWindow: public wxFrame
 		void OnNewScanModule(wxCommandEvent& event);
 		void OnEditModule(wxCommandEvent& event);
 		void OnmainListCtrlItemRClick(wxListEvent& event);
+		void OnSaveAs(wxCommandEvent& event);
 		//*)
         void OnContextMenu(wxContextMenuEvent& event);
 		DECLARE_EVENT_TABLE()

@@ -80,7 +80,9 @@
 				<label>Options</label>
 			</object>
 			<object class="AuiNotebookPage">
-				<object class="wxPanel" name="ID_PANEL4" variable="Panel4" member="yes" />
+				<object class="wxPanel" name="ID_PANEL4" variable="Panel4" member="yes">
+					<object class="wxBoxSizer" variable="BoxSizer3" member="no" />
+				</object>
 				<label>Config</label>
 			</object>
 		</object>

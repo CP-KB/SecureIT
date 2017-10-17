@@ -56,7 +56,10 @@ template<class Archive> void Module::serialize(Archive & ar, const unsigned int 
         ar  & BOOST_SERIALIZATION_NVP(Name)
             & BOOST_SERIALIZATION_NVP(Description)
             & BOOST_SERIALIZATION_NVP(os)
+            & BOOST_SERIALIZATION_NVP(bSelected)
+            & BOOST_SERIALIZATION_NVP(bComplete)
             & BOOST_SERIALIZATION_NVP(Script)
+            & BOOST_SERIALIZATION_NVP(UnScript)
             & BOOST_SERIALIZATION_NVP(ScriptType)
             & BOOST_SERIALIZATION_NVP(scan_variable);
             //& BOOST_SERIALIZATION_NVP(result_variable)
