@@ -90,6 +90,8 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
     pg->Append( new wxIntProperty(wxT("Int Property"), wxPG_LABEL) );
     pg->Append( new wxBoolProperty(wxT("Bool Property"), wxPG_LABEL) );
 
+    Connect(pg->GetId(), wxEVT_PG_CHANGED, (wxObjectEventFunction)&FrmScriptEditor::OnPropertyGridChange) ;
+
     mainStyledTextBox = new wxStyledTextCtrl( Panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, wxEmptyString );
 	mainStyledTextBox->SetUseTabs( true );
 	mainStyledTextBox->SetTabWidth( 4 );
@@ -161,4 +163,8 @@ void FrmScriptEditor::OnBtnSave(wxCommandEvent& event)
 void FrmScriptEditor::SaveModule()
 {
     moduleCurrent->Script=mainStyledTextBox->GetText();
+}
+void FrmScriptEditor::OnPropertyGridChange(wxPropertyGridEvent& event)
+{
+    std::cout << "Properties have been changed.\n";
 }

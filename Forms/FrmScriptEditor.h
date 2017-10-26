@@ -61,6 +61,9 @@ class FrmScriptEditor: public wxFrame
 		void OnBtnSave(wxCommandEvent& event);
 		//*)
 
+        void OnPropertyGridChange(wxPropertyGridEvent& event);
+        void OnPropertyGridChanging(wxPropertyGridEvent& event);
+
 		DECLARE_EVENT_TABLE()
 
 		Module *moduleCurrent;
