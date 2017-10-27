@@ -86,9 +86,18 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
                         wxPG_BOLD_MODIFIED );
     //m_pg = pg;
 
-    pg->Append( new wxStringProperty(wxT("String Property"), wxPG_LABEL) );
+    /*pg->Append( new wxStringProperty(wxT("String Property"), wxPG_LABEL) );
     pg->Append( new wxIntProperty(wxT("Int Property"), wxPG_LABEL) );
-    pg->Append( new wxBoolProperty(wxT("Bool Property"), wxPG_LABEL) );
+    pg->Append( new wxBoolProperty(wxT("Bool Property"), wxPG_LABEL) );*/
+
+    pg->Append( new wxStringProperty(wxT("Name"), wxPG_LABEL) );
+    pg->Append( new wxStringProperty(wxT("Description"), wxPG_LABEL) );
+    pg->Append( new wxStringProperty(wxT("Script Extension"), wxPG_LABEL) );
+    pg->Append( new wxIntProperty(wxT("Type"), wxPG_LABEL) );
+    pg->Append( new wxBoolProperty(wxT("bCompleted"), wxPG_LABEL) );
+    pg->Append( new wxBoolProperty(wxT("bSuccess"), wxPG_LABEL) );
+    pg->Append( new wxBoolProperty(wxT("bFailure"), wxPG_LABEL) );
+    pg->Append( new wxBoolProperty(wxT("bSelected"), wxPG_LABEL) );
 
     Connect(pg->GetId(), wxEVT_PG_CHANGED, (wxObjectEventFunction)&FrmScriptEditor::OnPropertyGridChange) ;
 

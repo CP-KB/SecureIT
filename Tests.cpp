@@ -93,7 +93,7 @@ Module Testing::genTestModule()
     ms.Name="Test Module";
     ms.Description="This is a module used only for testing purposes.";
     ms.os.push_back("Windows XP"); ms.os.push_back("Windows Vista");
-    ms.scan_variable.push_back(std::pair<std::string, std::string>("Test","test"));
+    ms.input_variables.push_back(std::pair<std::string, std::string>("Test","test"));
     ms.Script="#!/bin/bash\necho \"hello world\\n\"";
     return ms;
 }

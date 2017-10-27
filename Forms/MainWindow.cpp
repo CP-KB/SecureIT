@@ -195,29 +195,62 @@ void MainWindow::GenerateList()
     wxListItem ListItem;
     mainListCtrl->AppendColumn("Name");
     mainListCtrl->AppendColumn("Description");
-
+    mainListCtrl->AppendColumn("Status");
+    mainListCtrl->AppendColumn("Type");
     wxIcon icon;
     icon.LoadFile(wxT("Imgs/NotStartedSignal.xpm"), wxBITMAP_TYPE_XPM);
     m_pImageList->Add(icon);
+    icon.LoadFile(wxT("Imgs/RunningSignal.xpm"), wxBITMAP_TYPE_XPM);
+        m_pImageList->Add(icon);
+    icon.LoadFile(wxT("Imgs/SuccessSignal.xpm"), wxBITMAP_TYPE_XPM);
+        m_pImageList->Add(icon);
+    icon.LoadFile(wxT("Imgs/ErrorSignal.xpm"), wxBITMAP_TYPE_XPM);
+        m_pImageList->Add(icon);
+    icon.LoadFile(wxT("Imgs/ScanIcon.xpm"), wxBITMAP_TYPE_XPM);
+        m_pImageList->Add(icon);
+    icon.LoadFile(wxT("Imgs/ActionIcon.xpm"), wxBITMAP_TYPE_XPM);
+        m_pImageList->Add(icon);
     mainListCtrl->SetImageList(m_pImageList, wxIMAGE_LIST_SMALL);
     for (unsigned int i=0; i<mainSet.Modules.size(); i++)
     {
         ListItem.SetText(mainSet.Modules[i].Name);
-        ListItem.SetImage(0);
+        //ListItem.SetImage(0);
         ListItem.SetColumn(0);
         ListItem.SetId(0);
         mainListCtrl->InsertItem(ListItem);
         //long iListItem=mainListCtrl->InsertItem(0,mainSet.Modules[i].Name); //WxListCtrl1->SetItem(itemIndex, 1, "18:00"); //want this for col. 2
         ListItem.SetText(mainSet.Modules[i].Description);
-        ListItem.SetImage(0);
         ListItem.SetColumn(1);
         ListItem.SetId(0);
         mainListCtrl->SetItem(ListItem);
         //mainListCtrl->SetItem(iListItem,1,mainSet.Modules[i].Description);
-
+        ListItem.SetText("Unused");
+        ListItem.SetImage(0);
+        ListItem.SetColumn(2); // Status column
+        ListItem.SetId(0);
+        mainListCtrl->SetItem(ListItem);
         //wxImageList *m_pImageList = new wxImageList(16,16);
-
-
+        switch(mainSet.Modules[i].Type)
+        {
+            case 1:
+                ListItem.SetText("Scan");
+                ListItem.SetImage(4);
+                break;
+            case 2:
+                ListItem.SetText("Action");
+                ListItem.SetImage(5);
+                break;
+            case 3:
+                ListItem.SetText("Other");
+                break;
+            default:
+                ListItem.SetText("Unknown");
+                break;
+        }
+        ListItem.SetColumn(3); // Type column
+        ListItem.SetId(0);
+        mainListCtrl->SetItem(ListItem);
+        new (&ListItem) wxListItem;
 
         //mainListCtrl->SetItemImage(iListItem, 0);
         //mainListCtrl->SetItemImage(iListItem, 0);
@@ -277,6 +310,7 @@ void MainWindow::OnNewScanModule(wxCommandEvent& event)
     newmodule.bComplete=false;
     newmodule.bRunning=false;
     newmodule.bSelected=false;
+    newmodule.Type=1; //scan module
     newmodule.os.push_back("Generic");
     mainSet.Modules.push_back(newmodule);
     GenerateList();
