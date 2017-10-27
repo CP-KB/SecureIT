@@ -47,8 +47,8 @@ int Module::Execute() //make and change executable bit on script -> execute it
 
     return 0;
 }
-Module::Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _scan_variable ) :
-    Name(_name), Description(_description), os(_os), scan_variable(_scan_variable)
+Module::Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _input_variables ) :
+    Name(_name), Description(_description), os(_os), input_variables(_input_variables)
 {}
 
 template<class Archive> void Module::serialize(Archive & ar, const unsigned int /* file_version */)
@@ -60,8 +60,9 @@ template<class Archive> void Module::serialize(Archive & ar, const unsigned int 
             & BOOST_SERIALIZATION_NVP(bComplete)
             & BOOST_SERIALIZATION_NVP(Script)
             & BOOST_SERIALIZATION_NVP(UnScript)
-            & BOOST_SERIALIZATION_NVP(ScriptType)
-            & BOOST_SERIALIZATION_NVP(scan_variable);
+            & BOOST_SERIALIZATION_NVP(ScriptExtension)
+            & BOOST_SERIALIZATION_NVP(input_variables)
+            & BOOST_SERIALIZATION_NVP(output_variables);
             //& BOOST_SERIALIZATION_NVP(result_variable)
             //& BOOST_SERIALIZATION_NVP(result)
 

@@ -42,15 +42,18 @@ class Module
         std::vector<std::string> os;
         std::string Script;
         std::string UnScript;
-        std::string ScriptType;
+        std::string ScriptExtension;
+        unsigned char Type;
 
-        std::vector<std::pair<std::string, std::string> > scan_variable;
-        std::vector<std::pair<std::string, std::string> > result_variable;
+        std::vector<std::pair<std::string, std::string> > input_variables;
+        std::vector<std::pair<std::string, std::string> > output_variables;
         std::string result;
 
         bool bSelected;
         bool bComplete;
         bool bRunning;
+        bool bSuccess;
+        bool bFailure;
 
         int Execute();
         std::string GetParsedScript;
