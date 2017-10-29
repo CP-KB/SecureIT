@@ -44,7 +44,7 @@ int Module::Execute() //make and change executable bit on script -> execute it
     //boost::process::child c("chmod +x test.sh", boost::process::std_out > pipe_stream);
     boost::process::system("chmod +x " + sfilename);
     boost::process::system("./" + sfilename);
-
+    boost::process::system("rm ./" + sfilename);
     return 0;
 }
 Module::Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _input_variables ) :
@@ -55,6 +55,7 @@ template<class Archive> void Module::serialize(Archive & ar, const unsigned int 
 {
         ar  & BOOST_SERIALIZATION_NVP(Name)
             & BOOST_SERIALIZATION_NVP(Description)
+            & BOOST_SERIALIZATION_NVP(Type)
             & BOOST_SERIALIZATION_NVP(os)
             & BOOST_SERIALIZATION_NVP(bSelected)
             & BOOST_SERIALIZATION_NVP(bComplete)
