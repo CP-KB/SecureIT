@@ -46,17 +46,17 @@ $(RELEASE_OUT): $(OBJSLINUX)
 	$(CC) $(EXTRA_REL) $(CPP) $(WXLIBS) $(WXINCLUDES) $(BOOSTINCDIR) $(BOOSTLIBDIR) $(BOOSTLIBS) -o $(RELEASE_OUT)
 $(DEBUG_OUT): $(OBJSLINUX)
 	$(LINKER) -o $(DEBUG_OUT) $(OBJSLINUX) $(LFLAGS)
-$(OBJDIRLINUX)main.o: main.h
+$(OBJDIRLINUX)main.o: main.cpp main.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) main.cpp -o $(OBJDIRLINUX)main.o
-$(OBJDIRLINUX)ModuleSet.o: ModuleSet.h Module.h Constants.hpp
+$(OBJDIRLINUX)ModuleSet.o: ModuleSet.cpp ModuleSet.h Module.h Constants.hpp
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) ModuleSet.cpp -o $(OBJDIRLINUX)ModuleSet.o
-$(OBJDIRLINUX)Module.o: Module.h Constants.hpp
+$(OBJDIRLINUX)Module.o: Module.cpp Module.h Constants.hpp
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) Module.cpp -o $(OBJDIRLINUX)Module.o
-$(OBJDIRLINUX)MainWindow.o: Forms/MainWindow.h Forms/FrmScriptEditor.h ModuleSet.h Module.h Constants.hpp Tests.h
+$(OBJDIRLINUX)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h Forms/FrmScriptEditor.h ModuleSet.h Module.h Constants.hpp Tests.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Forms/MainWindow.cpp -o $(OBJDIRLINUX)MainWindow.o
-$(OBJDIRLINUX)FrmScriptEditor.o: Forms/FrmScriptEditor.h Module.h
+$(OBJDIRLINUX)FrmScriptEditor.o: Forms/FrmScriptEditor.cpp Forms/FrmScriptEditor.h Module.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Forms/FrmScriptEditor.cpp -o $(OBJDIRLINUX)FrmScriptEditor.o
-$(OBJDIRLINUX)Tests.o: Tests.h Module.h Constants.hpp
+$(OBJDIRLINUX)Tests.o: Tests.cpp Tests.h Module.h Constants.hpp
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) Tests.cpp -o $(OBJDIRLINUX)Tests.o
 
 ########	For Windows Build
