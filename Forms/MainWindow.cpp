@@ -9,6 +9,7 @@
 //(*IdInit(MainWindow)
 const long MainWindow::ID_OSCHOICE = wxNewId();
 const long MainWindow::ID_BUTTON1 = wxNewId();
+const long MainWindow::ID_BUTTON2 = wxNewId();
 const long MainWindow::ID_LISTCTRL1 = wxNewId();
 const long MainWindow::Menu_File_Open = wxNewId();
 const long MainWindow::Menu_File_Save = wxNewId();
@@ -63,6 +64,8 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	BoxSizer2->Add(osChoice, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
 	Button1 = new wxButton(this, ID_BUTTON1, _("Scan/Actions"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
 	BoxSizer2->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
+	btnRun = new wxButton(this, ID_BUTTON2, _("Run Checked"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+	BoxSizer2->Add(btnRun, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
 	BoxSizer1->Add(BoxSizer2, 0, wxALL|wxALIGN_LEFT, 5);
 	mainListCtrl = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
 	BoxSizer1->Add(mainListCtrl, 1, wxALL|wxEXPAND, 0);
@@ -121,6 +124,7 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	Layout();
 	Center();
 
+	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainWindow::OnRunChecked);
 	Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK,(wxObjectEventFunction)&MainWindow::OnmainListCtrlItemRClick);
 	Connect(Menu_File_Open,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnFileOpen);
 	Connect(Menu_File_SaveAs,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnSaveAs);
@@ -216,18 +220,31 @@ void MainWindow::GenerateList()
         ListItem.SetText(mainSet.Modules[i].Name);
         //ListItem.SetImage(0);
         ListItem.SetColumn(0);
-        ListItem.SetId(0);
+        ListItem.SetId(i);
         mainListCtrl->InsertItem(ListItem);
         //long iListItem=mainListCtrl->InsertItem(0,mainSet.Modules[i].Name); //WxListCtrl1->SetItem(itemIndex, 1, "18:00"); //want this for col. 2
         ListItem.SetText(mainSet.Modules[i].Description);
         ListItem.SetColumn(1);
-        ListItem.SetId(0);
+        ListItem.SetId(i);
         mainListCtrl->SetItem(ListItem);
         //mainListCtrl->SetItem(iListItem,1,mainSet.Modules[i].Description);
         ListItem.SetText("Unused");
-        ListItem.SetImage(0);
+        //***SET THE STATUS IMAGE 0 - not run - 1 - running - 2 - success - 3 -failure
+        if (mainSet.Modules[i].bRunning)
+        {
+            ListItem.SetImage(1);
+        }
+        else if (!mainSet.Modules[i].bComplete)
+        {
+
+            ListItem.SetImage(0);
+        }
+        else if (mainSet.Modules[i].bSuccess)
+        {
+            ListItem.SetImage(2); //Success
+        }
         ListItem.SetColumn(2); // Status column
-        ListItem.SetId(0);
+        ListItem.SetId(i);
         mainListCtrl->SetItem(ListItem);
         //wxImageList *m_pImageList = new wxImageList(16,16);
         switch(mainSet.Modules[i].Type)
@@ -248,7 +265,7 @@ void MainWindow::GenerateList()
                 break;
         }
         ListItem.SetColumn(3); // Type column
-        ListItem.SetId(0);
+        ListItem.SetId(i);
         mainListCtrl->SetItem(ListItem);
         new (&ListItem) wxListItem;
 
@@ -357,4 +374,87 @@ void MainWindow::OnSaveAs(wxCommandEvent& event)
     if(boost::filesystem::path(saveFileDialog->GetPath()).extension()==".bin" || boost::filesystem::path(saveFileDialog->GetPath()).extension()==".BIN")
             saveModuleSetBIN(mainSet, saveFileDialog->GetPath());
     //saveModuleSetXML(mainSet,saveFileDialog->GetPath());
+}
+
+
+void MainWindow::OnRunChecked(wxCommandEvent& event)
+{
+    for (unsigned int i=0; i<mainSet.Modules.size(); i++)
+    {
+        mainSet.Modules[i].bRunning=false;
+        mainSet.Modules[i].bComplete=false;
+        mainSet.Modules[i].bSuccess=false;
+        UpdateListItem(i);
+    }
+    for (unsigned int i=0; i<mainSet.Modules.size(); i++)
+    {
+        mainSet.Modules[i].bRunning=true;
+        mainSet.Modules[i].bComplete=false;
+        mainSet.Modules[i].bSuccess=false;
+        UpdateListItem(i);
+        mainSet.Modules[i].Execute();
+        mainSet.Modules[i].bRunning=false;
+        mainSet.Modules[i].bComplete=true;
+        mainSet.Modules[i].bSuccess=true;
+        UpdateListItem(i);
+    }
+}
+void MainWindow::UpdateListItem(unsigned int i)
+{
+        wxListItem ListItem;
+        ListItem.SetText(mainSet.Modules[i].Name);
+        //ListItem.SetImage(0);
+        ListItem.SetColumn(0);
+        ListItem.SetId(i);
+        mainListCtrl->SetItem(ListItem);
+        //long iListItem=mainListCtrl->InsertItem(0,mainSet.Modules[i].Name); //WxListCtrl1->SetItem(itemIndex, 1, "18:00"); //want this for col. 2
+        ListItem.SetText(mainSet.Modules[i].Description);
+        ListItem.SetColumn(1);
+        ListItem.SetId(i);
+        mainListCtrl->SetItem(ListItem);
+        //mainListCtrl->SetItem(iListItem,1,mainSet.Modules[i].Description);
+
+        //***SET THE STATUS IMAGE 0 - not run - 1 - running - 2 - success - 3 -failure
+        if (mainSet.Modules[i].bRunning)
+        {
+            ListItem.SetImage(1);
+            ListItem.SetText("Running");
+        }
+        else if (!mainSet.Modules[i].bComplete)
+        {
+
+            ListItem.SetImage(0);
+            ListItem.SetText("Unused");
+        }
+        else if (mainSet.Modules[i].bSuccess)
+        {
+            ListItem.SetImage(2); //Success
+            ListItem.SetText("Successful");
+        }
+        ListItem.SetColumn(2); // Status column
+        ListItem.SetId(i);
+        mainListCtrl->SetItem(ListItem);
+        //wxImageList *m_pImageList = new wxImageList(16,16);
+        switch(mainSet.Modules[i].Type)
+        {
+            case 1:
+                ListItem.SetText("Scan");
+                ListItem.SetImage(4);
+                break;
+            case 2:
+                ListItem.SetText("Action");
+                ListItem.SetImage(5);
+                break;
+            case 3:
+                ListItem.SetText("Other");
+                break;
+            default:
+                ListItem.SetText("Unknown");
+                break;
+        }
+        ListItem.SetColumn(3); // Type column
+        ListItem.SetId(i);
+        mainListCtrl->SetItem(ListItem);
+        mainListCtrl->Refresh();
+        mainListCtrl->Update();
 }

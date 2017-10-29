@@ -33,6 +33,7 @@ class MainWindow: public wxFrame
 		wxMenu* Menu1;
 		wxMenuItem* MenuItem12;
 		wxButton* Button1;
+		wxButton* btnRun;
 		wxMenuItem* btnSaveAs;
 		wxMenuItem* MenuItem9;
 		wxMenu* Menu4;
@@ -56,6 +57,7 @@ class MainWindow: public wxFrame
 		//(*Identifiers(MainWindow)
 		static const long ID_OSCHOICE;
 		static const long ID_BUTTON1;
+		static const long ID_BUTTON2;
 		static const long ID_LISTCTRL1;
 		static const long Menu_File_Open;
 		static const long Menu_File_Save;
@@ -88,10 +90,13 @@ class MainWindow: public wxFrame
 		void OnEditModule(wxCommandEvent& event);
 		void OnmainListCtrlItemRClick(wxListEvent& event);
 		void OnSaveAs(wxCommandEvent& event);
+		void OnButton2Click(wxCommandEvent& event);
+		void OnRunChecked(wxCommandEvent& event);
 		//*)
         void OnContextMenu(wxContextMenuEvent& event);
 		DECLARE_EVENT_TABLE()
         void GenerateList();
+        void UpdateListItem(unsigned int i);
         long int idLastClickedListItem;
 };
 
