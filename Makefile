@@ -2,8 +2,8 @@ CC=i386 g++
 CC_WIN=i686-w64-mingw32-g++ -DWIN32_LEAN_AND_MEAN
 RES_WIN=i686-w64-mingw32-windres
 LINKER=i386 g++
-CPP= main.cpp ModuleSet.cpp Module.cpp Forms/MainWindow.cpp Forms/FrmScriptEditor.cpp Tests.cpp
-OBJS = main.o ModuleSet.o Module.o MainWindow.o FrmScriptEditor.o Tests.o
+CPP= main.cpp ModuleSet.cpp Module.cpp Forms/MainWindow.cpp Forms/FrmScriptEditor.cpp Tests.cpp ExecuteTimer.cpp
+OBJS = main.o ModuleSet.o Module.o MainWindow.o FrmScriptEditor.o Tests.o ExecuteTimer.o
 OBJSLINUX = $(patsubst %.o, obj/linux/%.o, $(OBJS))
 OBJSWIN = $(patsubst %.o, obj/win/%.o, $(OBJS)) obj/win/icons.rc.o
 OBJDIRLINUX=obj/linux/
@@ -56,6 +56,8 @@ $(OBJDIRLINUX)MainWindow.o: Forms/MainWindow.cpp Forms/MainWindow.h Forms/FrmScr
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Forms/MainWindow.cpp -o $(OBJDIRLINUX)MainWindow.o
 $(OBJDIRLINUX)FrmScriptEditor.o: Forms/FrmScriptEditor.cpp Forms/FrmScriptEditor.h Module.h
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) Forms/FrmScriptEditor.cpp -o $(OBJDIRLINUX)FrmScriptEditor.o
+$(OBJDIRLINUX)ExecuteTimer.o: ExecuteTimer.cpp ExecuteTimer.h
+	$(CC) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDES) ExecuteTimer.cpp -o $(OBJDIRLINUX)ExecuteTimer.o
 $(OBJDIRLINUX)Tests.o: Tests.cpp Tests.h Module.h Constants.hpp
 	$(CC) $(CFLAGS) $(BOOSTINCDIR) Tests.cpp -o $(OBJDIRLINUX)Tests.o
 
