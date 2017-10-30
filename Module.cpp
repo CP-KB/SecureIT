@@ -36,14 +36,17 @@ int Module::Execute() //make and change executable bit on script -> execute it
         ofs.close();
     }
 
+    boost::process::system("chmod +x " + sfilename); //make script executable
 
+    boost::asio::io_service ios;
+    //boost::process::child c("chmod +x test.sh", boost::process::std_out > pipe_stream);
 
     //boost::process::ipstream pipe_stream;
     //boost::process::ipstream pipe_stream2;
 	//gcc --version
     //boost::process::child c("chmod +x test.sh", boost::process::std_out > pipe_stream);
-    boost::process::system("chmod +x " + sfilename);
-    boost::process::system("./" + sfilename);
+
+    boost::process::system("./" + sfilename); //execute script
     boost::process::system("rm ./" + sfilename);
     return 0;
 }

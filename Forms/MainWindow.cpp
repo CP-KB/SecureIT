@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include <boost/filesystem.hpp>
+#include "../ExecuteTimer.h"
 
 //(*InternalHeaders(MainWindow)
 #include <wx/string.h>
@@ -147,11 +148,9 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
         //m_pImageList->Add(RunningSignal_xpm);
     #endif // wxHAS_IMAGES_IN_RESOURCES
 
-
     /*//MY own non generated CODE
     // Set the lexer to the C++ lexer
     mainStyledTextBox->SetLexer(wxSTC_LEX_BASH);
-    std::cout << "Hi, is this working\n";
 
     // Set the color to use for various elements
     mainStyledTextBox->StyleSetForeground(wxSTC_C_COMMENTLINE, wxColor(60, 162, 2));
@@ -164,6 +163,8 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
     mainUnCodeStyledTextBox->StyleSetForeground(wxSTC_C_PREPROCESSOR, wxColor(0, 0, 255));
     mainUnCodeStyledTextBox->StyleSetForeground(wxSTC_C_STRING, wxColor(255, 60, 10));
     mainUnCodeStyledTextBox->StyleSetForeground(wxSTC_C_WORD, wxColor(0, 0, 255));*/
+
+    mainTimer = new ExecuteTimer(this);
 }
 
 MainWindow::~MainWindow()
@@ -379,6 +380,7 @@ void MainWindow::OnSaveAs(wxCommandEvent& event)
 
 void MainWindow::OnRunChecked(wxCommandEvent& event)
 {
+    mainTimer->Start();
     for (unsigned int i=0; i<mainSet.Modules.size(); i++)
     {
         mainSet.Modules[i].bRunning=false;

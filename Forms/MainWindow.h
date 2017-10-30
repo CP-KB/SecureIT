@@ -15,6 +15,9 @@
 #include "../ModuleSet.h"
 #include "../Tests.h"
 #include "FrmScriptEditor.h"
+//#include "../ExecuteTimer.h"
+
+class ExecuteTimer;
 class MainWindow: public wxFrame
 {
 	public:
@@ -93,11 +96,13 @@ class MainWindow: public wxFrame
 		void OnButton2Click(wxCommandEvent& event);
 		void OnRunChecked(wxCommandEvent& event);
 		//*)
+		ExecuteTimer *mainTimer;
         void OnContextMenu(wxContextMenuEvent& event);
 		DECLARE_EVENT_TABLE()
         void GenerateList();
         void UpdateListItem(unsigned int i);
         long int idLastClickedListItem;
+
 };
 
 
