@@ -23,11 +23,13 @@ bool gen_scanrun_directory()
 		return true;
 	}
 }
-int Module::Execute() //make and change executable bit on script -> execute it
+int Module::Execute(unsigned int id) //make and change executable bit on script -> execute it
 {
     gen_scanrun_directory();
     std::string sfilename;
-    sfilename= "run/scans/" + gen_random_string(8) + ".sh";
+    std::string file = std::to_string(id);
+    //file osfile.str();
+    sfilename= "run/scans/" + file + ".sh";//gen_random_string(8) + ".sh";
     if (!std::ifstream(sfilename)) //check for existence of file
     {
         std::ofstream ofs;
@@ -39,16 +41,42 @@ int Module::Execute() //make and change executable bit on script -> execute it
     boost::process::system("chmod +x " + sfilename); //make script executable
 
     boost::asio::io_service ios;
-    //boost::process::child c("chmod +x test.sh", boost::process::std_out > pipe_stream);
+    //std::string soutput;
+    std::future<std::string> future_result_a;
+    //std::vector<char> buf;
+    //boost::process::async_pipe ap(ios);//, soutput);
 
-    //boost::process::ipstream pipe_stream;
-    //boost::process::ipstream pipe_stream2;
-	//gcc --version
-    //boost::process::child c("chmod +x test.sh", boost::process::std_out > pipe_stream);
+    //boost::process::child //boost::asio::buffer(buf), ios);
 
-    boost::process::system("./" + sfilename); //execute script
-    boost::process::system("rm ./" + sfilename);
+    //delete this->future_result;
+    //delete this->apipe;
+    //delete this->child_process;
+
+
+    future_result= new std::future<std::string>();
+    //future_result_a=&future_result;
+    this->apipe = new boost::process::async_pipe(ios);
+    this->child_process = new boost::process::child(sfilename, boost::process::std_out > *future_result, ios);
+
+    ios.run();
+
+    //c.wait();
+    //std::getline(ap, soutput);
+    //soutput = std::string(buf.begin(), buf.end());
+    //std::cout << futurestring.get();
+    //std::cout << futurestring.get();
+
+    //int result = c.exit_code();
+
     return 0;
+}
+void Module::ExecutionCleanup(unsigned int id)
+{
+    std::string sfilename;
+    std::string file = std::to_string(id);
+    //file osfile.str();
+    sfilename= "run/scans/" + file + ".sh";
+    boost::process::system("rm ./" + sfilename);
 }
 Module::Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _input_variables ) :
     Name(_name), Description(_description), os(_os), input_variables(_input_variables)
@@ -60,7 +88,7 @@ template<class Archive> void Module::serialize(Archive & ar, const unsigned int 
             & BOOST_SERIALIZATION_NVP(Description)
             & BOOST_SERIALIZATION_NVP(Type)
             & BOOST_SERIALIZATION_NVP(os)
-            & BOOST_SERIALIZATION_NVP(bSelected)
+            & BOOST_SERIALIZATION_NVP(bChecked)
             & BOOST_SERIALIZATION_NVP(bComplete)
             & BOOST_SERIALIZATION_NVP(Script)
             & BOOST_SERIALIZATION_NVP(UnScript)

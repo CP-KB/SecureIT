@@ -12,6 +12,7 @@
 //*)
 #include "wx/propgrid/propgrid.h"
 #include "wx/propgrid/advprops.h"
+#include "wx/propgrid/manager.h"
 #include <wx/stc/stc.h>
 #include <wx/settings.h>
 #include "../Module.h"
@@ -37,6 +38,7 @@ class FrmScriptEditor: public wxFrame
 		wxPanel* Panel3;
 		wxButton* btnSave;
 		//*)
+		wxPropertyGridManager *pgman;
 		wxPropertyGrid *pg;
         wxStyledTextCtrl *mainStyledTextBox;
 	protected:

@@ -44,20 +44,28 @@ class Module
         std::string UnScript;
         std::string ScriptExtension;
         unsigned char Type;
+        unsigned char RunOrder; //used to specify if other scripts need to run before or after
 
         std::vector<std::pair<std::string, std::string> > input_variables;
         std::vector<std::pair<std::string, std::string> > output_variables;
-        std::string result;
 
-        bool bSelected;
+
+        bool bChecked;
         bool bComplete;
         bool bRunning;
+        bool bRunMe; //set to true to tell the timer to start the script
         bool bSuccess;
         bool bFailure;
 
-        int Execute();
+
+        int Execute(unsigned int id);
+        void ExecutionCleanup(unsigned int id);
         std::string GetParsedScript;
 
+        boost::process::child *child_process;
+        boost::process::async_pipe *apipe;
+        std::future<std::string> *future_result;
+        std::string run_output;
     private:
 
 

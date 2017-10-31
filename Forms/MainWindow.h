@@ -54,6 +54,11 @@ class MainWindow: public wxFrame
 		wxMenuItem* MenuItem14;
 		wxListCtrl* mainListCtrl;
 		//*)
+        void UpdateListItem(unsigned int i);
+        long int idLastClickedListItem;
+        bool bRunning;
+        ModuleSet mainSet; //object containing scans and actions
+
 
 	protected:
 
@@ -79,7 +84,7 @@ class MainWindow: public wxFrame
 		static const long ID_STATUSBAR1;
 		//*)
 
-        ModuleSet mainSet; //object containing scans and actions
+
 	private:
 
 		//(*Handlers(MainWindow)
@@ -95,13 +100,15 @@ class MainWindow: public wxFrame
 		void OnSaveAs(wxCommandEvent& event);
 		void OnButton2Click(wxCommandEvent& event);
 		void OnRunChecked(wxCommandEvent& event);
+		void OnListItemMClick(wxListEvent& event);
 		//*)
 		ExecuteTimer *mainTimer;
+		boost::asio::io_service ios;
         void OnContextMenu(wxContextMenuEvent& event);
+        void OnListItemToggleCheck(wxListEvent& event);
 		DECLARE_EVENT_TABLE()
         void GenerateList();
-        void UpdateListItem(unsigned int i);
-        long int idLastClickedListItem;
+
 
 };
 

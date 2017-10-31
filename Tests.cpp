@@ -84,7 +84,7 @@ void Testing::ExecutionTest()
     c.wait();
 
     Module testms=genTestModule();
-    testms.Execute();
+    testms.Execute(0);
 
 }
 Module Testing::genTestModule()

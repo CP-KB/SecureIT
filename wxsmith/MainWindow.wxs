@@ -45,6 +45,7 @@
 			<object class="sizeritem">
 				<object class="wxListCtrl" name="ID_LISTCTRL1" variable="mainListCtrl" member="yes">
 					<style>wxLC_REPORT</style>
+					<handler function="OnListItemMClick" entry="EVT_LIST_ITEM_MIDDLE_CLICK" />
 					<handler function="OnmainListCtrlItemRClick" entry="EVT_LIST_ITEM_RIGHT_CLICK" />
 				</object>
 				<flag>wxALL|wxEXPAND</flag>

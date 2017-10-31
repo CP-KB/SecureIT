@@ -80,10 +80,23 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FrmScriptEditor::OnBtnSave);
 	//*)
-
-    pg = new wxPropertyGrid(Panel4,wxID_ANY,wxDefaultPosition,wxSize(400,400),
-                        wxPG_SPLITTER_AUTO_CENTER |
-                        wxPG_BOLD_MODIFIED );
+    int style = // default style
+        wxPG_BOLD_MODIFIED |
+        wxPG_SPLITTER_AUTO_CENTER |
+        wxPG_AUTO_SORT |
+        //wxPG_HIDE_MARGIN|wxPG_STATIC_SPLITTER |
+        //wxPG_TOOLTIPS |
+        //wxPG_HIDE_CATEGORIES |
+        //wxPG_LIMITED_EDITING |
+        wxPG_TOOLBAR |
+        wxPG_DESCRIPTION;
+    pgman = new wxPropertyGridManager(Panel4, wxID_ANY, wxDefaultPosition, wxSize(800,800),style);
+    //pgman->SetSizer(BoxSizer3);
+    pg = pgman->GetGrid();
+    BoxSizer3->Add(pg, 1, wxALL|wxEXPAND, 0);
+    //new wxPropertyGrid(Panel4,wxID_ANY,wxDefaultPosition,wxSize(400,400),
+     //                   wxPG_SPLITTER_AUTO_CENTER |
+     //                   wxPG_BOLD_MODIFIED );
     //m_pg = pg;
 
     /*pg->Append( new wxStringProperty(wxT("String Property"), wxPG_LABEL) );
@@ -94,10 +107,11 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
     pg->Append( new wxStringProperty(wxT("Description"), wxPG_LABEL) );
     pg->Append( new wxStringProperty(wxT("Script Extension"), wxPG_LABEL) );
     pg->Append( new wxIntProperty(wxT("Type"), wxPG_LABEL) );
+    pg->Append( new wxIntProperty(wxT("Run Order"), wxPG_LABEL) );
     pg->Append( new wxBoolProperty(wxT("bCompleted"), wxPG_LABEL) );
     pg->Append( new wxBoolProperty(wxT("bSuccess"), wxPG_LABEL) );
     pg->Append( new wxBoolProperty(wxT("bFailure"), wxPG_LABEL) );
-    pg->Append( new wxBoolProperty(wxT("bSelected"), wxPG_LABEL) );
+    pg->Append( new wxBoolProperty(wxT("bChecked"), wxPG_LABEL) );
 
     Connect(pg->GetId(), wxEVT_PG_CHANGED, (wxObjectEventFunction)&FrmScriptEditor::OnPropertyGridChange) ;
 
@@ -176,4 +190,5 @@ void FrmScriptEditor::SaveModule()
 void FrmScriptEditor::OnPropertyGridChange(wxPropertyGridEvent& event)
 {
     std::cout << "Properties have been changed.\n";
+
 }

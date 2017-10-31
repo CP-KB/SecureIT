@@ -126,6 +126,7 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	Center();
 
 	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainWindow::OnRunChecked);
+	Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_MIDDLE_CLICK,(wxObjectEventFunction)&MainWindow::OnListItemMClick);
 	Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK,(wxObjectEventFunction)&MainWindow::OnmainListCtrlItemRClick);
 	Connect(Menu_File_Open,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnFileOpen);
 	Connect(Menu_File_SaveAs,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnSaveAs);
@@ -147,6 +148,13 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
     #else
         //m_pImageList->Add(RunningSignal_xpm);
     #endif // wxHAS_IMAGES_IN_RESOURCES
+
+    //Setup Events for Checkboxes on ListCtrl
+    Connect(ID_LISTCTRL1,wxEVT_LIST_ITEM_CHECKED,(wxObjectEventFunction)&MainWindow::OnListItemToggleCheck);
+    Connect(ID_LISTCTRL1,wxEVT_LIST_ITEM_UNCHECKED,(wxObjectEventFunction)&MainWindow::OnListItemToggleCheck);
+
+    //Setup IO Service
+    ios.run();
 
     /*//MY own non generated CODE
     // Set the lexer to the C++ lexer
@@ -268,6 +276,7 @@ void MainWindow::GenerateList()
         ListItem.SetColumn(3); // Type column
         ListItem.SetId(i);
         mainListCtrl->SetItem(ListItem);
+        mainListCtrl->CheckItem(i,mainSet.Modules[i].bChecked );
         new (&ListItem) wxListItem;
 
         //mainListCtrl->SetItemImage(iListItem, 0);
@@ -327,7 +336,7 @@ void MainWindow::OnNewScanModule(wxCommandEvent& event)
     newmodule.Description="Add Description";
     newmodule.bComplete=false;
     newmodule.bRunning=false;
-    newmodule.bSelected=false;
+    newmodule.bChecked=false;
     newmodule.Type=1; //scan module
     newmodule.os.push_back("Generic");
     mainSet.Modules.push_back(newmodule);
@@ -380,26 +389,30 @@ void MainWindow::OnSaveAs(wxCommandEvent& event)
 
 void MainWindow::OnRunChecked(wxCommandEvent& event)
 {
+    bRunning=true;
     mainTimer->Start();
+    std::cout << "Timer Started!\n";
     for (unsigned int i=0; i<mainSet.Modules.size(); i++)
     {
-        mainSet.Modules[i].bRunning=false;
-        mainSet.Modules[i].bComplete=false;
-        mainSet.Modules[i].bSuccess=false;
-        UpdateListItem(i);
+        if (mainSet.Modules[i].bChecked)
+        {
+            mainSet.Modules[i].bRunMe=true;
+            std::cout << "Module " << i << " set to run.\n";
+        }
+        //UpdateListItem(i);
     }
-    for (unsigned int i=0; i<mainSet.Modules.size(); i++)
+    /*for (unsigned int i=0; i<mainSet.Modules.size(); i++)
     {
         mainSet.Modules[i].bRunning=true;
         mainSet.Modules[i].bComplete=false;
         mainSet.Modules[i].bSuccess=false;
         UpdateListItem(i);
-        mainSet.Modules[i].Execute();
+        mainSet.Modules[i].Execute(i);
         mainSet.Modules[i].bRunning=false;
         mainSet.Modules[i].bComplete=true;
         mainSet.Modules[i].bSuccess=true;
         UpdateListItem(i);
-    }
+    }*/
 }
 void MainWindow::UpdateListItem(unsigned int i)
 {
@@ -457,6 +470,17 @@ void MainWindow::UpdateListItem(unsigned int i)
         ListItem.SetColumn(3); // Type column
         ListItem.SetId(i);
         mainListCtrl->SetItem(ListItem);
+        mainListCtrl->CheckItem(i,mainSet.Modules[i].bChecked );
         mainListCtrl->Refresh();
         mainListCtrl->Update();
+}
+
+void MainWindow::OnListItemMClick(wxListEvent& event)
+{
+    std::cout << "You Middle Clicked that item\n";
+}
+void MainWindow::OnListItemToggleCheck(wxListEvent& event)
+{
+    mainSet.Modules[event.GetItem().GetId()].bChecked=mainListCtrl->IsItemChecked(event.GetItem().GetId());
+    std::cout << "You checked/unchecked that item: " << mainListCtrl->IsItemChecked(event.GetItem().GetId()) << "\n";
 }
