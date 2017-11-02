@@ -25,6 +25,14 @@
 #include <fstream>
 
 #include "Constants.hpp"
+class BProcess
+{
+public:
+    BProcess();
+    boost::asio::io_service ios;
+    boost::process::child child_process;
+    std::future<std::string> future_result;
+};
 class Module
 {
     friend class boost::serialization::access;
@@ -61,10 +69,7 @@ class Module
         int Execute(unsigned int id);
         void ExecutionCleanup(unsigned int id);
         std::string GetParsedScript;
-
-        boost::process::child *child_process;
-        boost::process::async_pipe *apipe;
-        std::future<std::string> *future_result;
+        BProcess *process_handle;
         std::string run_output;
     private:
 

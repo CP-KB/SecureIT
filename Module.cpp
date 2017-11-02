@@ -1,4 +1,7 @@
 #include "Module.h"
+BProcess::BProcess()
+{
+}
 Module::Module()
 {
 
@@ -40,9 +43,9 @@ int Module::Execute(unsigned int id) //make and change executable bit on script 
 
     boost::process::system("chmod +x " + sfilename); //make script executable
 
-    boost::asio::io_service ios;
+    //boost::asio::io_service ios;
     //std::string soutput;
-    std::future<std::string> future_result_a;
+    //std::future<std::string> future_result_a;
     //std::vector<char> buf;
     //boost::process::async_pipe ap(ios);//, soutput);
 
@@ -53,12 +56,13 @@ int Module::Execute(unsigned int id) //make and change executable bit on script 
     //delete this->child_process;
 
 
-    future_result= new std::future<std::string>();
+    //future_result= new std::future<std::string>();
     //future_result_a=&future_result;
-    this->apipe = new boost::process::async_pipe(ios);
-    this->child_process = new boost::process::child(sfilename, boost::process::std_out > *future_result, ios);
+    this->process_handle = new BProcess();
+    //this->apipe = new boost::process::async_pipe(ios);
+    this->process_handle->child_process = boost::process::child(sfilename, boost::process::std_out > this->process_handle->future_result, this->process_handle->ios);
 
-    ios.run();
+    //ios.run();
 
     //c.wait();
     //std::getline(ap, soutput);

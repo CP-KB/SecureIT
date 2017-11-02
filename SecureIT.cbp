@@ -45,6 +45,8 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="ExecuteTimer.cpp" />
+		<Unit filename="ExecuteTimer.h" />
 		<Unit filename="Forms/FrmScriptEditor.cpp" />
 		<Unit filename="Forms/FrmScriptEditor.h" />
 		<Unit filename="Forms/MainWindow.cpp" />
@@ -61,6 +63,8 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="Notes/compilation_notes.txt" />
+		<Unit filename="README.md" />
 		<Unit filename="Tests.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
