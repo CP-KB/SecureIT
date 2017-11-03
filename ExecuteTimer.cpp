@@ -1,6 +1,8 @@
 #include "ExecuteTimer.h"
 #include "Forms/MainWindow.h"
 #include <iostream>
+#include <boost/thread/future.hpp>
+#include <boost/process/async.hpp>
 ExecuteTimer::ExecuteTimer(MainWindow *mw)
 {
     this->mw=mw;
@@ -28,6 +30,9 @@ void ExecuteTimer::Notify()
                 StillRunning=true;
                 if (!mw->mainSet.Modules[i].process_handle->child_process.running())
                 {
+                    std::cout << "Done Executing Module #" << i << std::endl; //<< "Valid:" << mw->mainSet.Modules[i].process_handle->future_result2. << std::endl;
+                    //std::string testStr = mw->mainSet.Modules[i].process_handle->future_result.valid()
+                    mw->mainSet.Modules[i].process_handle->ios.run();
                     mw->mainSet.Modules[i].run_output=mw->mainSet.Modules[i].process_handle->future_result.get();
                     std::cout << mw->mainSet.Modules[i].run_output;
                     mw->mainSet.Modules[i].bRunning=false;

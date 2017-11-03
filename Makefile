@@ -40,6 +40,12 @@ Release: $(RELEASE_OUT)
 
 WinRelease: $(RELEASE_OUT_WIN)
 
+dirs:
+	mkdir -p $(OBJDIRLINUX)
+	mkdir -p $(OBJDIRWIN)
+	mkdir -p bin/Debug
+	mkdir -p bin/Release
+	mkdir -p bin/Win-Release
 
 ########	For Linux Build
 $(RELEASE_OUT): $(OBJSLINUX)

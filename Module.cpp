@@ -1,10 +1,12 @@
 #include "Module.h"
-BProcess::BProcess()
-{
-}
+#include <future>
+//BProcess::BProcess()
+//{
+
+//}
 Module::Module()
 {
-
+    //future_result= std::future<std::string>();
 }
 std::string gen_random_string(const int len) { //modified someone's code from https://stackoverflow.com/questions/440133/how-do-i-create-a-random-alpha-numeric-string-in-c
     std::string s;
@@ -58,8 +60,11 @@ int Module::Execute(unsigned int id) //make and change executable bit on script 
 
     //future_result= new std::future<std::string>();
     //future_result_a=&future_result;
+
     this->process_handle = new BProcess();
     //this->apipe = new boost::process::async_pipe(ios);
+    this->process_handle->future_result= std::future<std::string>();
+    //this->process_handle->child_process = boost::process::child("lxterminal -e " + sfilename, boost::process::std_out > this->process_handle->future_result, this->process_handle->ios);
     this->process_handle->child_process = boost::process::child(sfilename, boost::process::std_out > this->process_handle->future_result, this->process_handle->ios);
 
     //ios.run();

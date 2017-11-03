@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 #include <boost/filesystem.hpp>
 #include "../ExecuteTimer.h"
-
+#include <wx/wxprec.h>
 //(*InternalHeaders(MainWindow)
 #include <wx/string.h>
 #include <wx/intl.h>

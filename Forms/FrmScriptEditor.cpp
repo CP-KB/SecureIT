@@ -1,5 +1,5 @@
 #include "FrmScriptEditor.h"
-
+#include <wx/wxprec.h>
 //(*InternalHeaders(FrmScriptEditor)
 #include <wx/string.h>
 #include <wx/intl.h>

@@ -18,6 +18,9 @@
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 
+//#include <boost/thread/future.hpp>
+#include <future>
+#include <boost/process/async.hpp>
 #include <vector>
 #include <string>
 #include <iomanip>
@@ -25,13 +28,14 @@
 #include <fstream>
 
 #include "Constants.hpp"
-class BProcess
+struct BProcess
 {
-public:
-    BProcess();
+//public:
+//    BProcess();
     boost::asio::io_service ios;
     boost::process::child child_process;
     std::future<std::string> future_result;
+    //boost::unique_future<std::string> future_result2;
 };
 class Module
 {
@@ -70,6 +74,7 @@ class Module
         void ExecutionCleanup(unsigned int id);
         std::string GetParsedScript;
         BProcess *process_handle;
+        //std::future<std::string> future_result=std::future<std::string>();
         std::string run_output;
     private:
 
