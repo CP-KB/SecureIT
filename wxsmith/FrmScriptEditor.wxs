@@ -2,6 +2,7 @@
 <wxsmith>
 	<object class="wxFrame" name="FrmScriptEditor">
 		<size>500,400</size>
+		<handler function="OnClose" entry="EVT_CLOSE" />
 		<object class="wxAuiNotebook" name="ID_AUINOTEBOOK1" variable="AuiNotebook1" member="yes">
 			<pos>120,144</pos>
 			<style>0</style>
@@ -85,6 +86,11 @@
 				</object>
 				<label>Config</label>
 			</object>
+		</object>
+		<object class="wxMessageDialog" name="ID_MESSAGEDIALOG1" variable="msgBoxSave" member="yes">
+			<caption>Save Changes?</caption>
+			<message>Do you want to save your changes?</message>
+			<style>wxCANCEL|wxYES_NO|wxYES_DEFAULT</style>
 		</object>
 	</object>
 </wxsmith>

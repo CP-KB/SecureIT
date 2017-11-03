@@ -2,6 +2,7 @@
 #define FRMSCRIPTEDITOR_H
 
 //(*Headers(FrmScriptEditor)
+#include <wx/msgdlg.h>
 #include <wx/combobox.h>
 #include <wx/sizer.h>
 #include <wx/button.h>
@@ -32,6 +33,7 @@ class FrmScriptEditor: public wxFrame
 		wxComboBox* comboProperty;
 		wxButton* Button2;
 		wxButton* Button3;
+		wxMessageDialog* msgBoxSave;
 		wxPanel* Panel2;
 		wxPanel* Panel4;
 		wxAuiNotebook* AuiNotebook1;
@@ -54,6 +56,7 @@ class FrmScriptEditor: public wxFrame
 		static const long ID_PANEL3;
 		static const long ID_PANEL4;
 		static const long ID_AUINOTEBOOK1;
+		static const long ID_MESSAGEDIALOG1;
 		//*)
 
 	private:

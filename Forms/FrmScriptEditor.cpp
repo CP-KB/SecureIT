@@ -16,6 +16,7 @@ const long FrmScriptEditor::ID_PANEL2 = wxNewId();
 const long FrmScriptEditor::ID_PANEL3 = wxNewId();
 const long FrmScriptEditor::ID_PANEL4 = wxNewId();
 const long FrmScriptEditor::ID_AUINOTEBOOK1 = wxNewId();
+const long FrmScriptEditor::ID_MESSAGEDIALOG1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(FrmScriptEditor,wxFrame)
@@ -77,8 +78,10 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 	AuiNotebook1->AddPage(Panel2, _("UnCode"));
 	AuiNotebook1->AddPage(Panel3, _("Options"));
 	AuiNotebook1->AddPage(Panel4, _("Config"));
+	msgBoxSave = new wxMessageDialog(this, _("Do you want to save your changes\?"), _("Save Changes\?"), wxCANCEL|wxYES_NO|wxYES_DEFAULT, wxDefaultPosition);
 
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FrmScriptEditor::OnBtnSave);
+	Connect(wxID_ANY,wxEVT_CLOSE_WINDOW,(wxObjectEventFunction)&FrmScriptEditor::OnClose);
 	//*)
     int style = // default style
         wxPG_BOLD_MODIFIED |
@@ -191,4 +194,20 @@ void FrmScriptEditor::OnPropertyGridChange(wxPropertyGridEvent& event)
 {
     std::cout << "Properties have been changed.\n";
 
+}
+void FrmScriptEditor::OnClose(wxCloseEvent& event)
+{
+    int result =msgBoxSave->ShowModal();
+    if (result!=wxID_CANCEL)
+    {
+        if (result==wxID_YES) //save and exit
+        {
+
+        }
+        else if (result==wxID_NO) //just exit- no save
+        {
+
+        }
+        this->Destroy();
+    }
 }
