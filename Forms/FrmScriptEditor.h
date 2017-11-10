@@ -72,6 +72,7 @@ class FrmScriptEditor: public wxFrame
 		DECLARE_EVENT_TABLE()
 
 		Module *moduleCurrent;
+		bool bChanged;
 };
 
 #endif

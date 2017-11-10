@@ -184,30 +184,42 @@ FrmScriptEditor::~FrmScriptEditor()
 void FrmScriptEditor::OnBtnSave(wxCommandEvent& event)
 {
     SaveModule();
+
 }
 
 void FrmScriptEditor::SaveModule()
 {
     moduleCurrent->Script=mainStyledTextBox->GetText();
+    wxPGProperty* p;
+    moduleCurrent->Name=pgman->GetPropertyByLabel("Name")->GetValueAsString();
+    //moduleCurrent->Description=pgman->GetPropertyByName("Description")->GetValueAsString();
+    moduleCurrent->Type=1;//Name=pgman->GetPropertyByName("Name")->GetValue
+    //moduleCurrent->RunOrder=pgman->GetPropertyByName("Run Order")->GetValue().GetInteger();
+    //moduleCurrent->Name=pgman->GetPropertyByName("Name")->GetValue
+    bChanged=false;
 }
 void FrmScriptEditor::OnPropertyGridChange(wxPropertyGridEvent& event)
 {
     std::cout << "Properties have been changed.\n";
-
+    bChanged=true;
 }
 void FrmScriptEditor::OnClose(wxCloseEvent& event)
 {
-    int result =msgBoxSave->ShowModal();
-    if (result!=wxID_CANCEL)
+    if (bChanged)
     {
-        if (result==wxID_YES) //save and exit
+        int result =msgBoxSave->ShowModal();
+        if (result!=wxID_CANCEL)
         {
+            if (result==wxID_YES) //save and exit
+            {
+                SaveModule();
+            }
+            else if (result==wxID_NO) //just exit- no save
+            {
 
+            }
+            this->Destroy();
         }
-        else if (result==wxID_NO) //just exit- no save
-        {
-
-        }
-        this->Destroy();
     }
+
 }

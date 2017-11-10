@@ -20,9 +20,9 @@ std::string gen_random_string(const int len) { //modified someone's code from ht
     }
     return s;
 }
-bool gen_scanrun_directory()
+bool gen_scanrun_directory() //creates the runs/scans directory using boost
 {
-    //boost::filesystem::path dir("run/scans");
+
 	if(boost::filesystem::create_directories("run/scans")) {
 		std::cout << "Success" << "\n";
 		return true;
@@ -44,22 +44,6 @@ int Module::Execute(unsigned int id) //make and change executable bit on script 
     }
 
     boost::process::system("chmod +x " + sfilename); //make script executable
-
-    //boost::asio::io_service ios;
-    //std::string soutput;
-    //std::future<std::string> future_result_a;
-    //std::vector<char> buf;
-    //boost::process::async_pipe ap(ios);//, soutput);
-
-    //boost::process::child //boost::asio::buffer(buf), ios);
-
-    //delete this->future_result;
-    //delete this->apipe;
-    //delete this->child_process;
-
-
-    //future_result= new std::future<std::string>();
-    //future_result_a=&future_result;
 
     this->process_handle = new BProcess();
     //this->apipe = new boost::process::async_pipe(ios);
