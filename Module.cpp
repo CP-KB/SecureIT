@@ -34,7 +34,7 @@ int Module::Execute(unsigned int id) //make and change executable bit on script 
     std::string sfilename;
     std::string file = std::to_string(id);
     //file osfile.str();
-    sfilename= "run/scans/" + file + ".sh";//gen_random_string(8) + ".sh";
+    sfilename= "run/scans/" + file + this->ScriptExtension;//gen_random_string(8) + ".sh";
     if (!std::ifstream(sfilename)) //check for existence of file
     {
         std::ofstream ofs;
@@ -68,7 +68,7 @@ void Module::ExecutionCleanup(unsigned int id)
     std::string sfilename;
     std::string file = std::to_string(id);
     //file osfile.str();
-    sfilename= "run/scans/" + file + ".sh";
+    sfilename= "run/scans/" + file + this->ScriptExtension;
     boost::process::system("rm ./" + sfilename);
 }
 Module::Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _input_variables ) :

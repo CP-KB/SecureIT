@@ -171,6 +171,7 @@ FrmScriptEditor::FrmScriptEditor(wxWindow* parent,wxWindowID id)
 	BoxSizer1->Add( mainStyledTextBox, 1, wxALL|wxEXPAND, 0 ); //5)
 	//BoxSizer3->Add( pg, 1, wxALL|wxEXPAND, 0);
 
+
 }
 
 FrmScriptEditor::~FrmScriptEditor()
@@ -193,10 +194,21 @@ void FrmScriptEditor::SaveModule()
     wxPGProperty* p;
     moduleCurrent->Name=pgman->GetPropertyByLabel("Name")->GetValueAsString();
     //moduleCurrent->Description=pgman->GetPropertyByName("Description")->GetValueAsString();
-    moduleCurrent->Type=1;//Name=pgman->GetPropertyByName("Name")->GetValue
+    moduleCurrent->ScriptExtension=pgman->GetPropertyByLabel("Script Extension")->GetValueAsString();
+    //moduleCurrent->Type=pgman->GetPropertyByName("Name")->GetValue();
     //moduleCurrent->RunOrder=pgman->GetPropertyByName("Run Order")->GetValue().GetInteger();
     //moduleCurrent->Name=pgman->GetPropertyByName("Name")->GetValue
     bChanged=false;
+}
+void FrmScriptEditor::LoadModule()
+{
+	//Set the current properties
+    pgman->GetPropertyByLabel("Name")->SetValue(moduleCurrent->Name);
+    pgman->GetPropertyByLabel("Description")->SetValue(moduleCurrent->Description);
+    pgman->GetPropertyByLabel("Script Extension")->SetValue(moduleCurrent->ScriptExtension);
+    pgman->GetPropertyByLabel("Type")->SetValue(moduleCurrent->Type);
+    pgman->GetPropertyByLabel("Run Order")->SetValue(moduleCurrent->RunOrder);
+
 }
 void FrmScriptEditor::OnPropertyGridChange(wxPropertyGridEvent& event)
 {
@@ -214,12 +226,8 @@ void FrmScriptEditor::OnClose(wxCloseEvent& event)
             {
                 SaveModule();
             }
-            else if (result==wxID_NO) //just exit- no save
-            {
-
-            }
             this->Destroy();
         }
     }
-
+    else {this->Destroy();}
 }

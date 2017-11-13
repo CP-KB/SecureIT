@@ -25,6 +25,7 @@ class FrmScriptEditor: public wxFrame
 		FrmScriptEditor(wxWindow* parent,wxWindowID id=wxID_ANY);
 		void SetModule(Module *objModule);
 		void SaveModule();
+		void LoadModule();
 		virtual ~FrmScriptEditor();
 
 		//(*Declarations(FrmScriptEditor)

@@ -348,6 +348,7 @@ void MainWindow::OnEditModule(wxCommandEvent& event)
     std::cout << "Edit Module Selected - ID: " << event.GetInt() << "\n";
     FrmScriptEditor * editor = new FrmScriptEditor(this);//&mainSet.Modules[0]);
     editor->SetModule(&mainSet.Modules[idLastClickedListItem]);
+    editor->LoadModule();
     editor->Show(true);
 }
 
