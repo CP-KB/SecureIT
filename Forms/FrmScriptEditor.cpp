@@ -194,8 +194,8 @@ void FrmScriptEditor::SaveModule()
     moduleCurrent->Name=pgman->GetPropertyByLabel("Name")->GetValueAsString();
     moduleCurrent->Description=pgman->GetPropertyByLabel("Description")->GetValueAsString();
     moduleCurrent->ScriptExtension=pgman->GetPropertyByLabel("Script Extension")->GetValueAsString();
-    moduleCurrent->Type=pgman->GetPropertyByLabel("Type")->GetValue();
-    moduleCurrent->RunOrder=pgman->GetPropertyByLabel("Run Order")->GetValue();
+    moduleCurrent->Type=pgman->GetPropertyByLabel("Type")->GetValue().GetLong();
+    moduleCurrent->RunOrder=pgman->GetPropertyByLabel("Run Order")->GetValue().GetLong();
     moduleCurrent->bComplete=pgman->GetPropertyByLabel("bCompleted")->GetValue();
     moduleCurrent->bSuccess=pgman->GetPropertyByLabel("bSuccess")->GetValue();
     moduleCurrent->bFailure=pgman->GetPropertyByLabel("bFailure")->GetValue();

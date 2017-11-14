@@ -35,7 +35,9 @@ int Module::Execute(unsigned int id) //make and change executable bit on script 
     std::string sfilename;
     std::string file = std::to_string(id);
     //file osfile.str();
-    sfilename= "run/scans/" + file + this->ScriptExtension;//gen_random_string(8) + ".sh";
+    sfilename=boost::filesystem::current_path().string() + "/run/scans/" + file + this->ScriptExtension;//gen_random_string(8) + ".sh";
+
+    std::cout << sfilename << std::endl;
     if (!std::ifstream(sfilename)) //check for existence of file
     {
         std::ofstream ofs;
@@ -44,7 +46,7 @@ int Module::Execute(unsigned int id) //make and change executable bit on script 
         ofs.close();
     }
 
-    boost::process::system("chmod +x " + sfilename); //make script executable
+    if (this->ScriptExtension==".sh")boost::process::system("chmod +x " + sfilename); //make script executable
 
     this->process_handle = new BProcess();
     //this->apipe = new boost::process::async_pipe(ios);
@@ -70,7 +72,8 @@ void Module::ExecutionCleanup(unsigned int id)
     std::string file = std::to_string(id);
     //file osfile.str();
     sfilename= "run/scans/" + file + this->ScriptExtension;
-    boost::process::system("rm ./" + sfilename);
+    boost::filesystem::remove_all(sfilename);
+    //boost::process::system("rm ./" + sfilename);
 }
 Module::Module(std::string _name, std::string _description, std::vector<std::string> _os, std::vector<std::pair<std::string, std::string> > _input_variables ) :
     Name(_name), Description(_description), os(_os), input_variables(_input_variables)

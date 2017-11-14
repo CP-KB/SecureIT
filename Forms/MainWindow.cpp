@@ -338,10 +338,14 @@ void MainWindow::OnNewScanModule(wxCommandEvent& event)
     Module newmodule;
     newmodule.Name="New Module";
     newmodule.Description="Add Description";
+    newmodule.ScriptExtension=".sh";
     newmodule.bComplete=false;
     newmodule.bRunning=false;
+    newmodule.bSuccess=false;
     newmodule.bChecked=false;
+    newmodule.bFailure=false;
     newmodule.Type=1; //scan module
+    newmodule.RunOrder=-1;
     newmodule.os.push_back("Generic");
     mainSet.Modules.push_back(newmodule);
     GenerateList();

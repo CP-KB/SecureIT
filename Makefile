@@ -11,28 +11,27 @@ OBJDIRUBU14=obj/ubu14/
 OBJDIRLINUX=obj/linux/
 OBJDIRWIN=obj/win/
 DEBUG = -g -std=c++11
-WXCONFIG=/home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/wx-config
+WXCONFIG=/home/administrator/Documents/Libraries/wxWidgets-3.1.0/linux-i386/wx-config
 WXCONFIGUBU14=/root/test/wxWidgets-3.1.0/ubu14-i386/wx-config
-WXCONFIGWIN=/home/logan/Documents/Libraries/wxWidgets-3.1.0/windows-i386/wx-config
+WXCONFIGWIN=/home/administrator/Documents/Libraries/wxWidgets-3.1.0/windows-i386/wx-config
 WXLIBS= `$(WXCONFIG) --libs all --debug=yes --linkdeps`
 WXLIBSUBU14= `$(WXCONFIGUBU14) --libs all --debug=yes --linkdeps`
-# /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_xrc-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_stc-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_richtext-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_ribbon-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_propgrid-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_aui-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_html-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_qa-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_adv-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_core-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_baseu_xml-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_baseu_net-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_baseu-3.1.a -L/home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib -pthread /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_xrc-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_stc-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_richtext-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_ribbon-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_propgrid-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_aui-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_qa-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_baseu_net-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_html-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_adv-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_gtk2u_core-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_baseu_xml-3.1.a /home/logan/Documents/Libraries/wxWidgets-3.1.0/linux-i386/lib/libwx_baseu-3.1.a -lwxscintilla-3.1 -lgthread-2.0 -pthread -lX11 -lXxf86vm -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lfontconfig -lfreetype -l:libpng.a -lexpat -lwxregexu-3.1 -lwxtiff-3.1 -lwxjpeg-3.1 -lz -ldl -lm #`$(WXCONFIG) --libs all --debug=yes --linkdeps`
 WXLIBSWIN= `$(WXCONFIGWIN) --libs all --debug=yes` #--linkdeps`
 #/ "--libs all" adds all parts of wxWidgets - needed for wxStyledTextBox
 WXINCLUDES=`$(WXCONFIG) --cppflags`
 WXINCLUDESUBU14= `$(WXCONFIGUBU14) --cppflags`
 WXINCLUDESWIN= `$(WXCONFIGWIN) --cppflags`
-BOOSTINCDIR=-I/home/logan/Documents/Libraries/boost_1_65_1/
-BOOSTLIBDIR=-L/home/logan/Documents/Libraries/boost_1_65_1/stage-lin-32/lib/
+BOOSTINCDIR=-I/home/administrator/Documents/Libraries/boost_1_65_1/
+BOOSTLIBDIR=-L/home/administrator/Documents/Libraries/boost_1_65_1/stage-lin-32/lib/
 BOOSTLIBUBU14=-L/root/test/boost_1_65_1/stage-lin-32/lib
-BOOSTLIBWIN=-L/home/logan/Documents/Libraries/boost_1_65_1/stage-win-32/lib/
+BOOSTLIBWIN=-L/home/administrator/Documents/Libraries/boost_1_65_1/stage-win-32/lib/
 BOOSTLIBS=-l:libboost_serialization.a -l:libboost_system.a -l:libboost_filesystem.a #static library
 EXTRA_DBG=-g	#for debugging
 EXTRA_REL=-O3
 CFLAGS = -m32 -Wall -c $(DEBUG)
 LFLAGS = -m32 $(DEBUG) $(WXLIBS) $(BOOSTLIBDIR) $(BOOSTLIBS)
 LFLAGSUBU14= -m32 $(DEBUG) $(WXLIBSUBU14) $(BOOSTLIBUBU14) $(BOOSTLIBS)
-LFLAGSWIN= -m32 -l:libwinpthread.dll.a -l:libpthread.dll.a -static-libgcc -static-libstdc++ $(DEBUG) $(WXLIBSWIN) $(BOOSTLIBWIN) $(BOOSTLIBS)
+LFLAGSWIN= -m32 -mconsole -l:libwinpthread.dll.a -l:libpthread.dll.a -static-libgcc -static-libstdc++ $(DEBUG) $(WXLIBSWIN) $(BOOSTLIBWIN) $(BOOSTLIBS)
 DEBUG_OUT= ./bin/Debug/SecureIT
 RELEASE_OUT= ./bin/Release/SecureIT
 RELEASE_OUT_UBU14= ./bin/Release-Ubu14/SecureIT
@@ -114,6 +113,8 @@ $(OBJDIRWIN)MainWindow.o: Forms/MainWindow.h Forms/FrmScriptEditor.h ModuleSet.h
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Forms/MainWindow.cpp -o $(OBJDIRWIN)MainWindow.o
 $(OBJDIRWIN)FrmScriptEditor.o: Forms/FrmScriptEditor.h Module.h
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) Forms/FrmScriptEditor.cpp -o $(OBJDIRWIN)FrmScriptEditor.o
+$(OBJDIRWIN)ExecuteTimer.o: ExecuteTimer.cpp ExecuteTimer.h
+	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) $(WXINCLUDESWIN) ExecuteTimer.cpp -o $(OBJDIRWIN)ExecuteTimer.o
 $(OBJDIRWIN)Tests.o: Tests.h Module.h Constants.hpp
 	$(CC_WIN) $(CFLAGS) $(BOOSTINCDIR) Tests.cpp -o $(OBJDIRWIN)Tests.o
 $(OBJDIRWIN)icons.rc.o:
@@ -125,3 +126,5 @@ $(OBJDIRWIN)icons.rc.o:
 clean:
 	#rm *.o
 	rm ./obj/linux/*
+cleanWin:
+	rm ./obj/win/*
