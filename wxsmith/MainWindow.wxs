@@ -89,6 +89,10 @@
 			</object>
 			<object class="wxMenu" variable="Menu4" member="yes">
 				<label>Module</label>
+				<object class="wxMenuItem" name="ID_MENU_LIST_REFRESH" variable="MenuItem3" member="yes">
+					<label>Refresh List</label>
+					<handler function="OnRefreshList" entry="EVT_MENU" />
+				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="yes">
 				<label>Help</label>
