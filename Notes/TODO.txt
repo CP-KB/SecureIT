@@ -1,6 +1,10 @@
 **  Save and Load class as XML file with Boost Library
-    Get output from system() to be able to read script output
-    Write scripts to filesystem run scripts
+**  Get output from system() to be able to read script output
+**  Write scripts to filesystem run scripts
+**  Class for bundling of modules for Specific os/configuration/sharing of scripts
+**  Edit Class With editor and save to XML
+**  Cross-compile for Windows - make sure boost and wxWidgets is linked with static libraries for portability
+**  For Linux tools maybe use something cross platform - cygwin/busybox or different builds of essential tools
     Make scripts variable by having codes (<<firstName>> for example)
         Build Parser to replace variable codes
     Window
@@ -9,12 +13,21 @@
         Add ListBox for scans (checkboxes)
         Add ListBox for actions (checkboxes)
         Make sure resize works fine
-    Edit Class With editor and save to XML
-    Cross-compile for Windows - make sure boost and wxWidgets is linked with static libraries for portability
     Script Macro insertable as variable (stored in XML files)
     Create Convention for scan scripts to output data to choose recommended actions and provide needed variables for
         the action scripts
-    For Linux tools maybe use something cross platform - cygwin/busybox or different builds of essential tools
+        codes for sending variables to action script
+        codes for inserting >>>variable<<< and finding <<<variable>>> variables
     Allow selection of root of filesystem or mounting of vm image with root filesystem
     Elevate Privilege to root or administrator on Windows
-    Class for bundling of modules for Specific os/configuration/sharing of scripts
+    Integrated immediate editing by selecting from wxListView
+    Property grid changes reflected immediately
+    Double ModuleSet for saved copy and copy in memory (changed)
+    Run reverse script
+    Multiselect modules for property editing
+    Bundle ModuleSet with resources, apps, etc
+    OS detection
+    Test running scripts on windows
+    Consistent status icons
+    Replace timer with process finish events
+    Implement concept of least privilege
