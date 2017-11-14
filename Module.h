@@ -55,8 +55,8 @@ class Module
         std::string Script;
         std::string UnScript;
         std::string ScriptExtension;
-        unsigned char Type;
-        unsigned char RunOrder; //used to specify if other scripts need to run before or after
+        char Type;
+        char RunOrder; //used to specify if other scripts need to run before or after
 
         std::vector<std::pair<std::string, std::string> > input_variables;
         std::vector<std::pair<std::string, std::string> > output_variables;

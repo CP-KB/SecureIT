@@ -19,6 +19,7 @@ const long MainWindow::Menu_File_Exit = wxNewId();
 const long MainWindow::Menu_New_ScanModule = wxNewId();
 const long MainWindow::Menu_New_ActionModule = wxNewId();
 const long MainWindow::Menu_Module_Edit = wxNewId();
+const long MainWindow::ID_MENU_LIST_REFRESH = wxNewId();
 const long MainWindow::Menu_Help_About = wxNewId();
 const long MainWindow::ID_MENUITEM1 = wxNewId();
 const long MainWindow::ID_MENUITEM2 = wxNewId();
@@ -92,6 +93,8 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	menuEdit->Append(MenuItem14);
 	mainMenuBar->Append(menuEdit, _("Edit"));
 	Menu4 = new wxMenu();
+	MenuItem3 = new wxMenuItem(Menu4, ID_MENU_LIST_REFRESH, _("Refresh List"), wxEmptyString, wxITEM_NORMAL);
+	Menu4->Append(MenuItem3);
 	mainMenuBar->Append(Menu4, _("Module"));
 	Menu2 = new wxMenu();
 	MenuItem2 = new wxMenuItem(Menu2, Menu_Help_About, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
@@ -132,6 +135,7 @@ MainWindow::MainWindow(wxWindow* parent,wxWindowID id)
 	Connect(Menu_File_SaveAs,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnSaveAs);
 	Connect(Menu_New_ScanModule,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnNewScanModule);
 	Connect(Menu_Module_Edit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnEditModule);
+	Connect(ID_MENU_LIST_REFRESH,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnRefreshList);
 	Connect(Menu_Help_About,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnAbout);
 	Connect(ID_MENUITEM5,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestGenList);
 	Connect(ID_MENUITEM6,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&MainWindow::OnTestStyleText);
@@ -484,4 +488,9 @@ void MainWindow::OnListItemToggleCheck(wxListEvent& event)
 {
     mainSet.Modules[event.GetItem().GetId()].bChecked=mainListCtrl->IsItemChecked(event.GetItem().GetId());
     std::cout << "You checked/unchecked that item: " << mainListCtrl->IsItemChecked(event.GetItem().GetId()) << "\n";
+}
+
+void MainWindow::OnRefreshList(wxCommandEvent& event)
+{
+    GenerateList();
 }

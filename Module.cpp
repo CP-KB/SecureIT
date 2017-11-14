@@ -27,6 +27,7 @@ bool gen_scanrun_directory() //creates the runs/scans directory using boost
 		std::cout << "Success" << "\n";
 		return true;
 	}
+	return false;
 }
 int Module::Execute(unsigned int id) //make and change executable bit on script -> execute it
 {

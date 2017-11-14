@@ -37,6 +37,7 @@ class MainWindow: public wxFrame
 		wxMenuItem* MenuItem12;
 		wxButton* Button1;
 		wxButton* btnRun;
+		wxMenuItem* MenuItem3;
 		wxMenuItem* btnSaveAs;
 		wxMenuItem* MenuItem9;
 		wxMenu* Menu4;
@@ -74,6 +75,7 @@ class MainWindow: public wxFrame
 		static const long Menu_New_ScanModule;
 		static const long Menu_New_ActionModule;
 		static const long Menu_Module_Edit;
+		static const long ID_MENU_LIST_REFRESH;
 		static const long Menu_Help_About;
 		static const long ID_MENUITEM1;
 		static const long ID_MENUITEM2;
@@ -101,6 +103,7 @@ class MainWindow: public wxFrame
 		void OnButton2Click(wxCommandEvent& event);
 		void OnRunChecked(wxCommandEvent& event);
 		void OnListItemMClick(wxListEvent& event);
+		void OnRefreshList(wxCommandEvent& event);
 		//*)
 		ExecuteTimer *mainTimer;
 		boost::asio::io_service ios;

@@ -191,13 +191,15 @@ void FrmScriptEditor::OnBtnSave(wxCommandEvent& event)
 void FrmScriptEditor::SaveModule()
 {
     moduleCurrent->Script=mainStyledTextBox->GetText();
-    wxPGProperty* p;
     moduleCurrent->Name=pgman->GetPropertyByLabel("Name")->GetValueAsString();
-    //moduleCurrent->Description=pgman->GetPropertyByName("Description")->GetValueAsString();
+    moduleCurrent->Description=pgman->GetPropertyByLabel("Description")->GetValueAsString();
     moduleCurrent->ScriptExtension=pgman->GetPropertyByLabel("Script Extension")->GetValueAsString();
-    //moduleCurrent->Type=pgman->GetPropertyByName("Name")->GetValue();
-    //moduleCurrent->RunOrder=pgman->GetPropertyByName("Run Order")->GetValue().GetInteger();
-    //moduleCurrent->Name=pgman->GetPropertyByName("Name")->GetValue
+    moduleCurrent->Type=pgman->GetPropertyByLabel("Type")->GetValue();
+    moduleCurrent->RunOrder=pgman->GetPropertyByLabel("Run Order")->GetValue();
+    moduleCurrent->bComplete=pgman->GetPropertyByLabel("bCompleted")->GetValue();
+    moduleCurrent->bSuccess=pgman->GetPropertyByLabel("bSuccess")->GetValue();
+    moduleCurrent->bFailure=pgman->GetPropertyByLabel("bFailure")->GetValue();
+    moduleCurrent->bChecked=pgman->GetPropertyByLabel("bChecked")->GetValue();
     bChanged=false;
 }
 void FrmScriptEditor::LoadModule()
@@ -208,7 +210,10 @@ void FrmScriptEditor::LoadModule()
     pgman->GetPropertyByLabel("Script Extension")->SetValue(moduleCurrent->ScriptExtension);
     pgman->GetPropertyByLabel("Type")->SetValue(moduleCurrent->Type);
     pgman->GetPropertyByLabel("Run Order")->SetValue(moduleCurrent->RunOrder);
-
+    pgman->GetPropertyByLabel("bCompleted")->SetValue(moduleCurrent->bComplete);
+    pgman->GetPropertyByLabel("bSuccess")->SetValue(moduleCurrent->bSuccess);
+    pgman->GetPropertyByLabel("bFailure")->SetValue(moduleCurrent->bFailure);
+    pgman->GetPropertyByLabel("bChecked")->SetValue(moduleCurrent->bChecked);
 }
 void FrmScriptEditor::OnPropertyGridChange(wxPropertyGridEvent& event)
 {
