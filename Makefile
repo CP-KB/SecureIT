@@ -1,3 +1,4 @@
+#This is Logan's
 CC=i386 g++
 CC_WIN=i686-w64-mingw32-g++ -DWIN32_LEAN_AND_MEAN
 RES_WIN=i686-w64-mingw32-windres
